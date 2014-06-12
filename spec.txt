@@ -1,0 +1,19 @@
+ANIMATRIX v2 SPEC
+
++ do generated advanced google image search for thumbnail (aspect ratio)
++ do generated ripperzanime search for music
++ do a daily cron job for updates to the music and music (do notification/toast when that happens) 
++ have a countdown for estimate release times for anime episodes
++ do autocomplete shortlist for animes (grab aggregate data from animenewsnetwork.com/api) - including alternate names for good measure
++ have a 3-state acknowledgement process (new/acquired/rejected)
++ have a 4-state anime episode watch process (abandoned/watching/queued/completed)
+
+*** NOTE: For cron jobs like at node-cron (https://github.com/ncb000gt/node-cron)
+
+*** NOTES: For XML parsing, use xml2js
+
+*** NOTES: For email, use Email.send({...}) in Meteor
+
+*** For image uploads: 
++ http://stackoverflow.com/questions/10099202/how-would-one-handle-a-file-upload-with-meteor
++ https://www.inkfilepicker.com/
