@@ -20,6 +20,8 @@ html, body {
     height: 100%;
 }
 
+
+/** miscellaneous important styles **/
 .screen {
     height: 100%;
 }
@@ -27,9 +29,30 @@ html, body {
     width: 1100px;
     margin: 0 auto;
 }
+.welcome-message,
+.empty-message {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.bigbtn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #f53b5b;
+    color: #fff;
+    border-radius: 24px;
+    font-size: 24px;
+    font-weight: 200;
+}
+.bigbtn.hover {
+    background-color: #f8738a;
+}
 
 /** SPLASH SCREEN **/
 #splashScreen {
+
 }
 #splashScreen > .content {
     text-align: center;
@@ -45,20 +68,20 @@ html, body {
     font-size: 18px;
     margin-bottom: 48px;
 }
-#signin {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 24px;
-    padding: 16px 32px;
-    background-color: #f53b5b;
-    color: #fff;
-    border-radius: 32px;
-}
-#signin.hover {
-    background-color: #f8738a;
-}
 #login-buttons {
     display: none;
+}
+
+/** LOADINGSCREEN **/
+#loadingScreen {
+    display: none;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../../assets/loader2.gif) center no-repeat #15191F;
 }
 
 /** SIDEBAR **/
@@ -93,6 +116,11 @@ html, body {
     cursor: pointer;
     padding: 6px 24px;
     color: #A2A4B5;
+    -ms-user-select: none; /* IE 10+ */
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 #sideBar .option.hover {
     background-color: #383A4E;
@@ -260,8 +288,9 @@ html, body {
     left: 215px;
     right: 0px;
     bottom: 0px;
-
-    padding-bottom: 24px;
+}
+.page {
+    height: 100%;
 }
 .page h1 {
     font-weight: 200;
@@ -281,53 +310,53 @@ html, body {
 }
 
 /** DASHBOARD PAGE **/
-/** ... **/
+#dashboardPage .welcome-message .logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 24px;
+}
+#dashboardPage .welcome-message .title {
+    margin-bottom: 12px;
+    font-size: 36px;
+    font-weight: 200;
+    color: #4E596F;
+}
+#dashboardPage .welcome-message .title span {
+    color: #f53b5b;
+}
+#dashboardPage .welcome-message p {
+    margin-bottom: 36px;
+    font-size: 18px;
+    font-weight: 200;
+    color: #A2A9C5;
+}
+#dashboardPage .section {
+
+}
+#dashboardPage .section h2 {
+
+}
+#dashboardPage .section .content {
+
+}
 
 /** COLLECTION PAGE **/
+#collectionPage .empty-message p {
+    margin-bottom: 24px;
+    line-height: 1.75em;
+    font-size: 19px;
+    font-weight: 200;
+    color: #99A0B8;
+}
+#collectionPage .empty-message .accent {
+    font-size: 32px;
+    color: #353D53;
+}
 #collectionFilters {
 }
 #collectionGrid {
     overflow: hidden;
     padding: 16px;
-}
-#collectionGrid .gridItem {
-    cursor: pointer;
-    float: left;
-    padding: 12px;
-    line-height: 1.3em;
-}
-#collectionGrid .gridItem.hover {
-    background-color: #EAEAEA;
-}
-#collectionGrid .gridItem .cover {
-    box-sizing: border-box;
-    border: solid 1px #D7DAFF;
-    overflow: hidden;
-    width: 169px;
-    height: 244px;
-    margin-bottom: 4px;
-}
-#collectionGrid .gridItem .cover img {
-    width: 100%;
-    height: 100%;
-}
-#collectionGrid .gridItem .title {
-    width: 169px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-family: Arial;
-    font-weight: bold;
-    color: #45445A;
-}
-#collectionGrid .gridItem .rating .star {
-    margin-right: 2px;
-}
-#collectionGrid .gridItem .rating .fa-star.unfilled {
-    color: #CCCDCE;
-}
-#collectionGrid .gridItem .rating .fa-star {
-    color: #DAC31A;
 }
 
 /** DISCOVER PAGE **/
@@ -335,6 +364,19 @@ html, body {
 
 /** SOCIAL PAGE **/
 /** ... **/
+
+/** STATISTICS PAGE **/
+#statisticsPage .empty-message p {
+    margin-bottom: 24px;
+    line-height: 1.75em;
+    font-size: 19px;
+    font-weight: 200;
+    color: #99A0B8;
+}
+#statisticsPage .empty-message .accent {
+    font-size: 32px;
+    color: #353D53;
+}
 
 /** ADMINPAGE **/
 #adminPage table {
@@ -483,9 +525,7 @@ html, body {
     padding: 12px 24px;
 }
 #infoBar .subpage .empty-message {
-    margin: 25% auto;
     line-height: 1.5em;
-    text-align: center;
     color: #6F6F86;
 }
 #infoBar .subpage .empty-message p {
@@ -695,19 +735,18 @@ html, body {
 }
 #activitySubpage .episodeCount {
     float: left;
+    font-size: 32px !important;
     height: 32px;
     line-height: 32px;
     font-size: 12px;
     color: #5A6088;
 }
 #activitySubpage .currEpisode {
-    font-size: 32px;
     font-weight: 200;
-    margin-right: 4px;
     color: #C6C6E7;
 }
-#activitySubpage .maxEpisode {
-    margin-left: 4px;
+#activitySubpage .maxEpisodes {
+    font-size: 13px !important;
 }
 #activitySubpage .star {
     cursor: pointer;
@@ -720,7 +759,6 @@ html, body {
 #activitySubpage .fa-star {
     color: #DAC31A;
 }
-
 #activitySubpage .unsubscribe-btn {
     cursor: pointer;
     position: absolute;
@@ -801,9 +839,81 @@ html, body {
 }
 
 /** SOCIAL SUBPAGE **/
-/** ... **/
+#socialSubpage .addfriends-btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f53b5b;
+    color: #fff;
+    border-radius: 24px;
+}
+#socialSubpage .addfriends-btn.hover {
+    background-color: #f8738a;
+}
+
+/** GRID ITEM **/
+.gridItem {
+    cursor: pointer;
+    float: left;
+    padding: 12px;
+    line-height: 1.3em;
+}
+.gridItem.hover {
+    background-color: #DCDEE9;
+}
+.gridItem .cover {
+    box-sizing: border-box;
+    border: solid 1px #D7DAFF;
+    border-top: solid 5px transparent;
+    overflow: hidden;
+    width: 169px;
+    height: 244px;
+    margin-bottom: 4px;
+}
+.gridItem.finished .cover {
+    border-color: #5EDF6E;
+}
+.gridItem.watching .cover {
+    border-color: #5EB6DF;
+}
+.gridItem.backlogged .cover {
+    border-color: #DF5EDA;
+}
+.gridItem.onhold .cover {
+    border-color: #DFD55E;
+}
+.gridItem.abandoned .cover {
+    border-color: #DF5E5E;
+}
+.gridItem .cover img {
+    width: 100%;
+    height: 100%;
+}
+.gridItem .title {
+    width: 169px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: Arial;
+    font-weight: bold;
+    color: #45445A;
+}
+.gridItem .episodes span {
+    color: #B8BBD1;
+}
+.gridItem .rating .star {
+    margin-right: 2px;
+}
+.gridItem .rating .fa-star.unfilled {
+    color: #CCCDCE;
+}
+.gridItem .rating .fa-star {
+    color: #DAC31A;
+}
+
 
 /** MACROS **/
 .pull-left { float: left; }
 .pull-right { float: right; }
 .wrapper { overflow: hidden; }
+.valigner { display: table-cell; vertical-align: middle; }

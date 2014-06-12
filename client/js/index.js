@@ -50,6 +50,9 @@ Template.userScreen.helpers({
     showSocialPage: function(){
         return Session.equals('page','social');
     },
+    showStatisticsPage: function(){
+        return Session.equals('page','statistics');
+    },
     showAdminPage: function(){
         return Session.equals('page','admin');
     }
@@ -160,7 +163,27 @@ Template.dashboardPage.rendered = function(){
     $('#dashboardPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.dashboardPage.events({
-    // ...
+    'mouseover .redirect-btn': function(e) {
+        var el = $(e.target);
+        el.addClass('hover');
+    },
+    'mouseout .redirect-btn': function(e) {
+        var el = $(e.target);
+        el.removeClass('hover');
+    },
+    'click .redirect-btn': function(e){
+        var el = $(e.target);
+        selectPage('discover');
+    }
+});
+Template.dashboardPage.helpers({
+    hasSubscriptions: function(){
+        return hasSubscriptions();
+    },
+    userFirstName: function(){
+        var user = Meteor.user();
+        return user.services.facebook.first_name;
+    }
 });
 //====================================================================================
 // TEMPLATE: COLLECTIONPAGE
@@ -169,72 +192,25 @@ Template.collectionPage.rendered = function(){
     $('#collectionPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.collectionPage.events({
-    'mouseover .gridItem': function(e){
-        var el = $(e.currentTarget);
+    'mouseover .redirect-btn': function(e) {
+        var el = $(e.target);
         el.addClass('hover');
     },
-    'mouseout .gridItem': function(e){
-        var el = $(e.currentTarget);
+    'mouseout .redirect-btn': function(e) {
+        var el = $(e.target);
         el.removeClass('hover');
     },
-    'click .gridItem': function(e){
-        var el = $(e.currentTarget);
-        var annId = parseInt(el.attr('data-annId'),10);
-        
-        // get the anime data
-        Meteor.call('getAnimeData',annId,function(err,data){
-            InfoBar.init(data);
-        });
+    'click .redirect-btn': function(e){
+        var el = $(e.target);
+        selectPage('discover');
     }
 });
 Template.collectionPage.helpers({
+    hasSubscriptions: function(){
+        return hasSubscriptions();
+    },
     getSubscriptions: function(){
-        var userId = Meteor.userId(),
-            subscriptions = Subscriptions.find({userId:userId}).fetch(),
-            result = null;
-
-        for (var i=0; i<subscriptions.length; i++) {
-            var sub = subscriptions[i],
-                annId = sub.annId,
-                entry = Animes.findOne({annId:annId});
-            entry = $.extend(entry,{subscription:sub});
-            
-            if (!result) result = [];
-            result.push(entry);
-        }
-        return result;
-    },
-    poster: function(item){
-        if (!item) return null;
-        return item.hbiPicture || item.annPicture || null;
-    },
-    showEpisodes: function(item) {
-        return item.type == 'tv' && item.numEpisodes;
-    },
-    episodes: function(item) {
-        var userId = Meteor.userId();
-        var status = '';
-
-        var isFuture = new Date(item.startDate) > new Date();
-        if (isFuture) {
-            return 'Upcoming Series';
-        }
-        return item.endDate || item.subscription.progress == 'finished'
-            ? item.numEpisodes+' Episodes'
-            : '+'+item.numEpisodes+' Episodes (Ongoing)';
-    },
-    type: function(item){
-        return getTypeStr(item.type);
-    },
-    rating: function(item){
-        var stars = '';
-        var star_empty = '<i class="star fa fa-star unfilled"></i>';
-        var star_filled = '<i class="star fa fa-star"></i>';
-    
-        for (var i=0; i<MAX_RATING; i++) {
-            stars += (i < item.subscription.rating ? star_filled : star_empty);
-        }
-        return '<div class="stars">'+stars+'</div>';
+        return getSubscriptions();
     }
 });
 //====================================================================================
@@ -254,6 +230,31 @@ Template.socialPage.rendered = function(){
 }
 Template.socialPage.events({
     // ...
+});
+//====================================================================================
+// TEMPLATE: STATISTICSPAGE
+//====================================================================================
+Template.statisticsPage.rendered = function(){
+    $('#statisticsPage').css({opacity:0}).stop().animate({opacity:1},500);
+}
+Template.statisticsPage.events({
+    'mouseover .redirect-btn': function(e) {
+        var el = $(e.target);
+        el.addClass('hover');
+    },
+    'mouseout .redirect-btn': function(e) {
+        var el = $(e.target);
+        el.removeClass('hover');
+    },
+    'click .redirect-btn': function(e){
+        var el = $(e.target);
+        selectPage('discover');
+    },
+});
+Template.statisticsPage.helpers({
+    hasSubscriptions: function(){
+        return hasSubscriptions();
+    }
 });
 //====================================================================================
 // TEMPLATE: ADMINPAGE
@@ -522,11 +523,6 @@ Template.overviewSubpage.helpers({
     getAnimeData: function(){
         return Session.get('infoBarData');
     },
-    isTV: function() {
-        var data = Session.get('infoBarData');
-        if (!data || !data.type) return false;
-        return data.type === 'tv';
-    },
     isSubscribed: function() {
         return getSubscriptionData() != null;
     },
@@ -584,6 +580,15 @@ Template.overviewSubpage.helpers({
         var num = parseInt(data.runningTime);
         return isNaN(num) ? data.runningTime.capitalize() : num + ' minutes';
     },
+    showStatus: function() {
+        var data = Session.get('infoBarData');
+        if (!data || !data.type || data.numEpisodes === null) return false;
+        return data.numEpisodes &&
+            (data.type == 'tv' ||
+             data.type == 'ona' ||
+             data.type == 'oav' ||
+             data.type == 'special');
+    },
     status: function() {
         var data = Session.get('infoBarData');
         if (!data) return null;
@@ -600,8 +605,12 @@ Template.overviewSubpage.helpers({
     },
     showEpisodes: function() {
         var data = Session.get('infoBarData');
-        if (!data || !data.type || !data.numEpisodes) return false;
-        return data.type == 'tv' && data.numEpisodes;
+        if (!data || !data.type || data.numEpisodes === null) return false;
+        return data.numEpisodes &&
+            (data.type == 'tv' ||
+             data.type == 'ona' ||
+             data.type == 'oav' ||
+             data.type == 'special');
     },
     numEpisodes: function() {
         var data = Session.get('infoBarData'),
@@ -662,33 +671,34 @@ var SubscriptionForm = {
 
         Meteor.call('changeSubscriptionRating',data.annId,rating);
     },
+    setEpisodes: function(episodes) {
+        var data = Session.get('infoBarData'),
+            subscriptionData = getSubscriptionData();
+
+        if (!data || !subscriptionData) return;
+        
+        var prevEpisodes = subscriptionData.episodes,
+            newEpisodes = Math.min(episodes,data.numEpisodes);
+
+        if (prevEpisodes == newEpisodes) return;
+
+        Meteor.call('changeSubscriptionEpisodes',data.annId,newEpisodes);
+    },
     incrementEpisodes: function(){
         var data = Session.get('infoBarData'),
-            subscriptionData = getSubscriptionData();
+            elem = $('#activitySubpage .currEpisode');
+        if (!data || data.numEpisodes === null || !elem) return;
 
-        if (!data || !subscriptionData) return;
-        
-        var episodes = subscriptionData.episodes,
-            newEpisodes = Math.min(episodes+1,data.numEpisodes);
-
-        if (episodes == newEpisodes) return;
-
-        Meteor.call('changeSubscriptionEpisodes',data.annId,newEpisodes);
+        var newCount = Math.min(parseInt(elem.text(),10)+1,data.numEpisodes);
+        elem.text(newCount);
     },
     decrementEpisodes: function(){
-        var data = Session.get('infoBarData'),
-            subscriptionData = getSubscriptionData();
+        var elem = $('#activitySubpage .currEpisode');
+        if (!elem) return;
 
-        if (!data || !subscriptionData) return;
-        
-        var episodes = subscriptionData.episodes,
-            newEpisodes = Math.max(episodes-1,0);
-
-        if (episodes == newEpisodes) return; 
-
-        Meteor.call('changeSubscriptionEpisodes',data.annId,newEpisodes);
+        var newCount = Math.max(parseInt(elem.text(),10)-1,0);
+        elem.text(newCount);
     },
-
     // click hold handlers and states
     isClickHolding: false,
     clickHoldDelay: 400,
@@ -756,6 +766,11 @@ Template.activitySubpage.events({
     'mouseup .epCountControl': function(e){
         SubscriptionForm.isClickHolding = false;
         SubscriptionForm.clickHoldDelay = 400;
+
+        var elem = $('#activitySubpage .currEpisode');
+        if (!elem) return;
+        
+        SubscriptionForm.setEpisodes(parseInt(elem.text(),10));
     },
     'mousedown .epCountUp': function(e){
         var el = $(e.target);
@@ -773,6 +788,11 @@ Template.activitySubpage.events({
         SubscriptionForm.isClickHolding = true;
         SubscriptionForm.clickHoldHandler(SubscriptionForm.decrementEpisodes);
     },
+
+
+
+
+
     'mouseover .star': function(e){
         var el = $(e.target),
             num = el.attr('data-star-num'),
@@ -829,11 +849,6 @@ Template.activitySubpage.events({
     }
 });
 Template.activitySubpage.helpers({
-    isTV: function() {
-        var data = Session.get('infoBarData');
-        if (!data || !data.type) return false;
-        return data.type === 'tv';
-    },
     getSubscription: function(){
         return getSubscriptionData();
     },
@@ -856,6 +871,15 @@ Template.activitySubpage.helpers({
         }
         return result;
     },
+    showEpisodes: function() {
+        var data = Session.get('infoBarData');
+        if (!data || !data.type) return false;
+        return data.numEpisodes &&
+            (data.type == 'tv' ||
+             data.type == 'ona' ||
+             data.type == 'oav' ||
+             data.type == 'special')
+    },
     showEpisodeControls: function(){
         var subscriptionData = getSubscriptionData();
 
@@ -868,7 +892,7 @@ Template.activitySubpage.helpers({
         
         if (!data || data.numEpisodes === null) return null;
 
-        return '<span class="currEpisode">'+subscription.episodes+'</span>/<span class="maxEpisodes">'+data.numEpisodes+'</span>';
+        return '<span class="currEpisode">'+subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
     },
     rating: function(){
         var subscription = getSubscriptionData();
@@ -960,10 +984,93 @@ Template.socialSubpage.rendered = function(){
     $('#socialSubpage').css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.socialSubpage.events({
-    // ...
+    'mouseover .addfriends-btn': function(e){
+        var el = $(e.target);
+        el.addClass('hover');
+    },
+    'mouseout .addfriends-btn': function(e){
+        var el = $(e.target);
+        el.removeClass('hover');
+    },
+    'click .addfriends-btn': function(e){
+        selectPage('social');
+    },
 });
 Template.socialSubpage.helpers({
+    hasFriends: function() {
+        var userId = Meteor.userId();
+        return Friends.find({userId:userId}).count() > 0;
+    }
+});
+//====================================================================================
+// TEMPLATE: GRIDITEM
+//====================================================================================
+Template.gridItem.rendered = function() {
     // ...
+};
+Template.gridItem.events({
+    'mouseover .gridItem': function(e){
+        var el = $(e.currentTarget);
+        el.addClass('hover');
+    },
+    'mouseout .gridItem': function(e){
+        var el = $(e.currentTarget);
+        el.removeClass('hover');
+    },
+    'click .gridItem': function(e){
+        var el = $(e.currentTarget);
+        var annId = parseInt(el.attr('data-annId'),10);
+        
+        // get the anime data
+        Meteor.call('getAnimeData',annId,function(err,data){
+            InfoBar.init(data);
+        });
+    }
+});
+Template.gridItem.helpers({
+    progress: function(item){
+        return item.subscription.progress;
+    },
+    poster: function(item){
+        if (!item) return null;
+        return item.hbiPicture || item.annPicture || null;
+    },
+    title: function(item){
+        return item.title;
+    },
+    showEpisodes: function(item) {
+        return item.numEpisodes &&
+            (item.type == 'tv' ||
+             item.type == 'ona' ||
+             item.type == 'oav' ||
+             item.type == 'special');
+    },
+    unsubbedEpisodes: function(item) {
+        var isFuture = new Date(item.startDate) > new Date();
+        if (isFuture) {
+            return 'Upcoming Series';
+        }
+        return item.endDate || item.subscription.progress == 'finished'
+            ? item.numEpisodes+' Episodes'
+            : '+'+item.numEpisodes+' Episodes (Ongoing)';
+    },
+    subbedEpisodes: function(item) {
+        var isFuture = new Date(item.startDate) > new Date();
+        if (isFuture) {
+            return 'Upcoming Series';
+        }
+        return '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
+    },
+    rating: function(item){
+        var stars = '';
+        var star_empty = '<i class="star fa fa-star unfilled"></i>';
+        var star_filled = '<i class="star fa fa-star"></i>';
+    
+        for (var i=0; i<MAX_RATING; i++) {
+            stars += (i < item.subscription.rating ? star_filled : star_empty);
+        }
+        return '<div class="stars">'+stars+'</div>';
+    }
 });
 //====================================================================================
 // APPLICATION METHODS
@@ -995,11 +1102,35 @@ function getProgressStr(progress) {
         default: return progress.capitalize();
     }
 }
+function hasSubscriptions() {
+    var userId = Meteor.userId();
+    return Subscriptions.find({userId:userId}).count() > 0;
+}
 function getSubscriptionData() {
     var data = Session.get('infoBarData'),
         user = Meteor.user();
     if (!data || !data.annId || !user || !user._id) return null;
     return Subscriptions.findOne({userId: user._id, annId: data.annId}) || null;
+}
+function getSubscriptions(){
+    var userId = Meteor.userId(),
+        subscriptions = Subscriptions.find({userId:userId}).fetch(),
+        result = null;
+    for (var i=0; i<subscriptions.length; i++) {
+        var sub = subscriptions[i],
+            annId = sub.annId,
+            entry = Animes.findOne({annId:annId});
+        entry = $.extend(entry,{subscription:sub});
+        
+        if (!result) result = [];
+        result.push(entry);
+    }
+    // return an alphabetically sorted result
+    return result.sort(function(a,b){
+        if(a.title < b.title) return -1;
+        if(a.title > b.title) return 1;
+        return 0;
+    });
 }
 function capitalizeAll(arr) {
     // captialize all the genres
