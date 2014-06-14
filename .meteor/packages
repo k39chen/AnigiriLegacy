@@ -7,7 +7,6 @@ standard-app-packages
 accounts-base
 accounts-ui
 accounts-facebook
-autopublish
 insecure
 jquery
 xml2js

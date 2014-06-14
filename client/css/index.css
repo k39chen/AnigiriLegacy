@@ -874,6 +874,8 @@ html, body {
     width: 193px;
     height: 320px;
     vertical-align: top;
+
+    text-align: left;
 }
 .gridItem.hover {
     background-color: #DCDEE9;
@@ -936,6 +938,7 @@ html, body {
     overflow: hidden;
     line-height: 1.3em;
     margin-right: -4px;
+    text-align: left;
 }
 .tinyGridItem .cover {
     box-sizing: border-box;

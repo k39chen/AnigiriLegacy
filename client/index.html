@@ -92,7 +92,7 @@
 <!--==========================================================================-->
 <template name='account'>
 <div id='account'>
-    <img id='account-portrait' src='https://graph.facebook.com/{{currentUser.services.facebook.id}}/picture?width=150&height=150' />
+    <img id='account-portrait' src='{{userPortrait}}' />
     <div id='account-text'>
         <div id='account-name'>{{currentUser.profile.name}}</div>
         <div id='signout'><i class='fa fa-sign-out'></i><span>Sign Out</span></div>
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class='section'>
-            <h2>{{userFirstName}}'s Top <span class='counter'>10</span> Rated Animes</h2>
+            <h2>Top <span class='counter'>10</span> Rated Animes</h2>
             <div class='content'>
                 {{#if hasRatedAnimes}}
                     <div class='gridContainer'>

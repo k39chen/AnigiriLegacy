@@ -1,7 +1,12 @@
+// Application globals
 var MAX_RATING = 5;
 
 // Meteor subscriptions
-Meteor.subscribe('subscriptions');
+Meteor.subscribe('userData');
+Meteor.subscribe('userAnimes');
+Meteor.subscribe('userSubscriptions');
+Meteor.subscribe('songs');
+Meteor.subscribe('userFriends');
 
 //====================================================================================
 // TEMPLATE: SPLASHSCREEN
@@ -36,9 +41,6 @@ Template.userScreen.rendered = function() {
     // this is a fix for when the info bar some how has data in it already??
     InfoBar.clear();
 }
-Template.userScreen.events({
-    // ...
-});
 Template.userScreen.helpers({
     // some methods to determine which page to display
     showDashboardPage: function(){
@@ -159,6 +161,16 @@ Template.account.events({
         Meteor.logout();
     }
 });
+Template.account.helpers({
+    userPortrait: function(){
+        var user = Meteor.user();
+        if (user && user.services && user.services.facebook && user.services.facebook.id) {
+            var fb_uid = user.services.facebook.id;
+            return 'https://graph.facebook.com/'+fb_uid+'/picture?width=150&height=150';
+        }
+        return null;
+    }
+});
 //====================================================================================
 // TEMPLATE: DASHBOARDPAGE
 //====================================================================================
@@ -182,45 +194,43 @@ Template.dashboardPage.events({
 });
 Template.dashboardPage.helpers({
     hasSubscriptions: function(){
-        return hasSubscriptions();
+        return Subscriptions.find().count() > 0;
     },
     userFirstName: function(){
-        var user = Meteor.user();
-        return user.services.facebook.first_name;
+        var user = Meteor.user(), firstname = 'Otaku';
+        if (user && user.profile && user.profile.name) {
+            var names = user.profile.name.split(' ');
+            if (names.length > 0) {
+                firstname = names[0];
+            }
+        }
+        return firstname;
     },
     hasCurrentlyWatching: function(){
-        var userId = Meteor.userId();
-        return Subscriptions.find({userId:userId,progress:'watching'}).count() > 0;
+        return Subscriptions.find({progress:'watching'}).count() > 0;
     },
     countCurrentlyWatching: function(){
-        var userId = Meteor.userId();
-        return Subscriptions.find({userId:userId,progress:'watching'}).count();
+        return Subscriptions.find({progress:'watching'}).count();
     },
     getCurrentlyWatching: function(){
-        var userId = Meteor.userId(),
-            subscriptions = Subscriptions.find({userId:userId,progress:'watching'}).fetch();
+        var subscriptions = Subscriptions.find({progress:'watching'}).fetch();
         return getFullSubscriptions(subscriptions);
     },
     hasBacklogged: function(){
-        var userId = Meteor.userId();
-        return Subscriptions.find({userId:userId,progress:'backlogged'}).count() > 0;
+        return Subscriptions.find({progress:'backlogged'}).count() > 0;
     },
     countBacklogged: function(){
-        var userId = Meteor.userId();
-        return Subscriptions.find({userId:userId,progress:'backlogged'}).count();
+        return Subscriptions.find({progress:'backlogged'}).count();
     },
     getBacklogged: function(){
-        var userId = Meteor.userId(),
-            subscriptions = Subscriptions.find({userId:userId,progress:'backlogged'}).fetch();
+        var subscriptions = Subscriptions.find({progress:'backlogged'}).fetch();
         return getFullSubscriptions(subscriptions);
     },
     hasRatedAnimes: function(){
-        var userId = Meteor.userId();
-        return Subscriptions.find({userId:userId,rating:{$gt:0}}).count() > 0;
+        return Subscriptions.find({rating:{$gt:0}}).count() > 0;
     },
     getHighestRatedAnimes: function(topX){
-        var userId = Meteor.userId(),
-            subscriptions = Subscriptions.find({userId:userId}).fetch();
+        var subscriptions = Subscriptions.find().fetch();
         return getFullSubscriptions(subscriptions, function(a,b){
             return b.subscription.rating - a.subscription.rating;
         }).splice(0,topX);
@@ -252,7 +262,7 @@ Template.collectionPage.helpers({
         return hasSubscriptions();
     },
     getSubscriptions: function(){
-        return getSubscriptions();
+        return getFullSubscriptions();
     }
 });
 //====================================================================================
@@ -330,6 +340,9 @@ Template.adminPage.events({
     },
 });
 Template.adminPage.helpers({
+
+    // TODO: ALL OF THIS NEEDS TO BE REWORKED, SINCE IT HAS BEEN BROKEN SINCE THE REMOVAL OF AUTOPUBLISH
+
     getTotalAnimes: function(){
         return Animes.find().count();
     },
@@ -393,25 +406,39 @@ var InfoBar = {
         $('#navbar .navitem[data-subpage="'+subpage+'"]').addClass('selected');
 
         // get the current info bar data
-        var infoBarData = Session.get('infoBarData');
+        var infoBarData = Session.get('infoBarData'),
+            annId = infoBarData.annId;
         InfoBar.showLoad();
 
         // depending on what subpage, we need to also load the corresponding data
         switch (subpage) {
             case 'overview':
-                Meteor.call('getAnimeData', infoBarData.annId, function(err,data){
-                    Session.set('infoBarData',$.extend(Session.get('infoBarData'),data));
+                Meteor.call('getAnimeData', annId, function(err,animeData){
+                    // lets combine the subscription data while we're at it
+                    Session.set('infoBarData', $.extend(
+                        Session.get('infoBarData'),
+                        {subscription: Subscriptions.findOne({annId:annId})},
+                        animeData
+                    ));
                     InfoBar.hideLoad();
                 });
                 break;
             case 'activity':
+                // the subscription data was already loaded with the overview page
+                if (!Session.get('infoBarData').subscriptions) {
+                    Session.set('infoBarData', $.extend(
+                        Session.get('infoBarData'),
+                        {subscription: Subscriptions.findOne({annId:annId})}
+                    ));
+                }
                 InfoBar.hideLoad();
                 break;
             case 'music':
-                Meteor.call('getSongData', infoBarData.annId, function(err,data){
-                    Session.set('infoBarData',$.extend(Session.get('infoBarData'),{songs:data}));
-                    InfoBar.hideLoad();
-                });
+                Session.set('infoBarData',$.extend(
+                    Session.get('infoBarData'),
+                    {songs: Songs.find({annId:annId}).fetch()}
+                ));
+                InfoBar.hideLoad();
                 break;
             case 'social':
                 InfoBar.hideLoad();
@@ -422,6 +449,9 @@ var InfoBar = {
         }
     },
     show: function(options) {
+
+        // TODO: don't show if its already shown
+
         var settings = $.extend({duration:500},options),
             barWidth = $('#infoBar').width(),
             start    = {right: -barWidth},
@@ -558,47 +588,48 @@ Template.overviewSubpage.rendered = function(){
         });
     }
 };
-Template.overviewSubpage.events({
-    // ...
-});
 Template.overviewSubpage.helpers({
     getAnimeData: function(){
         return Session.get('infoBarData');
     },
     isSubscribed: function() {
-        return getSubscriptionData() != null;
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription) return false;
+
+        return data.subscription != null;
     },
     plot: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.plot) return null;
+
         return data.plot;
     },
     poster: function(){
         var data = Session.get('infoBarData');
         if (!data) return null;
+
         return data.hbiPicture || data.annPicture || null;
     },
     genres: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.genres) return null;
+
         return capitalizeAll(data.genres).join(', ');
     },
     themes: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.themes) return null;
+
         return capitalizeAll(data.themes).join(', ');
     },
     startDateLabel: function(){
         var data = Session.get('infoBarData');
         if (!data || !data.type) return null;
 
-        var isFuture = new Date(data.startDate) > new Date();
-
-        switch (data.type) {
-            case 'tv': 
-                return isFuture ? 'Starts On' : 'Started On';
-            default:
-                return 'Aired On';
+        if (hasEpisodes(data.type)) {
+            return isFuture(data.startDate) ? 'Starts On' : 'Started On';
+        } else {
+            return 'Aired On';
         }
     },
     startDate: function() {
@@ -606,14 +637,14 @@ Template.overviewSubpage.helpers({
         if (!data || !data.startDate) return null;
 
         var date = new Date(data.startDate);
-        return date.getShortMonthName() + ' ' + date.getDate() + ', ' + date.getFullYear();
+        return formatDate(date);
     },
     endDate: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.endDate) return null;
 
         var date = new Date(data.endDate);
-        return date.getShortMonthName() + ' ' + date.getDate() + ', ' + date.getFullYear();
+        return formatDate(date);
     },
     runningTime: function(){
         var data = Session.get('infoBarData');
@@ -625,6 +656,7 @@ Template.overviewSubpage.helpers({
     showStatus: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type || data.numEpisodes === null) return false;
+
         return data.numEpisodes && hasEpisodes(data.type);
     },
     status: function() {
@@ -633,9 +665,7 @@ Template.overviewSubpage.helpers({
 
         if (!data.startDate) {
             return 'Not Aired Yet';
-        }
-        var isFuture = new Date(data.startDate) > new Date();
-        if (isFuture) {
+        } else if (isFuture(data.startDate)) {
             return 'Upcoming Series';
         } else {
             return data.endDate ? 'Completed' : 'Ongoing';
@@ -644,35 +674,36 @@ Template.overviewSubpage.helpers({
     showEpisodes: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type || data.numEpisodes === null) return false;
+
         return data.numEpisodes && hasEpisodes(data.type);
     },
     numEpisodes: function() {
-        var data = Session.get('infoBarData'),
-            subscription = getSubscriptionData();
-        
+        var data = Session.get('infoBarData');
+
         if (!data || data.numEpisodes === null) return null;
 
-        if (subscription && subscription.episodes !== null) {
-            return '<span class="accent">'+subscription.episodes+'</span>/'+data.numEpisodes;
+        if (data.subscription && data.subscription.episodes !== null) {
+            return '<span class="accent">'+data.subscription.episodes+'</span>/'+data.numEpisodes;
         } else {
             return data.numEpisodes;
         }
     },
     progress: function() {
-        var subscription = getSubscriptionData();
-        if (!subscription || !subscription.progress) return null;
-        return '<span class="progress '+subscription.progress+'">'+getProgressStr(subscription.progress)+'</span>';
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription || !data.subscription.progress) return null;
+
+        return '<span class="progress '+data.subscription.progress+'">'+getProgressStr(data.subscription.progress)+'</span>';
     },
     rating: function() {
-        var subscription = getSubscriptionData();
-        if (!subscription || !subscription.rating) return null;
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription || !data.subscription.rating) return null;
 
         var stars = '';
         var star_empty = '<i class="star fa fa-star-o"></i>';
         var star_filled = '<i class="star fa fa-star"></i>';
     
         for (var i=0; i<MAX_RATING; i++) {
-            stars += (i < subscription.rating ? star_filled : star_empty);
+            stars += (i < data.subscription.rating ? star_filled : star_empty);
         }
         return '<div class="stars">'+stars+'</div>';
     }
@@ -681,12 +712,6 @@ Template.overviewSubpage.helpers({
 // TEMPLATE: ACTIVITYSUBPAGE
 //====================================================================================
 var SubscriptionForm = {
-    init: function() {
-        var subscriptionData = getSubscriptionData();
-        if (!subscriptionData) return;
-
-        // ...
-    },
     setProgress: function(progress){
         // update the progress on the server
         var data = Session.get('infoBarData');
@@ -706,12 +731,11 @@ var SubscriptionForm = {
         Meteor.call('changeSubscriptionRating',data.annId,rating);
     },
     setEpisodes: function(episodes) {
-        var data = Session.get('infoBarData'),
-            subscriptionData = getSubscriptionData();
+        var data = Session.get('infoBarData');
 
-        if (!data || !subscriptionData) return;
+        if (!data || !data.subscription) return;
         
-        var prevEpisodes = subscriptionData.episodes,
+        var prevEpisodes = data.subscription.episodes,
             newEpisodes = Math.min(episodes,data.numEpisodes);
 
         if (prevEpisodes == newEpisodes) return;
@@ -747,14 +771,11 @@ var SubscriptionForm = {
             
             // perform the requested action
             if (cb) cb();
-        },SubscriptionForm.clickHoldDelay);
+        }, SubscriptionForm.clickHoldDelay);
     }
 };
 Template.activitySubpage.rendered = function(){
     $('#activitySubpage').css({opacity:0}).stop().animate({opacity:1},500);
-
-    // initialize the subscription form
-    SubscriptionForm.init();
 };
 Template.activitySubpage.events({
     'mouseover .subscribe-btn': function(e){
@@ -771,10 +792,7 @@ Template.activitySubpage.events({
 
         // subscribe to this anime
         Meteor.call('subscribeToAnime',data.annId,function(err,data){
-
-            // re-initialize the form
             $('#activitySubpage').css({opacity:0}).stop().animate({opacity:1},500);
-            SubscriptionForm.init();
         });
     },
     'mouseover .progress': function(e){
@@ -837,17 +855,17 @@ Template.activitySubpage.events({
     },
     'mouseout .star': function(e){
         var el = $(e.target),
-            subscriptionData = getSubscriptionData(),
+            data = Session.get('infoBarData'),
             stars = $('#activitySubpage .stars');
 
-        if (!subscriptionData) return;
+        if (!data || !data.subscription) return;
 
         // reset to the default star value
         for (var i=1; i<=MAX_RATING; i++) {
             var star = $('.star[data-star-num="'+i+'"]',stars);
             
             star.removeClass('fa-star').removeClass('fa-star-o');
-            (i <= subscriptionData.rating)
+            (i <= data.subscription.rating)
                 ? star.addClass('fa-star')
                 : star.addClass('fa-star-o')
         }
@@ -879,13 +897,16 @@ Template.activitySubpage.events({
 });
 Template.activitySubpage.helpers({
     getSubscription: function(){
-        return getSubscriptionData();
+        var data = Session.get('infoBarData');
+        return data.subscription;
     },
     isSubscribed: function() {
-        return getSubscriptionData() != null;
+        var data = Session.get('infoBarData');
+        return data && data.subscription;
     },
     progress: function(){
-        var subscriptionData = getSubscriptionData();
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription) return null;
 
         var progressOptions = ['finished','watching','backlogged','X','onhold','abandoned'],
             progressStrings = ['Finished','Watching','Backlogged','X','On Hold','Abandoned'],
@@ -893,7 +914,7 @@ Template.activitySubpage.helpers({
 
         for (var i=0; i<progressOptions.length; i++) {
             if (progressOptions[i] == 'X') { result += '<br/>'; continue; }
-            result += ((subscriptionData && subscriptionData.progress && progressOptions[i] == subscriptionData.progress) 
+            result += ((data.subscription && data.subscription.progress && progressOptions[i] == data.subscription.progress) 
                 ? ('<span class="progress selected" data-progress="'+progressOptions[i]+'">'+progressStrings[i]+'</span>')
                 : ('<span class="progress" data-progress="'+progressOptions[i]+'">'+progressStrings[i]+'</span>')
             )
@@ -903,25 +924,24 @@ Template.activitySubpage.helpers({
     showEpisodes: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type) return false;
+
         return data.numEpisodes && hasEpisodes(data.type);
     },
     showEpisodeControls: function(){
-        var subscriptionData = getSubscriptionData();
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription || !data.subscription.progress) return false;
 
-        if (!subscriptionData || !subscriptionData.progress) return false;
-        return subscriptionData.progress != 'finished';
+        return data.subscription.progress != 'finished';
     },
     episodes: function(){
-        var data = Session.get('infoBarData'),
-            subscription = getSubscriptionData();
-        
-        if (!data || data.numEpisodes === null) return null;
+        var data = Session.get('infoBarData');
+        if (!data || data.numEpisodes === null || !data.subscription) return null;
 
-        return '<span class="currEpisode">'+subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
+        return '<span class="currEpisode">'+data.subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
     },
     rating: function(){
-        var subscription = getSubscriptionData();
-        if (!subscription || !subscription.rating) return null;
+        var data = Session.get('infoBarData');
+        if (!data || !data.subscription || !data.subscription.rating) return null;
 
         var stars = '';
         var star_empty = '<i class="star fa fa-star-o" data-star-num="{data-star-num}"></i>';
@@ -929,7 +949,7 @@ Template.activitySubpage.helpers({
     
         for (var i=0; i<MAX_RATING; i++) {
             var star = '';
-            star = (i < subscription.rating) ? star_filled : star_empty;
+            star = (i < data.subscription.rating) ? star_filled : star_empty;
             star = star.replace('{data-star-num}',i+1);
             stars += star;
         }
@@ -1023,8 +1043,7 @@ Template.socialSubpage.events({
 });
 Template.socialSubpage.helpers({
     hasFriends: function() {
-        var userId = Meteor.userId();
-        return Friends.find({userId:userId}).count() > 0;
+        return hasFriends();
     }
 });
 //====================================================================================
@@ -1047,9 +1066,13 @@ Template.gridItem.events({
         var annId = parseInt(el.attr('data-annId'),10);
         
         // get the anime data
-        Meteor.call('getAnimeData',annId,function(err,data){
-            InfoBar.init(data);
-        });
+        if (Subscriptions.findOne({annId:annId})) {
+            InfoBar.init(Animes.findOne({annId:annId}));
+        } else {
+            Meteor.call('getAnimeData',annId,function(err,data){
+                InfoBar.init(data);
+            });
+        }
     }
 });
 Template.gridItem.helpers({
@@ -1067,8 +1090,7 @@ Template.gridItem.helpers({
         return item.numEpisodes && hasEpisodes(item.type);
     },
     unsubbedEpisodes: function(item) {
-        var isFuture = new Date(item.startDate) > new Date();
-        if (isFuture) {
+        if (isFuture(item.startDate)) {
             return 'Upcoming Series';
         }
         return item.endDate || item.subscription.progress == 'finished'
@@ -1076,11 +1098,9 @@ Template.gridItem.helpers({
             : '+'+item.numEpisodes+' Episodes (Ongoing)';
     },
     subbedEpisodes: function(item) {
-        var isFuture = new Date(item.startDate) > new Date();
-        if (isFuture) {
-            return 'Upcoming Series';
-        }
-        return '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
+        return isFuture(item.startDate) 
+            ? 'Upcoming Series'
+            : '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
     },
     rating: function(item){
         var stars = '';
@@ -1129,9 +1149,13 @@ Template.tinyGridItem.events({
         var annId = parseInt(tgi.attr('data-annId'),10);
         
         // get the anime data
-        Meteor.call('getAnimeData',annId,function(err,data){
-            InfoBar.init(data);
-        });
+        if (Subscriptions.findOne({annId:annId})) {
+            InfoBar.init(Animes.findOne({annId:annId}));
+        } else {
+            Meteor.call('getAnimeData',annId,function(err,data){
+                InfoBar.init(data);
+            });
+        }
     }
 });
 Template.tinyGridItem.helpers({
@@ -1149,8 +1173,7 @@ Template.tinyGridItem.helpers({
         return item.numEpisodes && hasEpisodes(item.type);
     },
     unsubbedEpisodes: function(item) {
-        var isFuture = new Date(item.startDate) > new Date();
-        if (isFuture) {
+        if (isFuture(item.startDate)) {
             return 'Upcoming Series';
         }
         return item.endDate || item.subscription.progress == 'finished'
@@ -1158,11 +1181,9 @@ Template.tinyGridItem.helpers({
             : '+'+item.numEpisodes+' Episodes (Ongoing)';
     },
     subbedEpisodes: function(item) {
-        var isFuture = new Date(item.startDate) > new Date();
-        if (isFuture) {
-            return 'Upcoming Series';
-        }
-        return '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
+        return isFuture(item.startDate)
+            ? 'Upcoming Series'
+            : '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
     },
     rating: function(item){
         var stars = '';
@@ -1178,20 +1199,31 @@ Template.tinyGridItem.helpers({
 //====================================================================================
 // APPLICATION METHODS
 //====================================================================================
+/**
+ * Shows the loading screen overlay.
+ *
+ * @method showLoadingScreen
+ */
 function showLoadingScreen() {
-    console.log( 'showLoad' );
-    
-    $('#loadingScreen').css({display:'block',opacity:0.8});
-
-    //$('#loadingScreen').css({display:'block',opacity:0}).stop().animate({opacity:0.8},500);
+    $('#loadingScreen').css({display:'block',opacity:0}).stop().animate({opacity:0.8},500);
 }
+/**
+ * Hides the loading screen overlay.
+ *
+ * @method hideLoadingScreen
+ */
 function hideLoadingScreen() {
-    console.log( 'hideLoad' );
-
     $('#loadingScreen').css({display:'block',opacity:0.8}).stop().animate({opacity:0},500,function(){
         $(this).css({display:'none'});
     });
 }
+/**
+ * Updates all the visual dependencies for page changing and then queues the associated
+ * page for the appropriate data load.
+ *
+ * @method selectPage
+ * @param page {String} The page identifier.
+ */
 function selectPage(page) {
     // update the selected visual for the sidebar
     $('#sideBar .option').removeClass('selected');
@@ -1203,6 +1235,13 @@ function selectPage(page) {
     // update the session variable for the page
     Session.set('page',page);
 }
+/**
+ * Gets a human-readable version of anime progress strings.
+ *
+ * @method getTypeStr
+ * @param type {String} The system recognized type string.
+ * @return {String} The human-readable type string.
+ */
 function getTypeStr(type) {
     switch (type) {
         case 'tv': return 'TV Series';
@@ -1212,6 +1251,13 @@ function getTypeStr(type) {
         default: return type.capitalize();
     }
 }
+/**
+ * Determines whether or not a given anime type possesses episodes.
+ *
+ * @method hasEpisodes
+ * @param type {String} The type string.
+ * @return {Boolean} The boolean of whether or not the anime type has episodes.
+ */
 function hasEpisodes(type){
     return type == 'tv' ||
         type == 'ona' ||
@@ -1219,6 +1265,13 @@ function hasEpisodes(type){
         type == 'special';
 
 }
+/**
+ * Gets a human-readable version of anime progress strings.
+ *
+ * @method getProgressStr
+ * @param progress {String} The system recognized progress strings.
+ * @return {String} The human-readable progress strings.
+ */
 function getProgressStr(progress) {
     switch (progress) {
         case 'finished': return 'Finished';
@@ -1229,23 +1282,39 @@ function getProgressStr(progress) {
         default: return progress.capitalize();
     }
 }
+/**
+ * Determine whether or not the current user has any subscriptions.
+ *
+ * @method hasSubscriptions
+ * @return {Boolean} Whether or not the current user has subscriptions.
+ */
 function hasSubscriptions() {
-    var userId = Meteor.userId();
-    return Subscriptions.find({userId:userId}).count() > 0;
+    return Subscriptions.find().count() > 0;
 }
-function getSubscriptionData() {
-    var data = Session.get('infoBarData'),
-        user = Meteor.user();
-    if (!data || !data.annId || !user || !user._id) return null;
-    return Subscriptions.findOne({userId: user._id, annId: data.annId}) || null;
+/**
+ * Determine whether or not the current user has any friends.
+ *
+ * @method hasSubscriptions
+ * @return {Boolean} Whether or not the current user has friends.
+ */
+function hasFriends() {
+    return Friends.find().count() > 0;
 }
-function getSubscriptions(){
-    var userId = Meteor.userId(),
-        subscriptions = Subscriptions.find({userId:userId}).fetch();
-    return getFullSubscriptions(subscriptions);
-}
+/**
+ * Performs a client-side join between the subscription and anime data.
+ *
+ * @method getFullSubscriptions.
+ * @param subscriptions {Array} The array of subscriptions. (default=null)
+ * @param sort {Function} An optional sorting function. (default=null)
+ * @return {Array} The sorted and complete set of subscription data.
+ */
 function getFullSubscriptions(subscriptions,sort){
     var result = null;
+    
+    // if no subset of subscriptions is provided, then just use the full set
+    if (!subscriptions) {
+        subscriptions = Subscriptions.find().fetch();
+    }
     for (var i=0; i<subscriptions.length; i++) {
         var sub = subscriptions[i],
             annId = sub.annId,
@@ -1269,9 +1338,52 @@ function getFullSubscriptions(subscriptions,sort){
     }
     return result;
 }
+/**
+ * Determines if the provided date is in the future.
+ *
+ * @method isFuture
+ * @param date {Date} The date object.
+ * @return {Boolean} Whether or not the provided date is in the future.
+ */
+function isFuture(date) {
+    return new Date(date) > new Date()
+}
+/**
+ * Formats date object to human-readable format.
+ *
+ * @method formatDate
+ * @param date {Date} The date object to format.
+ * @return {String} The human-readable date string.
+ */
+function formatDate(date) {
+    return date.getShortMonthName() + ' ' + date.getDate() + ', ' + date.getFullYear();
+}
+/**
+ * Capitalizes all words in all elements of the provided string array.
+ *
+ * @method capitalizeAll
+ * @param arr {Array} The array of strings to be capitalized.
+ * @return {Array} The capitalized array of strings.
+ */
 function capitalizeAll(arr) {
     // captialize all the genres
     return $.map(arr, function(item){
         return item.capitalize();
     });
+}
+
+
+
+
+
+
+
+
+/**
+ * I DON'T LIKE THIS FUNCTION! GET RID OF IT! TODO
+ */
+function getSubscriptionData() {
+    var data = Session.get('infoBarData');
+    if (!data || !data.annId) return null;
+    return Subscriptions.findOne({annId: data.annId}) || null;
 }

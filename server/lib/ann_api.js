@@ -54,16 +54,6 @@ Meteor.methods({
         return result;
     },
     /**
-     * Simply returns the music collection for a given ANN anime ID.
-     *
-     * @method getSongData
-     * @param annId {Number} The ANN anime ID.
-     * @return {Array} The array of ANN song data.
-     */
-    getSongData: function(annId) {
-        return Songs.find({annId:annId}).fetch();
-    },
-    /**
      * Performs an extensive search for all animes in the ANN database.
      * WARNING: This should never EVER be run...
      *
