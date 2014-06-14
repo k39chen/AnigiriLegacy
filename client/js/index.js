@@ -269,6 +269,7 @@ Template.collectionPage.helpers({
 // TEMPLATE: DISCOVERPAGE
 //====================================================================================
 Template.discoverPage.rendered = function(){
+    hideLoadingScreen();
     $('#discoverPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.discoverPage.events({
@@ -278,6 +279,7 @@ Template.discoverPage.events({
 // TEMPLATE: SOCIALPAGE
 //====================================================================================
 Template.socialPage.rendered = function(){
+    hideLoadingScreen();
     $('#socialPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.socialPage.events({
@@ -287,6 +289,7 @@ Template.socialPage.events({
 // TEMPLATE: STATISTICSPAGE
 //====================================================================================
 Template.statisticsPage.rendered = function(){
+    hideLoadingScreen();
     $('#statisticsPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.statisticsPage.events({
@@ -312,6 +315,7 @@ Template.statisticsPage.helpers({
 // TEMPLATE: ADMINPAGE
 //====================================================================================
 Template.adminPage.rendered = function(){
+    hideLoadingScreen();
     $('#adminPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.adminPage.events({
@@ -382,6 +386,8 @@ Template.adminPage.helpers({
 // TEMPLATE: INFOBAR
 //====================================================================================
 var InfoBar = {
+    isShown: false,
+    isShowing: false,
     init: function(data) {
         // set the session variable for the info bar
         this.clear();
@@ -391,7 +397,6 @@ var InfoBar = {
         UI.render(Template.infoBar);
     },
     clear: function() {
-        this.hide({duration:0});
         Session.set('subpage',null);
         Session.set('infoBarData',null);
     },
@@ -449,21 +454,29 @@ var InfoBar = {
         }
     },
     show: function(options) {
-
-        // TODO: don't show if its already shown
+        if (this.isShown) return;
 
         var settings = $.extend({duration:500},options),
             barWidth = $('#infoBar').width(),
             start    = {right: -barWidth},
             end      = {right: 0},
             dur      = settings.duration;
-        $('#page-container') .css({right:0}).stop().animate({right:barWidth},dur);
+
+        this.isShowing = true;
+
+        $('#page-container') .css({right:0}).stop().animate({right:barWidth},dur,function(){
+            InfoBar.isShowing = false;
+        });
         $('#infoBar')        .css(start).stop().animate(end,dur);
         $('#infoBar > .body').css(start).stop().animate(end,dur);
         $('#loadingSubpage') .css({display:'block',opacity:1});
         $('#loadingSubpage') .css(start).animate(end,dur);
+
+        this.isShown = true;
     },
     hide: function(options) {
+        if (!this.isShown) return;
+
         var settings = $.extend({duration:500},options),
             barWidth = $('#infoBar').width(),
             start    = {right: 0},
@@ -473,22 +486,30 @@ var InfoBar = {
         $('#infoBar')        .css(start).stop().animate(end,dur);
         $('#infoBar > .body').css(start).stop().animate(end,dur);
         $('#loadingSubpage') .css(start).animate(end,dur);
+
+        this.isShown = false;
     },
     showLoad: function(options) {
-        if ($('#loadingSubpage').css('opacity') > 0) return;
-
-        var settings = $.extend({duration:200},options),
+        var settings = $.extend({duration:400},options),
             start    = {display:'block', opacity: 0},
             end      = {opacity: 1},
             dur      = settings.duration;
-        $('#loadingSubpage').css(start).stop().animate(end,dur);
+        
+        if (!this.isShowing) {
+            $('#loadingSubpage').stop();
+        }
+        $('#loadingSubpage').css(start).animate(end,dur);
     },
     hideLoad: function(options) {
-        var settings = $.extend({duration:200},options),
+        var settings = $.extend({duration:400},options),
             start    = {display:'block', opacity: 1},
             end      = {opacity: 0},
             dur      = settings.duration;
-        $('#loadingSubpage').css(start).stop().animate(end,dur,function(){
+        
+        if (!this.isShowing) {
+            $('#loadingSubpage').stop();
+        }
+        $('#loadingSubpage').css(start).animate(end,dur,function(){
             $(this).css({display:'none'});
         });
     }
@@ -1225,11 +1246,13 @@ function hideLoadingScreen() {
  * @param page {String} The page identifier.
  */
 function selectPage(page) {
+    if (Session.get('page') == page) return;
+
     // update the selected visual for the sidebar
     $('#sideBar .option').removeClass('selected');
     $('#sideBar .option[data-page="'+page+'"]').addClass('selected');
 
-
+    // show the loading screen as we try to load the data
     showLoadingScreen();
 
     // update the session variable for the page
@@ -1370,20 +1393,4 @@ function capitalizeAll(arr) {
     return $.map(arr, function(item){
         return item.capitalize();
     });
-}
-
-
-
-
-
-
-
-
-/**
- * I DON'T LIKE THIS FUNCTION! GET RID OF IT! TODO
- */
-function getSubscriptionData() {
-    var data = Session.get('infoBarData');
-    if (!data || !data.annId) return null;
-    return Subscriptions.findOne({annId: data.annId}) || null;
 }
