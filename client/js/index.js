@@ -664,7 +664,8 @@ Template.overviewSubpage.helpers({
 var SubscriptionForm = {
     setProgress: function(progress){
         // update the progress on the server
-        var annId = Session.get('infoBarAnnId');
+        var data = Session.get('infoBarData'),
+            annId = Session.get('infoBarAnnId');
         if (!annId) return;
 
         Meteor.call('changeSubscriptionProgress',data.annId,progress);
