@@ -42,6 +42,17 @@ Meteor.methods({
         return Animes.find().fetch();
     },
     /**
+     * Gets the anime title and type given an ANN ID.
+     *
+     * @method getSimpleAnimeData
+     * @param annId {Number} The ANN ID.
+     * @return {Object} The title and type packaged in an object.
+     */
+    getSimpleAnimeData: function(annId) {
+        var anime = Animes.findOne({annId:annId});
+        return {title: anime.title, type: anime.type};
+    },
+    /**
      * Gets the anime data with the given ANN anime ID. Will either return a cached version,
      * or a fresh fetch from ANN depending on the last time the entry was updated. This is used
      * to populate the infoBar.
@@ -58,7 +69,7 @@ Meteor.methods({
         // we will only attempt to get updated data if the last time we attempted
         // to fetch from the API is more than 1 day ago.
         var result = {};
-        if (timeSinceLastUpdate(animeDoc) > 24) {
+        if (true || timeSinceLastUpdate(animeDoc) > 24) {
             console.log('-- Fetching fresh data from ANN and HBI');
             Meteor.call('fetchAnimeData',annId,animeDoc.title);
             result = Animes.findOne({annId:annId});

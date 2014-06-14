@@ -118,7 +118,7 @@ Template.searchBar.rendered = function(){
                 });
             },
             select: function(event,ui){
-                InfoBar.init(ui.item.data);
+                InfoBar.init(ui.item.data.annId);
             }
         });
         $('#searchInput').data('ui-autocomplete')._renderItem = function(ul,item){
@@ -209,25 +209,6 @@ Template.dashboardPage.helpers({
     getCurrentlyWatching: function(){
         var subscriptions = Subscriptions.find({progress:'watching'}).fetch();
         return getFullSubscriptions(subscriptions);
-    },
-    hasBacklogged: function(){
-        return Subscriptions.find({progress:'backlogged'}).count() > 0;
-    },
-    countBacklogged: function(){
-        return Subscriptions.find({progress:'backlogged'}).count();
-    },
-    getBacklogged: function(){
-        var subscriptions = Subscriptions.find({progress:'backlogged'}).fetch();
-        return getFullSubscriptions(subscriptions);
-    },
-    hasRatedAnimes: function(){
-        return Subscriptions.find({rating:{$gt:0}}).count() > 0;
-    },
-    getHighestRatedAnimes: function(topX){
-        var subscriptions = Subscriptions.find().fetch();
-        return getFullSubscriptions(subscriptions, function(a,b){
-            return b.subscription.rating - a.subscription.rating;
-        }).splice(0,topX);
     }
 });
 //====================================================================================
@@ -373,18 +354,29 @@ Template.adminPage.helpers({
 // TEMPLATE: INFOBAR
 //====================================================================================
 var InfoBar = {
+    firstLoad: true,
     isShown: false,
-    isShowing: false,
-    init: function(data) {
-        // set the session variable for the info bar
+    init: function(annId) {
         this.clear();
-        Session.set('infoBarData',data);
+        Session.set('infoBarAnnId',annId);
 
-        // force a re-render
-        UI.render(Template.infoBar);
+        // show the info bar
+        this.show();
+
+        // make this call so the user can see a preview of whats being loaded (title/type)
+        Meteor.call('getSimpleAnimeData', annId, function(err,data){
+            Session.set('infoBarData',data);
+        
+            // get the rest of the anime data
+            Meteor.call('getAnimeData', annId, function(err,animeData){
+                Session.set('infoBarData', $.extend(Session.get('infoBarData'), animeData));
+                UI.render(Template.infoBar);
+            });
+        });
     },
     clear: function() {
         Session.set('subpage',null);
+        Session.set('infoBarAnnId',null);
         Session.set('infoBarData',null);
     },
     selectSubpage: function(subpage) {
@@ -397,67 +389,27 @@ var InfoBar = {
         $('#navbar .navitem').removeClass('selected');
         $('#navbar .navitem[data-subpage="'+subpage+'"]').addClass('selected');
 
-        // get the current info bar data
-        var infoBarData = Session.get('infoBarData'),
-            annId = infoBarData.annId;
-        InfoBar.showLoad();
-
-        // depending on what subpage, we need to also load the corresponding data
-        switch (subpage) {
-            case 'overview':
-                Meteor.call('getAnimeData', annId, function(err,animeData){
-                    // lets combine the subscription data while we're at it
-                    Session.set('infoBarData', $.extend(
-                        Session.get('infoBarData'),
-                        {subscription: Subscriptions.findOne({annId:annId})},
-                        animeData
-                    ));
-                    InfoBar.hideLoad();
-                });
-                break;
-            case 'activity':
-                // the subscription data was already loaded with the overview page
-                if (!Session.get('infoBarData').subscriptions) {
-                    Session.set('infoBarData', $.extend(
-                        Session.get('infoBarData'),
-                        {subscription: Subscriptions.findOne({annId:annId})}
-                    ));
-                }
-                InfoBar.hideLoad();
-                break;
-            case 'music':
-                Session.set('infoBarData',$.extend(
-                    Session.get('infoBarData'),
-                    {songs: Songs.find({annId:annId}).fetch()}
-                ));
-                InfoBar.hideLoad();
-                break;
-            case 'social':
-                InfoBar.hideLoad();
-                break;
-            default:
-                InfoBar.hideLoad();
-                break;
+        if (!this.firstLoad) {
+            this.showLoad();
         }
+        this.firstLoad = true;
     },
     show: function(options) {
-        if (this.isShown) return;
-
+        if (this.isShown) {
+            this.showLoad();
+            return;
+        }
         var settings = $.extend({duration:500},options),
             barWidth = $('#infoBar').width(),
-            start    = {right: -barWidth},
+            start    = {display: 'block', right: -barWidth, opacity: 1},
             end      = {right: 0},
             dur      = settings.duration;
 
-        this.isShowing = true;
-
-        $('#page-container') .css({right:0}).stop().animate({right:barWidth},dur,function(){
-            InfoBar.isShowing = false;
-        });
+        $('#page-container') .css({right:0}).stop().animate({right:barWidth},dur);
         $('#infoBar')        .css(start).stop().animate(end,dur);
         $('#infoBar > .body').css(start).stop().animate(end,dur);
-        $('#loadingSubpage') .css({display:'block',opacity:1});
-        $('#loadingSubpage') .css(start).animate(end,dur);
+        
+        $('#loadingSubpage') .css(start).stop().animate(end,dur);
 
         this.isShown = true;
     },
@@ -472,8 +424,8 @@ var InfoBar = {
         $('#page-container') .css({right:barWidth}).stop().animate({right:0},dur);
         $('#infoBar')        .css(start).stop().animate(end,dur);
         $('#infoBar > .body').css(start).stop().animate(end,dur);
-        $('#loadingSubpage') .css(start).animate(end,dur);
-
+        $('#loadingSubpage') .css(start).stop().animate(end,dur);
+        
         this.isShown = false;
     },
     showLoad: function(options) {
@@ -481,32 +433,20 @@ var InfoBar = {
             start    = {display:'block', opacity: 0},
             end      = {opacity: 1},
             dur      = settings.duration;
-        
-        if (!this.isShowing) {
-            $('#loadingSubpage').stop();
-        }
-        $('#loadingSubpage').css(start).animate(end,dur);
+        $('#loadingSubpage').css(start).stop().animate(end,dur);
     },
     hideLoad: function(options) {
         var settings = $.extend({duration:400},options),
             start    = {display:'block', opacity: 1},
             end      = {opacity: 0},
             dur      = settings.duration;
-        
-        if (!this.isShowing) {
-            $('#loadingSubpage').stop();
-        }
-        $('#loadingSubpage').css(start).animate(end,dur,function(){
+        $('#loadingSubpage').css(start).stop().animate(end,dur,function(){
             $(this).css({display:'none'});
         });
     }
 };
 Template.infoBar.created = function(){
-    var data = Session.get('infoBarData');
-    if (!data) return;
-
-    // show the info bar
-    InfoBar.show();
+    if (!Session.get('infoBarData')) return;
 
     // select the Overview subpage by default
     InfoBar.selectSubpage('overview');
@@ -548,9 +488,6 @@ Template.infoBar.helpers({
     getType: function() {
         return Session.get('infoBarData') ? getTypeStr(Session.get('infoBarData').type) : null;
     },
-    getInfoBarData: function(){
-        return Session.get('infoBarData');
-    },
     // some methods to determine which subpage to display
     showOverviewSubpage: function(){
         return Session.equals('subpage','overview');
@@ -569,6 +506,9 @@ Template.infoBar.helpers({
 // TEMPLATE: OVERVIEWSUBPAGE
 //====================================================================================
 Template.overviewSubpage.created = function(){
+    // hide the loading gif
+    InfoBar.hideLoad();
+
     // destroy any previously created plot plugin
     var plot = $('#overviewSubpage .plot');
     plot.trigger('destroy');
@@ -601,10 +541,7 @@ Template.overviewSubpage.helpers({
         return Session.get('infoBarData');
     },
     isSubscribed: function() {
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription) return false;
-
-        return data.subscription != null;
+        return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) != null;
     },
     plot: function() {
         var data = Session.get('infoBarData');
@@ -686,17 +623,22 @@ Template.overviewSubpage.helpers({
         return data.numEpisodes && hasEpisodes(data.type);
     },
     numEpisodes: function() {
-        var data = Session.get('infoBarData');
+        var data = Session.get('infoBarData'),
+            subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
 
-        if (!data || data.numEpisodes === null) return null;
+        if (!data || data.numEpisodes === null || !subscription) return null;
 
-        if (data.subscription && data.subscription.episodes !== null) {
-            return '<span class="accent">'+data.subscription.episodes+'</span>/'+data.numEpisodes;
+        if (subscription && subscription.episodes !== null) {
+            return '<span class="accent">'+subscription.episodes+'</span>/'+data.numEpisodes;
         } else {
             return data.numEpisodes;
         }
     },
     progress: function() {
+        var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        if (!subscription) return;
+
+
         var data = Session.get('infoBarData');
         if (!data || !data.subscription || !data.subscription.progress) return null;
 
@@ -722,33 +664,32 @@ Template.overviewSubpage.helpers({
 var SubscriptionForm = {
     setProgress: function(progress){
         // update the progress on the server
-        var data = Session.get('infoBarData');
-        if (!data || !data.annId) return;
+        var annId = Session.get('infoBarAnnId');
+        if (!annId) return;
 
         Meteor.call('changeSubscriptionProgress',data.annId,progress);
-
         if (progress == 'finished') {
             Meteor.call('changeSubscriptionEpisodes',data.annId,data.numEpisodes);
         }
     },
     setRating: function(rating) {
         // update the rating on the server
-        var data = Session.get('infoBarData');
-        if (!data || !data.annId) return;
+        var annId = Session.get('infoBarAnnId');
+        if (!annId) return;
 
-        Meteor.call('changeSubscriptionRating',data.annId,rating);
+        Meteor.call('changeSubscriptionRating',annId,rating);
     },
     setEpisodes: function(episodes) {
-        var data = Session.get('infoBarData');
-
-        if (!data || !data.subscription) return;
+        var data = Session.get('infoBarData'),
+            annId = Session.get('infoBarAnnId');
+        if (!annId) return;
         
-        var prevEpisodes = data.subscription.episodes,
+        var prevEpisodes = Subscriptions.findOne({annId:annId}).episodes,
             newEpisodes = Math.min(episodes,data.numEpisodes);
 
         if (prevEpisodes == newEpisodes) return;
 
-        Meteor.call('changeSubscriptionEpisodes',data.annId,newEpisodes);
+        Meteor.call('changeSubscriptionEpisodes',annId,newEpisodes);
     },
     incrementEpisodes: function(){
         var data = Session.get('infoBarData'),
@@ -783,6 +724,7 @@ var SubscriptionForm = {
     }
 };
 Template.activitySubpage.rendered = function(){
+    InfoBar.hideLoad();
     $('#activitySubpage').css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.activitySubpage.events({
@@ -795,11 +737,11 @@ Template.activitySubpage.events({
         el.removeClass('hover');
     },
     'click .subscribe-btn': function(e){
-        var data = Session.get('infoBarData');
-        if (!data || !data.annId) return null;
+        var annId = Session.get('infoBarAnnId');
+        if (!annId) return;
 
         // subscribe to this anime
-        Meteor.call('subscribeToAnime',data.annId,function(err,data){
+        Meteor.call('subscribeToAnime',annId,function(err,data){
             $('#activitySubpage').css({opacity:0}).stop().animate({opacity:1},500);
         });
     },
@@ -863,17 +805,18 @@ Template.activitySubpage.events({
     },
     'mouseout .star': function(e){
         var el = $(e.target),
-            data = Session.get('infoBarData'),
+            annId = Session.get('infoBarAnnId'),
+            subscription = Subscriptions.findOne({annId:annId}),
             stars = $('#activitySubpage .stars');
 
-        if (!data || !data.subscription) return;
+        if (!subscription) return;
 
         // reset to the default star value
         for (var i=1; i<=MAX_RATING; i++) {
             var star = $('.star[data-star-num="'+i+'"]',stars);
             
             star.removeClass('fa-star').removeClass('fa-star-o');
-            (i <= data.subscription.rating)
+            (i <= subscription.rating)
                 ? star.addClass('fa-star')
                 : star.addClass('fa-star-o')
         }
@@ -892,12 +835,12 @@ Template.activitySubpage.events({
         el.removeClass('hover');
     },
     'click .unsubscribe-btn': function(e){
-        var data = Session.get('infoBarData');
-        if (!data || !data.annId) return null;
+        var annId = Session.get('infoBarAnnId');
+        if (!annId) return;
 
         // unsubscribe from this anime
         InfoBar.showLoad();
-        Meteor.call('unsubscribeFromAnime',data.annId,function(err,data){
+        Meteor.call('unsubscribeFromAnime',annId,function(err,data){
             InfoBar.hideLoad();
             $('#activitySubpage').css({opacity:0}).stop().animate({opacity:1},500);
         });
@@ -905,16 +848,14 @@ Template.activitySubpage.events({
 });
 Template.activitySubpage.helpers({
     getSubscription: function(){
-        var data = Session.get('infoBarData');
-        return data.subscription;
+        return Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
     },
     isSubscribed: function() {
-        var data = Session.get('infoBarData');
-        return data && data.subscription;
+        return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) != null;
     },
     progress: function(){
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription) return null;
+        var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        if (!subscription) return null;
 
         var progressOptions = ['finished','watching','backlogged','X','onhold','abandoned'],
             progressStrings = ['Finished','Watching','Backlogged','X','On Hold','Abandoned'],
@@ -922,7 +863,7 @@ Template.activitySubpage.helpers({
 
         for (var i=0; i<progressOptions.length; i++) {
             if (progressOptions[i] == 'X') { result += '<br/>'; continue; }
-            result += ((data.subscription && data.subscription.progress && progressOptions[i] == data.subscription.progress) 
+            result += ((subscription && subscription.progress && progressOptions[i] == subscription.progress) 
                 ? ('<span class="progress selected" data-progress="'+progressOptions[i]+'">'+progressStrings[i]+'</span>')
                 : ('<span class="progress" data-progress="'+progressOptions[i]+'">'+progressStrings[i]+'</span>')
             )
@@ -936,20 +877,22 @@ Template.activitySubpage.helpers({
         return data.numEpisodes && hasEpisodes(data.type);
     },
     showEpisodeControls: function(){
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription || !data.subscription.progress) return false;
+        var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        if (!subscription) return null;
 
-        return data.subscription.progress != 'finished';
+        return subscription.progress != 'finished';
     },
     episodes: function(){
-        var data = Session.get('infoBarData');
-        if (!data || data.numEpisodes === null || !data.subscription) return null;
+        var data = Session.get('infoBarData'),
+            subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        
+        if (!data || data.numEpisodes === null || !subscription) return null;
 
-        return '<span class="currEpisode">'+data.subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
+        return '<span class="currEpisode">'+subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
     },
     rating: function(){
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription || !data.subscription.rating) return null;
+        var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        if (!subscription) return null;
 
         var stars = '';
         var star_empty = '<i class="star fa fa-star-o" data-star-num="{data-star-num}"></i>';
@@ -957,7 +900,7 @@ Template.activitySubpage.helpers({
     
         for (var i=0; i<MAX_RATING; i++) {
             var star = '';
-            star = (i < data.subscription.rating) ? star_filled : star_empty;
+            star = (i < subscription.rating) ? star_filled : star_empty;
             star = star.replace('{data-star-num}',i+1);
             stars += star;
         }
@@ -968,50 +911,24 @@ Template.activitySubpage.helpers({
 // TEMPLATE: MUSICSUBPAGE
 //====================================================================================
 Template.musicSubpage.rendered = function(){
+    InfoBar.hideLoad();
     $('#musicSubpage').css({opacity:0}).stop().animate({opacity:1},500);
 };
-Template.musicSubpage.events({
-    // ...
-});
 Template.musicSubpage.helpers({
     hasSongs: function(){
-        var data = Session.get('infoBarData');
-        return data && data.songs && data.songs.length > 0;
+        return Songs.find({annId: Session.get('infoBarAnnId')}).fetch().length > 0;
     },
     getSongData: function(){
-        var data = Session.get('infoBarData');
-        return (!data || !data.songs) ? null : data.songs;
+        return Songs.find({annId: Session.get('infoBarAnnId')}).fetch();
     },
     getOpeningThemes: function() {
-        var data = Session.get('infoBarData');
-        if (!data || !data.songs) return null;
-
-        var result = [];
-        for (var i=0; i<data.songs.length; i++) {
-            if (data.songs[i].type == 'op') result.push(data.songs[i]);
-        }
-        return result.length > 0 ? result : null;
+        return Songs.find({annId: Session.get('infoBarAnnId'), type: 'op'}).fetch();
     },
     getEndingThemes: function(){
-        var data = Session.get('infoBarData');
-        if (!data || !data.songs) return null;
-
-        var result = [];
-        for (var i=0; i<data.songs.length; i++) {
-            if (data.songs[i].type == 'ed') result.push(data.songs[i]);
-        }
-        return result.length > 0 ? result : null;
-
+        return Songs.find({annId: Session.get('infoBarAnnId'), type: 'ed'}).fetch();
     },
     getInsertThemes: function(){
-        var data = Session.get('infoBarData');
-        if (!data || !data.songs) return null;
-
-        var result = [];
-        for (var i=0; i<data.songs.length; i++) {
-            if (data.songs[i].type == 'in') result.push(data.songs[i]);
-        }
-        return result.length > 0 ? result : null;
+        return Songs.find({annId: Session.get('infoBarAnnId'), type: 'in'}).fetch();
     },
     displayEpisodes: function(episodes){
         if (!episodes || !episodes.length || !episodes[0]) return null;
@@ -1034,6 +951,7 @@ Template.musicSubpage.helpers({
 // TEMPLATE: SOCIALSUBPAGE
 //====================================================================================
 Template.socialSubpage.rendered = function(){
+    InfoBar.hideLoad();
     $('#socialSubpage').css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.socialSubpage.events({
@@ -1074,9 +992,7 @@ Template.gridItem.events({
         var annId = parseInt(el.attr('data-annId'),10);
         
         // get the anime data
-        Meteor.call('getAnimeData',annId,function(err,data){
-            InfoBar.init(data);
-        });
+        InfoBar.init(annId);
     }
 });
 Template.gridItem.helpers({
@@ -1153,9 +1069,7 @@ Template.tinyGridItem.events({
         var annId = parseInt(tgi.attr('data-annId'),10);
         
         // get the anime data
-        Meteor.call('getAnimeData',annId,function(err,data){
-            InfoBar.init(data);
-        });
+        InfoBar.init(annId);
     }
 });
 Template.tinyGridItem.helpers({
