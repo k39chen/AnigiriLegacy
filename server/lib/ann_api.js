@@ -18,6 +18,21 @@ function getArrayField(value) {
 
 Meteor.methods({
     /**
+     * Gets a series of administrative data to display on the admin page.
+     *
+     * @method getAdminData
+     * @return {Object} The admin data.
+     */
+    getAdminData: function(){
+        return {
+            totalAnimes: Animes.find().count(),
+            totalANN:    Animes.find({dataANN:true}).count(),
+            totalHBI:    Animes.find({dataHBI:true}).count(),
+            totalCovers: Animes.find({$or: [{annPicture: {$exists:true}}, {hbiPicture: {$exists:true}}]}).count(),
+            totalSongs:  Songs.find().count()
+        };
+    },
+    /**
      * Simply returns the entire list of animes. This is used for the autocomplete mechanism.
      *
      * @method getAnimes

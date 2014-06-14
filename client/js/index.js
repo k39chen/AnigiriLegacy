@@ -101,16 +101,10 @@ Template.searchBar.rendered = function(){
         });
         // sort the source by category (and subsort alphabetically)
         source.sort(function(a,b){
-            if (a.type == b.type) {
-                // alphabetical
-                return b.label-a.label;
-            } else if (a.type == 'tv') {
-                return 0;
-            } else if (a.type == 'oav') {
-                return 1;
-            } else {
-                return 2;
-            }
+            if (a.type == b.type) { return b.label-a.label; } 
+            else if (a.type == 'tv') { return 0; }
+            else if (a.type == 'oav') { return 1; }
+            else { return 2; }
         });
         // we will now initialize it as an autocomplete searchbar
         $('#searchInput').autocomplete({
@@ -317,6 +311,10 @@ Template.statisticsPage.helpers({
 Template.adminPage.rendered = function(){
     hideLoadingScreen();
     $('#adminPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+    Meteor.call('getAdminData', function(err,data){
+        Session.set('adminData',data);
+    });
 }
 Template.adminPage.events({
     'mouseover .button': function(e) {
@@ -344,42 +342,31 @@ Template.adminPage.events({
     },
 });
 Template.adminPage.helpers({
-
-    // TODO: ALL OF THIS NEEDS TO BE REWORKED, SINCE IT HAS BEEN BROKEN SINCE THE REMOVAL OF AUTOPUBLISH
-
     getTotalAnimes: function(){
-        return Animes.find().count();
+        var data = Session.get('adminData');
+        return data ? data.totalAnimes : null;
     },
     getTotalANN: function(){
-        return Animes.find({dataANN:true}).count();
-    },
-    getTotalANNPct: function(){
-        var total = Animes.find().count(),
-            totalANN = Animes.find({dataANN:true}).count();
-        return total > 0 ? (totalANN/total * 100).toFixed(2) : 0;
+        var data = Session.get('adminData');
+        return data 
+            ? data.totalANN + '/' + data.totalAnimes + ' (' + (data.totalANN / data.totalAnimes * 100).toFixed(2) + '%)'
+            : null;
     },
     getTotalHBI: function(){
-        return Animes.find({dataHBI:true}).count();
-    },
-    getTotalHBIPct: function(){
-        var total = Animes.find().count(),
-            totalHBI = Animes.find({dataHBI:true}).count();
-        return total > 0 ? (totalHBI/total * 100).toFixed(2) : 0;
+        var data = Session.get('adminData');
+        return data
+            ? data.totalHBI + '/' + data.totalAnimes + ' (' + (data.totalHBI / data.totalAnimes * 100).toFixed(2) + '%)'
+            : null;
     },
     getTotalCovers: function(){
-        return Animes.find({$or: [{annPicture: {$exists:true}}, {hbiPicture: {$exists:true}}]}).count();
-    },
-    getTotalCoversPct: function(){
-        var total = Animes.find().count(),
-            totalCovers = Animes.find({$or: [{annPicture: {$exists:true}}, {hbiPicture: {$exists:true}}]}).count();
-        return total > 0 ? (totalCovers/total * 100).toFixed(2) : 0;
+        var data = Session.get('adminData');
+        return data 
+            ? data.totalCovers + '/' + data.totalAnimes + ' (' + (data.totalCovers / data.totalAnimes * 100).toFixed(2) + '%)'
+            : null;
     },
     getTotalSongs: function(){
-        return Songs.find().count();
-    },
-    allAnimes: function(){
-        // this is just a simple test
-        return Animes.find({annId: {$gt: 15500}});
+        var data = Session.get('adminData');
+        return data ? data.totalSongs : null;
     }
 });
 //====================================================================================
@@ -1087,13 +1074,9 @@ Template.gridItem.events({
         var annId = parseInt(el.attr('data-annId'),10);
         
         // get the anime data
-        if (Subscriptions.findOne({annId:annId})) {
-            InfoBar.init(Animes.findOne({annId:annId}));
-        } else {
-            Meteor.call('getAnimeData',annId,function(err,data){
-                InfoBar.init(data);
-            });
-        }
+        Meteor.call('getAnimeData',annId,function(err,data){
+            InfoBar.init(data);
+        });
     }
 });
 Template.gridItem.helpers({
@@ -1170,13 +1153,9 @@ Template.tinyGridItem.events({
         var annId = parseInt(tgi.attr('data-annId'),10);
         
         // get the anime data
-        if (Subscriptions.findOne({annId:annId})) {
-            InfoBar.init(Animes.findOne({annId:annId}));
-        } else {
-            Meteor.call('getAnimeData',annId,function(err,data){
-                InfoBar.init(data);
-            });
-        }
+        Meteor.call('getAnimeData',annId,function(err,data){
+            InfoBar.init(data);
+        });
     }
 });
 Template.tinyGridItem.helpers({

@@ -262,11 +262,11 @@
             <th>Total Songs</th>
         </tr>
         <tr>
-            <td>{{getTotalAnimes}}</td>
-            <td>{{getTotalANN}}/{{getTotalAnimes}} ({{getTotalANNPct}}%)</td>
-            <td>{{getTotalHBI}}/{{getTotalAnimes}} ({{getTotalHBIPct}}%)</td>
-            <td>{{getTotalCovers}}/{{getTotalAnimes}} ({{getTotalCoversPct}}%)</td>
-            <td>{{getTotalSongs}}</td>
+            <td>{{{getTotalAnimes}}}</td>
+            <td>{{{getTotalANN}}}</td>
+            <td>{{{getTotalHBI}}}</td>
+            <td>{{{getTotalCovers}}}</td>
+            <td>{{{getTotalSongs}}}</td>
         </tr>
     </table>
     <div class='button-group'>
@@ -274,23 +274,6 @@
         <span id='deleteAnimesBtn' class='button'>Delete Animes</span>
         <span id='deleteSongsBtn' class='button'>Delete Songs</span>
     </div>
-    <!--
-    <h2>Animes</h2>
-    <table>
-        <tr>
-            <th>ANN ID</th>
-            <th>Title</th>
-            <th>Type</th>
-        </tr>
-        {{#each allAnimes}}
-        <tr>
-            <td>{{annId}}</td>
-            <td>{{title}}</td>
-            <td>{{type}}</td>
-        </tr>
-        {{/each}}
-    </table>
-    -->
 </div>
 </template>
 <!--==========================================================================-->
