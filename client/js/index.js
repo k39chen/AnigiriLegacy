@@ -1,5 +1,8 @@
 var MAX_RATING = 5;
 
+// Meteor subscriptions
+Meteor.subscribe('subscriptions');
+
 //====================================================================================
 // TEMPLATE: SPLASHSCREEN
 //====================================================================================
@@ -160,6 +163,7 @@ Template.account.events({
 // TEMPLATE: DASHBOARDPAGE
 //====================================================================================
 Template.dashboardPage.rendered = function(){
+    hideLoadingScreen();
     $('#dashboardPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.dashboardPage.events({
@@ -183,12 +187,50 @@ Template.dashboardPage.helpers({
     userFirstName: function(){
         var user = Meteor.user();
         return user.services.facebook.first_name;
+    },
+    hasCurrentlyWatching: function(){
+        var userId = Meteor.userId();
+        return Subscriptions.find({userId:userId,progress:'watching'}).count() > 0;
+    },
+    countCurrentlyWatching: function(){
+        var userId = Meteor.userId();
+        return Subscriptions.find({userId:userId,progress:'watching'}).count();
+    },
+    getCurrentlyWatching: function(){
+        var userId = Meteor.userId(),
+            subscriptions = Subscriptions.find({userId:userId,progress:'watching'}).fetch();
+        return getFullSubscriptions(subscriptions);
+    },
+    hasBacklogged: function(){
+        var userId = Meteor.userId();
+        return Subscriptions.find({userId:userId,progress:'backlogged'}).count() > 0;
+    },
+    countBacklogged: function(){
+        var userId = Meteor.userId();
+        return Subscriptions.find({userId:userId,progress:'backlogged'}).count();
+    },
+    getBacklogged: function(){
+        var userId = Meteor.userId(),
+            subscriptions = Subscriptions.find({userId:userId,progress:'backlogged'}).fetch();
+        return getFullSubscriptions(subscriptions);
+    },
+    hasRatedAnimes: function(){
+        var userId = Meteor.userId();
+        return Subscriptions.find({userId:userId,rating:{$gt:0}}).count() > 0;
+    },
+    getHighestRatedAnimes: function(topX){
+        var userId = Meteor.userId(),
+            subscriptions = Subscriptions.find({userId:userId}).fetch();
+        return getFullSubscriptions(subscriptions, function(a,b){
+            return b.subscription.rating - a.subscription.rating;
+        }).splice(0,topX);
     }
 });
 //====================================================================================
 // TEMPLATE: COLLECTIONPAGE
 //====================================================================================
 Template.collectionPage.rendered = function(){
+    hideLoadingScreen();
     $('#collectionPage').css({opacity:0}).stop().animate({opacity:1},500);
 }
 Template.collectionPage.events({
@@ -583,11 +625,7 @@ Template.overviewSubpage.helpers({
     showStatus: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type || data.numEpisodes === null) return false;
-        return data.numEpisodes &&
-            (data.type == 'tv' ||
-             data.type == 'ona' ||
-             data.type == 'oav' ||
-             data.type == 'special');
+        return data.numEpisodes && hasEpisodes(data.type);
     },
     status: function() {
         var data = Session.get('infoBarData');
@@ -606,11 +644,7 @@ Template.overviewSubpage.helpers({
     showEpisodes: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type || data.numEpisodes === null) return false;
-        return data.numEpisodes &&
-            (data.type == 'tv' ||
-             data.type == 'ona' ||
-             data.type == 'oav' ||
-             data.type == 'special');
+        return data.numEpisodes && hasEpisodes(data.type);
     },
     numEpisodes: function() {
         var data = Session.get('infoBarData'),
@@ -788,11 +822,6 @@ Template.activitySubpage.events({
         SubscriptionForm.isClickHolding = true;
         SubscriptionForm.clickHoldHandler(SubscriptionForm.decrementEpisodes);
     },
-
-
-
-
-
     'mouseover .star': function(e){
         var el = $(e.target),
             num = el.attr('data-star-num'),
@@ -874,11 +903,7 @@ Template.activitySubpage.helpers({
     showEpisodes: function() {
         var data = Session.get('infoBarData');
         if (!data || !data.type) return false;
-        return data.numEpisodes &&
-            (data.type == 'tv' ||
-             data.type == 'ona' ||
-             data.type == 'oav' ||
-             data.type == 'special')
+        return data.numEpisodes && hasEpisodes(data.type);
     },
     showEpisodeControls: function(){
         var subscriptionData = getSubscriptionData();
@@ -1039,11 +1064,89 @@ Template.gridItem.helpers({
         return item.title;
     },
     showEpisodes: function(item) {
-        return item.numEpisodes &&
-            (item.type == 'tv' ||
-             item.type == 'ona' ||
-             item.type == 'oav' ||
-             item.type == 'special');
+        return item.numEpisodes && hasEpisodes(item.type);
+    },
+    unsubbedEpisodes: function(item) {
+        var isFuture = new Date(item.startDate) > new Date();
+        if (isFuture) {
+            return 'Upcoming Series';
+        }
+        return item.endDate || item.subscription.progress == 'finished'
+            ? item.numEpisodes+' Episodes'
+            : '+'+item.numEpisodes+' Episodes (Ongoing)';
+    },
+    subbedEpisodes: function(item) {
+        var isFuture = new Date(item.startDate) > new Date();
+        if (isFuture) {
+            return 'Upcoming Series';
+        }
+        return '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
+    },
+    rating: function(item){
+        var stars = '';
+        var star_empty = '<i class="star fa fa-star unfilled"></i>';
+        var star_filled = '<i class="star fa fa-star"></i>';
+    
+        for (var i=0; i<MAX_RATING; i++) {
+            stars += (i < item.subscription.rating ? star_filled : star_empty);
+        }
+        return '<div class="stars">'+stars+'</div>';
+    }
+});
+//====================================================================================
+// TEMPLATE: TINYGRIDITEM
+//====================================================================================
+Template.tinyGridItem.rendered = function() {
+    // ...
+};
+Template.tinyGridItem.events({
+    'mouseover .hoverTarget': function(e){
+        var el = $(e.currentTarget),
+            tgi = el.parent('.tinyGridItem');
+            mask = $('.mask',tgi),
+            content = $('.maskcontent',tgi),
+            maskHeight = mask.height();
+
+        content.css({bottom:-maskHeight,opacity:0}).stop().animate({bottom:0,opacity:1},500);
+        mask.css({display:'block',opacity:0}).stop().animate({opacity:0.7},500);
+    },
+
+    'mouseout .hoverTarget': function(e){
+        var el = $(e.currentTarget),
+            tgi = el.parent('.tinyGridItem');
+            mask = $('.mask',tgi),
+            content = $('.maskcontent',tgi),
+            maskHeight = mask.height();
+
+        content.css({display:'block',bottom:0,opacity:1}).stop().animate({bottom:-maskHeight,opacity:0},500);
+        mask.css({display:'block',opacity:0.7}).stop().animate({opacity:0},500,function(){
+            $(this).css({display:'block'});
+        })
+    },
+    'click .hoverTarget': function(e){
+        var el = $(e.currentTarget),
+            tgi = el.parent('.tinyGridItem');
+        var annId = parseInt(tgi.attr('data-annId'),10);
+        
+        // get the anime data
+        Meteor.call('getAnimeData',annId,function(err,data){
+            InfoBar.init(data);
+        });
+    }
+});
+Template.tinyGridItem.helpers({
+    progress: function(item){
+        return item.subscription.progress;
+    },
+    poster: function(item){
+        if (!item) return null;
+        return item.hbiPicture || item.annPicture || null;
+    },
+    title: function(item){
+        return item.title;
+    },
+    showEpisodes: function(item) {
+        return item.numEpisodes && hasEpisodes(item.type);
     },
     unsubbedEpisodes: function(item) {
         var isFuture = new Date(item.startDate) > new Date();
@@ -1075,10 +1178,27 @@ Template.gridItem.helpers({
 //====================================================================================
 // APPLICATION METHODS
 //====================================================================================
+function showLoadingScreen() {
+    console.log( 'showLoad' );
+    
+    $('#loadingScreen').css({display:'block',opacity:0.8});
+
+    //$('#loadingScreen').css({display:'block',opacity:0}).stop().animate({opacity:0.8},500);
+}
+function hideLoadingScreen() {
+    console.log( 'hideLoad' );
+
+    $('#loadingScreen').css({display:'block',opacity:0.8}).stop().animate({opacity:0},500,function(){
+        $(this).css({display:'none'});
+    });
+}
 function selectPage(page) {
     // update the selected visual for the sidebar
     $('#sideBar .option').removeClass('selected');
     $('#sideBar .option[data-page="'+page+'"]').addClass('selected');
+
+
+    showLoadingScreen();
 
     // update the session variable for the page
     Session.set('page',page);
@@ -1091,6 +1211,13 @@ function getTypeStr(type) {
         case 'movie': return 'Movie';
         default: return type.capitalize();
     }
+}
+function hasEpisodes(type){
+    return type == 'tv' ||
+        type == 'ona' ||
+        type == 'oav' ||
+        type == 'special';
+
 }
 function getProgressStr(progress) {
     switch (progress) {
@@ -1114,8 +1241,11 @@ function getSubscriptionData() {
 }
 function getSubscriptions(){
     var userId = Meteor.userId(),
-        subscriptions = Subscriptions.find({userId:userId}).fetch(),
-        result = null;
+        subscriptions = Subscriptions.find({userId:userId}).fetch();
+    return getFullSubscriptions(subscriptions);
+}
+function getFullSubscriptions(subscriptions,sort){
+    var result = null;
     for (var i=0; i<subscriptions.length; i++) {
         var sub = subscriptions[i],
             annId = sub.annId,
@@ -1126,11 +1256,18 @@ function getSubscriptions(){
         result.push(entry);
     }
     // return an alphabetically sorted result
-    return result.sort(function(a,b){
-        if(a.title < b.title) return -1;
-        if(a.title > b.title) return 1;
-        return 0;
-    });
+    if (result) {
+        if (sort) {
+            result = result.sort(sort);
+        } else {
+            result = result.sort(function(a,b){
+                if(a.title < b.title) return -1;
+                if(a.title > b.title) return 1;
+                return 0;
+            });
+        }
+    }
+    return result;
 }
 function capitalizeAll(arr) {
     // captialize all the genres

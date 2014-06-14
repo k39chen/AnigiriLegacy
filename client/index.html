@@ -108,25 +108,59 @@
     <h1>My Dashboard</h1>
     <div id='dashboardSubscriptions'>
         <div class='section'>
-            <h2>Active Animes</h2>
+            <h2>Currently Watching <span class='counter'>({{countCurrentlyWatching}})</span></h2>
             <div class='content'>
-                {{#if hasActiveAnimes}}
-                    {{#each getActiveAnimes}}
-                    <div class='gridItem'>
-
-                    </div>
+                {{#if hasCurrentlyWatching}}
+                    <div class='gridContainer'>
+                    {{#each getCurrentlyWatching}}
+                        {{> tinyGridItem this}}
                     {{/each}}
+                    </div>
                 {{else}}
                 <div class='empty-message'>
                     <div class='valigner'>
-                        You're not currently actively following any animes.
+                        You're not currently watching any animes.
                     </div>
                 </div>
                 {{/if}}
             </div>
         </div>
-
-
+        <div class='section'>
+            <h2>{{userFirstName}}'s Top <span class='counter'>10</span> Rated Animes</h2>
+            <div class='content'>
+                {{#if hasRatedAnimes}}
+                    <div class='gridContainer'>
+                    {{#each getHighestRatedAnimes 10}}
+                        {{> tinyGridItem this}}
+                    {{/each}}
+                    </div>
+                {{else}}
+                <div class='empty-message'>
+                    <div class='valigner'>
+                        You don't currently have any rated animes in your collection.
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class='section'>
+            <h2>Backlogged Animes <span class='counter'>({{countBacklogged}})</span></h2>
+            <div class='content'>
+                {{#if hasBacklogged}}
+                    <div class='gridContainer'>
+                    {{#each getBacklogged}}
+                        {{> tinyGridItem this}}
+                    {{/each}}
+                    </div>
+                {{else}}
+                <div class='empty-message'>
+                    <div class='valigner'>
+                        You don't currently have any animes in your backlog.
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
         <!--
         Unwatched episodes of animes that you are currently following
         Recommendations given to you by your friends
@@ -514,7 +548,7 @@
 <!--============================== GRIDITEM ==================================-->
 <!--==========================================================================-->
 <template name='gridItem'>
-<div class='gridItem {{progress this}}' data-annId='{{annId}}'>
+<span class='gridItem {{progress this}}' data-annId='{{annId}}'>
     <div class='cover'>
         <img src='{{poster this}}' />
     </div>
@@ -523,5 +557,24 @@
     <div class='episodes'>{{{subbedEpisodes this}}}</div>
     {{/if}}
     <div class='rating'>{{{rating this}}}</div>
-</div>
+</span>
+</template>
+<!--==========================================================================-->
+<!--============================== TINYGRIDITEM ==============================-->
+<!--==========================================================================-->
+<template name='tinyGridItem'>
+<span class='tinyGridItem {{progress this}}' data-annId='{{annId}}'>
+    <div class='cover'>
+        <img src='{{poster this}}' />
+    </div>
+    <div class='mask'></div>
+    <div class='maskcontent'>
+        <div class='title'>{{{title this}}}</div>
+        {{#if showEpisodes this}}
+        <div class='episodes'>{{{subbedEpisodes this}}}</div>
+        {{/if}}
+        <div class='rating'>{{{rating this}}}</div>
+    </div>
+    <div class='hoverTarget'></div>
+</span>
 </template>
