@@ -630,8 +630,8 @@ Template.overviewSubpage.helpers({
     numEpisodes: function() {
         var data = Session.get('infoBarData'),
             subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
-
-        if (!data || data.numEpisodes === null || !subscription) return null;
+            
+        if (!data || data.numEpisodes === null) return null;
 
         if (subscription && subscription.episodes !== null) {
             return '<span class="accent">'+subscription.episodes+'</span>/'+data.numEpisodes;
