@@ -363,17 +363,6 @@ html, body {
 }
 
 /** COLLECTION PAGE **/
-#collectionPage .empty-message p {
-    margin-bottom: 24px;
-    line-height: 1.75em;
-    font-size: 19px;
-    font-weight: 200;
-    color: #99A0B8;
-}
-#collectionPage .empty-message .accent {
-    font-size: 32px;
-    color: #353D53;
-}
 #collectionFilters {
 }
 #collectionGrid {
@@ -542,9 +531,11 @@ html, body {
 }
 #infoBar .subpage .empty-message p {
     margin-bottom: 1.5em;
+    font-size: 14px;
 }
 #infoBar .subpage .empty-message .accent {
     color: #C6C6E7;
+    font-size: 14px;
 }
 
 /** OVERVIEW SUBPAGE**/
