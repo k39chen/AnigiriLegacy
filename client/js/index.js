@@ -260,6 +260,11 @@ Template.socialPage.rendered = function(){
 Template.socialPage.events({
     // ...
 });
+Template.socialPage.helpers({
+    hasFriends: function(){
+        return hasFriends();
+    }
+});
 //====================================================================================
 // TEMPLATE: STATISTICSPAGE
 //====================================================================================
@@ -636,24 +641,20 @@ Template.overviewSubpage.helpers({
     },
     progress: function() {
         var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
-        if (!subscription) return;
+        if (!subscription || !subscription.progress) return;
 
-
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription || !data.subscription.progress) return null;
-
-        return '<span class="progress '+data.subscription.progress+'">'+getProgressStr(data.subscription.progress)+'</span>';
+        return '<span class="progress '+subscription.progress+'">'+getProgressStr(subscription.progress)+'</span>';
     },
     rating: function() {
-        var data = Session.get('infoBarData');
-        if (!data || !data.subscription || !data.subscription.rating) return null;
+        var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+        if (!subscription || !subscription.rating) return;
 
         var stars = '';
         var star_empty = '<i class="star fa fa-star-o"></i>';
         var star_filled = '<i class="star fa fa-star"></i>';
     
         for (var i=0; i<MAX_RATING; i++) {
-            stars += (i < data.subscription.rating ? star_filled : star_empty);
+            stars += (i < subscription.rating ? star_filled : star_empty);
         }
         return '<div class="stars">'+stars+'</div>';
     }

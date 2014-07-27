@@ -49,6 +49,17 @@ html, body {
 .bigbtn.hover {
     background-color: #f8738a;
 }
+.empty-message p {
+    margin-bottom: 24px;
+    line-height: 1.75em;
+    font-size: 19px;
+    font-weight: 200;
+    color: #99A0B8;
+}
+.empty-message .accent {
+    font-size: 32px;
+    color: #353D53;
+}
 
 /** SPLASH SCREEN **/
 #splashScreen {
@@ -377,17 +388,7 @@ html, body {
 /** ... **/
 
 /** STATISTICS PAGE **/
-#statisticsPage .empty-message p {
-    margin-bottom: 24px;
-    line-height: 1.75em;
-    font-size: 19px;
-    font-weight: 200;
-    color: #99A0B8;
-}
-#statisticsPage .empty-message .accent {
-    font-size: 32px;
-    color: #353D53;
-}
+/** ... **/
 
 /** ADMINPAGE **/
 #adminPage table {

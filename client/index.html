@@ -185,7 +185,20 @@
 <!--==========================================================================-->
 <template name='socialPage'>
 <div id='socialPage' class='page'>
-    <h1>Social</h1>
+    {{#if hasFriends}}
+    <h1>My Statistics</h1>
+    statistics page
+    {{else}}
+    <div class='empty-message'>
+        <div class='valigner'>
+            <p>
+            You don't have any friends on Anigiri yet.<br/>
+            <span class='accent'>Start sharing your favourite animes now!</span>
+            </p>
+            <div class='redirect-btn bigbtn'>Add Friends</div>
+        </div>
+    </div>
+    {{/if}}
 </div>
 </template>
 <!--==========================================================================-->
