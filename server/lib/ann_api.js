@@ -33,6 +33,15 @@ Meteor.methods({
         };
     },
     /**
+     * Simply returns the entire list of users on Anigiri. This is used for the autocomplete mechanism.
+     *
+     * @method getUsers
+     * @return {Array} The list of users.
+     */
+    getUsers: function() {
+        return Meteor.users.find().fetch();
+    },
+    /**
      * Simply returns the entire list of animes. This is used for the autocomplete mechanism.
      *
      * @method getAnimes

@@ -2,6 +2,7 @@
 var MAX_RATING = 5;
 
 // Meteor subscriptions
+Meteor.subscribe('users');
 Meteor.subscribe('userData');
 Meteor.subscribe('userAnimes');
 Meteor.subscribe('userSubscriptions');
@@ -53,6 +54,7 @@ Template.userScreen.helpers({
         return Session.equals('page','discover');
     },
     showSocialPage: function(){
+        Session.set('friendProfile',null);
         return Session.equals('page','social');
     },
     showStatisticsPage: function(){
@@ -160,7 +162,7 @@ Template.account.helpers({
         var user = Meteor.user();
         if (user && user.services && user.services.facebook && user.services.facebook.id) {
             var fb_uid = user.services.facebook.id;
-            return 'https://graph.facebook.com/'+fb_uid+'/picture?width=150&height=150';
+            return getUserPortrait(fb_uid, {width:150,height:150});
         }
         return null;
     }
@@ -256,13 +258,84 @@ Template.discoverPage.events({
 Template.socialPage.rendered = function(){
     hideLoadingScreen();
     $('#socialPage').css({opacity:0}).stop().animate({opacity:1},500);
-}
+
+    // retrieve all the anime titles
+    var results = Meteor.call('getUsers', function(err,data){
+        // format the data into autocomplete accepted formats
+        var source = $.map(data, function(item){
+            var fb = item.services.facebook,
+                fullname = fb.first_name + " " + fb.last_name;
+            return {
+                label: fullname,
+                value: fullname,
+                data: fb,
+                isFriends: false
+            };
+        });
+        // sort the source by name
+        source.sort(function(a,b){
+            var nameA = (a.firstName + " " + a.lastName).toLowerCase(),
+                nameB = (b.firstName + " " + b.lastName).toLowerCase();
+            if (nameA < nameB) return -1;
+            else if (nameA > nameB) return 1;
+            return 0;
+        });
+
+        console.log( $("#friendSearchInput").length );
+
+        // we will now initialize it as an autocomplete searchbar
+        $('#friendSearchInput').autocomplete({
+            minLength: 1,
+            source: source,
+            open : function(){
+                $(".ui-autocomplete:visible").css({
+                    top: "+=12",
+                    left: "-=144",
+                    width: 300
+                });
+            },
+            select: function(event,ui){
+                Session.set('friendProfile',ui.item.data);
+            }
+        });
+        $('#friendSearchInput').data('ui-autocomplete')._renderItem = function(ul,item){
+            return $('<li>')
+                .append('<a>'+
+                    '<span class="group">'+
+                        '<img class="portrait" src="'+getUserPortrait(item.data.id)+'" />'+
+                    '</span>'+
+                    '<span class="group">'+
+                        '<div class="name">'+item.data.first_name+' '+item.data.last_name+'</div>'+
+                        '<div class="email">'+item.data.email+'</div>'+
+                    '</span>'+
+                    '<span class="group" style="float:right;">'+
+                        '<i class="fa fa-check-circle" '+(item.isFriends ? 'style="display:none;"' : '')+'></i>'+
+                    '</span>'+
+                '</a>')
+                .appendTo(ul);
+        };
+    });
+};
 Template.socialPage.events({
     // ...
 });
 Template.socialPage.helpers({
     hasFriends: function(){
         return hasFriends();
+    },
+    isFriendProfile: function() {
+        return Session.get('friendProfile');
+    },
+    title: function(){
+        if (Session.get('friendProfile')) {
+            return Session.get('friendProfile').first_name + "'s Profile";
+        } else {
+            return "My Friends";
+        }
+    },
+    firstName: function(){
+        var profile = Session.get('friendProfile');
+        return profile.first_name;
     }
 });
 //====================================================================================
@@ -271,7 +344,7 @@ Template.socialPage.helpers({
 Template.statisticsPage.rendered = function(){
     hideLoadingScreen();
     $('#statisticsPage').css({opacity:0}).stop().animate({opacity:1},500);
-}
+};
 Template.statisticsPage.events({
     'mouseover .redirect-btn': function(e) {
         var el = $(e.target);
@@ -301,7 +374,7 @@ Template.adminPage.rendered = function(){
     Meteor.call('getAdminData', function(err,data){
         Session.set('adminData',data);
     });
-}
+};
 Template.adminPage.events({
     'mouseover .button': function(e) {
         var el = $(e.target);
@@ -455,7 +528,7 @@ Template.infoBar.created = function(){
 
     // select the Overview subpage by default
     InfoBar.selectSubpage('overview');
-}
+};
 Template.infoBar.events({
     'mouseover .close-btn': function(e) {
         var el = $(e.currentTarget);
@@ -517,7 +590,7 @@ Template.overviewSubpage.created = function(){
     // destroy any previously created plot plugin
     var plot = $('#overviewSubpage .plot');
     plot.trigger('destroy');
-}
+};
 Template.overviewSubpage.rendered = function(){
     var subpage = $('#overviewSubpage'),
         poster = $('.poster',subpage),
@@ -600,7 +673,7 @@ Template.overviewSubpage.helpers({
         var data = Session.get('infoBarData');
         if (!data || !data.runningTime) return null;
 
-        var num = parseInt(data.runningTime);
+        var num = parseInt(data.runningTime,10);
         return isNaN(num) ? data.runningTime.capitalize() : num + ' minutes';
     },
     showStatus: function() {
@@ -630,7 +703,7 @@ Template.overviewSubpage.helpers({
     numEpisodes: function() {
         var data = Session.get('infoBarData'),
             subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
-            
+
         if (!data || data.numEpisodes === null) return null;
 
         if (subscription && subscription.episodes !== null) {
@@ -820,7 +893,7 @@ Template.activitySubpage.events({
             star.removeClass('fa-star').removeClass('fa-star-o');
             (i <= subscription.rating)
                 ? star.addClass('fa-star')
-                : star.addClass('fa-star-o')
+                : star.addClass('fa-star-o');
         }
     },
     'click .star': function(e){
@@ -1168,6 +1241,18 @@ function getTypeStr(type) {
         case 'movie': return 'Movie';
         default: return type.capitalize();
     }
+}
+/**
+ * Returns the Facebook portrait URL given the user's facebook user ID.
+ *
+ * @method getUserPortrait
+ * @param fb_uid {Number} The user facebook id.
+ * @param options {Object} The dimensions of the facebook portrait.
+ * @return {String} The portrait URL. 
+ */
+function getUserPortrait(fb_uid, options) {
+    var settings = $.extend({width:150,height:150},options);
+    return 'https://graph.facebook.com/'+fb_uid+'/picture?width='+settings.width+'&height='+settings.height;
 }
 /**
  * Determines whether or not a given anime type possesses episodes.

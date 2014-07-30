@@ -185,19 +185,31 @@
 <!--==========================================================================-->
 <template name='socialPage'>
 <div id='socialPage' class='page'>
-    {{#if hasFriends}}
-    <h1>My Statistics</h1>
-    statistics page
-    {{else}}
-    <div class='empty-message'>
-        <div class='valigner'>
-            <p>
-            You don't have any friends on Anigiri yet.<br/>
-            <span class='accent'>Start sharing your favourite animes now!</span>
-            </p>
-            <div class='redirect-btn bigbtn'>Add Friends</div>
+
+    <h1>
+        <span>{{{title}}}</span>
+        <div id='friendSearchBar'>
+            <i class='fa fa-search'></i>
+            <input id='friendSearchInput' type='text' placeholder='Search for a user...' />
         </div>
-    </div>
+    </h1>
+
+
+    {{#if isFriendProfile}}
+    <span>{{firstName}}'s Profile</span>
+    {{else}}
+        {{#if hasFriends}}
+        SOCIAL PAGE: LIST ALL FRIENDS HERE
+        {{else}}
+        <div class='empty-message'>
+            <div class='valigner'>
+                <p>
+                You don't have any friends on Anigiri yet.<br/>
+                <span class='accent'>Start sharing your favourite animes now!</span>
+                </p>
+            </div>
+        </div>
+        {{/if}}
     {{/if}}
 </div>
 </template>

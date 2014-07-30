@@ -174,7 +174,8 @@ html, body {
 /**
  * SEARCHBAR
  */
-#searchBar {
+#searchBar,
+#friendSearchBar {
     box-sizing: border-box;
     border: solid 1px #4A4C5C;
     margin: 0 auto;
@@ -184,10 +185,12 @@ html, body {
     line-height: 29px;
     padding: 0px 8px;
 }
-#searchBar i {
+#searchBar i,
+#friendSearchBar i {
     margin-right: 4px;
 }
-#searchBar input {
+#searchBar input,
+#friendSearchBar input {
     width: 132px;
     height: 16px;
     line-height: 17px;
@@ -202,6 +205,14 @@ html, body {
 #searchInput::-webkit-input-placeholder { color: #7a7a7a; }
 #searchInput:-moz-placeholder { color: #7a7a7a; }
 #searchInput:-ms-input-placeholder { color: #7a7a7a; }
+
+#friendSearchInput::-webkit-input-placeholder { color: #7a7a7a; }
+#friendSearchInput:-moz-placeholder { color: #7a7a7a; }
+#friendSearchInput:-ms-input-placeholder { color: #7a7a7a; }
+
+#friendSearchBar input {
+    color: #000;
+}
 
 /** AUTOCOMPLETE **/
 .ui-autocomplete {
@@ -234,17 +245,39 @@ html, body {
     background-color: #383A4E;
     color: #fff;
 }
-.ui-menu-item .label {
-    width: 100%;
+.ui-menu-item a {
+    overflow: hidden;
+}
+.ui-menu-item .group {
+    display: inline-block;
+}
+.ui-menu-item .portrait {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    vertical-align: bottom;
+    margin-right: 12px;
+}
+.ui-menu-item .label,
+.ui-menu-item .name {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.ui-menu-item .type {
+.ui-menu-item .type,
+.ui-menu-item .email {
     color: #585A70;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 400;
+}
+.ui-menu-item .email {
+    text-transform: none;
+}
+.ui-menu-item .fa-check-circle {
+    color: #4de042;
+    font-size: 18px;
+    margin-top: 12px;
 }
 
 /** ACCOUNT **/
@@ -374,7 +407,18 @@ html, body {
 /** ... **/
 
 /** SOCIAL PAGE **/
-/** ... **/
+#socialPage h1 {
+    overflow: hidden;
+}
+#socialPage h1 span {
+    float: left;
+}
+#socialPage h1 #friendSearchBar {
+    float: right;
+    font-size: 13px;
+    margin-top: 16px;
+    line-height: 34px;
+}
 
 /** STATISTICS PAGE **/
 /** ... **/
