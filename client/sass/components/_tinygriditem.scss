@@ -1,66 +1,66 @@
 .tinyGridItem {
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    line-height: 1.3em;
-    margin-right: -4px;
-    text-align: left;
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	line-height: 1.3em;
+	margin-right: -4px;
+	text-align: left;
 
-    .cover {
-        @include box-sizing;
-        overflow: hidden;
-        width: 139px;
-        height: 200px;
+	.cover {
+		@include box-sizing;
+		overflow: hidden;
+		width: 139px;
+		height: 200px;
 
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-    .hoverTarget,
-    .maskcontent,
-    .mask {
-        position: absolute;
-        display: none;
-        background: #000;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        height: 100%;        
-    }
-    .maskcontent,
-    .hoverTarget {
-        display: block;
-        background: transparent;
-    }
-    .maskcontent {
-        height: auto;
-        padding: 12px;
-        bottom: -200px;
-        color: #D4D6E0;
-    }
-    .title {
-        width: 120px;
-        @include truncated-text;
-        font-family: Arial;
-        font-weight: bold;
-        color: #fff;
-    }
-    .episodes {
-        span {
-            color: #B8BBD1;
-        }
-    }
-    .rating {
-        .star {
-            margin-right: 2px;
-        }
-        .fa-star {
-            color: #DAC31A;
-            &.unfilled {
-                color: #CCCDCE;
-            }
-        }
-    }
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.hoverTarget,
+	.maskcontent,
+	.mask {
+		position: absolute;
+		display: none;
+		background: #000;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		height: 100%;		
+	}
+	.maskcontent,
+	.hoverTarget {
+		display: block;
+		background: transparent;
+	}
+	.maskcontent {
+		height: auto;
+		padding: 12px;
+		bottom: -200px;
+		color: #D4D6E0;
+	}
+	.title {
+		width: 120px;
+		@include truncated-text;
+		font-family: Arial;
+		font-weight: bold;
+		color: #fff;
+	}
+	.episodes {
+		span {
+			color: #B8BBD1;
+		}
+	}
+	.rating {
+		.star {
+			margin-right: 2px;
+		}
+		.fa-star {
+			color: #DAC31A;
+			&.unfilled {
+				color: #CCCDCE;
+			}
+		}
+	}
 }

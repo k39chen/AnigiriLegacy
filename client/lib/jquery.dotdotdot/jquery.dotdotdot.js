@@ -98,7 +98,7 @@
 					if ( conf.afterElement )
 					{
 						after = conf.afterElement.clone( true );
-					    after.show();
+						after.show();
 						conf.afterElement.detach();
 					}
 

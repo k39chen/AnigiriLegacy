@@ -1,23 +1,23 @@
 .subpage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    color: #A2A4B5;
-    padding: 12px 24px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	color: #A2A4B5;
+	padding: 12px 24px;
 
-    .empty-message {
-        line-height: 1.5em;
-        color: #6F6F86;
+	.empty-message {
+		line-height: 1.5em;
+		color: #6F6F86;
 
-        p {
-            margin-bottom: 1.5em;
-            font-size: 14px;
-        }
-        .accent {
-            color: #C6C6E7;
-            font-size: 14px;
-        }
-    }
+		p {
+			margin-bottom: 1.5em;
+			font-size: 14px;
+		}
+		.accent {
+			color: #C6C6E7;
+			font-size: 14px;
+		}
+	}
 }

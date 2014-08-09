@@ -1,31 +1,31 @@
 #searchBar,
 #friendSearchBar {
-    @include box-sizing;
-    border: solid 1px #4A4C5C;
-    margin: 0 auto;
-    margin-top: 24px;
-    width: 184px;
-    height: 32px;
-    line-height: 29px;
-    padding: 0px 8px;
+	@include box-sizing;
+	border: solid 1px #4A4C5C;
+	margin: 0 auto;
+	margin-top: 24px;
+	width: 184px;
+	height: 32px;
+	line-height: 29px;
+	padding: 0px 8px;
 
-    i {
-        margin-right: 4px;
-    }
-    input {
-        width: 132px;
-        height: 16px;
-        line-height: 17px;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        color: #fff;
-        font: {
-            family: HelveticaNeue, Helvetica, Arial;
-            weight: 300;
-            size: $fontSize;
-        }
-    }
+	i {
+		margin-right: 4px;
+	}
+	input {
+		width: 132px;
+		height: 16px;
+		line-height: 17px;
+		border: none;
+		outline: none;
+		background-color: transparent;
+		color: #fff;
+		font: {
+			family: HelveticaNeue, Helvetica, Arial;
+			weight: 300;
+			size: $fontSize;
+		}
+	}
 }
 $placeholderColor: #7a7a7a;
 #searchInput::-webkit-input-placeholder { color: $placeholderColor; }
@@ -37,73 +37,73 @@ $placeholderColor: #7a7a7a;
 #friendSearchInput:-ms-input-placeholder { color: $placeholderColor; }
 
 #friendSearchBar {
-    input {
-        color: #000;
-    }
+	input {
+		color: #000;
+	}
 }
 
 // autocomplete
 .ui-autocomplete {
-    max-height: 400px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border: none;
-    border-radius: 0px;
-    margin: 0;
-    padding: 0;
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border: none;
+	border-radius: 0px;
+	margin: 0;
+	padding: 0;
 }
 .ui-menu-item {
-    background-color: #2A2C3C;
-    color: #fff;
-    border-top: solid 1px #343646;
-    border-bottom: solid 1px #1A232E;
+	background-color: #2A2C3C;
+	color: #fff;
+	border-top: solid 1px #343646;
+	border-bottom: solid 1px #1A232E;
 }
 .ui-menu-item > a {
-    font-family: HelveticaNeue, Helvetica,Arial;
-    font-weight: 300 !important;
-    cursor: pointer;
-    border-radius: 0px;
-    color: #A2A4B5;
-    padding: 8px 16px !important;
+	font-family: HelveticaNeue, Helvetica,Arial;
+	font-weight: 300 !important;
+	cursor: pointer;
+	border-radius: 0px;
+	color: #A2A4B5;
+	padding: 8px 16px !important;
 }
 .ui-menu-item > a.ui-state-active,
 .ui-menu-item > a.ui-state-focus,
 .ui-menu-item > a.ui-state-hover {
-    border: solid 1px transparent;
-    background-color: #383A4E;
-    color: #fff;
+	border: solid 1px transparent;
+	background-color: #383A4E;
+	color: #fff;
 }
 .ui-menu-item a {
-    overflow: hidden;
+	overflow: hidden;
 }
 .ui-menu-item .group {
-    display: inline-block;
+	display: inline-block;
 }
 .ui-menu-item .portrait {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    vertical-align: bottom;
-    margin-right: 12px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	vertical-align: bottom;
+	margin-right: 12px;
 }
 .ui-menu-item .label,
 .ui-menu-item .name {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .ui-menu-item .type,
 .ui-menu-item .email {
-    color: #585A70;
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 400;
+	color: #585A70;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 400;
 }
 .ui-menu-item .email {
-    text-transform: none;
+	text-transform: none;
 }
 .ui-menu-item .fa-check-circle {
-    color: #4de042;
-    font-size: 18px;
-    margin-top: 12px;
+	color: #4de042;
+	font-size: 18px;
+	margin-top: 12px;
 }

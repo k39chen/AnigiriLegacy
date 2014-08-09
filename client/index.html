@@ -6,10 +6,23 @@
 </head>
 
 <body>
-    {{#if currentUser}}
-        {{> userScreen}}
-    {{else}}
-        {{> splashScreen}}
-    {{/if}}
-    {{> loadingScreen}}
+	{{#if currentUser}}
+		{{> userScreen}}
+	{{else}}
+		{{> splashScreen}}
+	{{/if}}
+	{{> loadingScreen}}
 </body>
+<!--
+<template name="home">
+	I am home
+
+	<a href="{{pathFor 'about'}}">About</a>
+</template>
+<template name="about">
+	I am about
+
+
+	<a href="{{pathFor 'home'}}">Home</a>
+</template>
+-->

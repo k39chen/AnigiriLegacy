@@ -1,44 +1,44 @@
 <template name='dashboardPage'>
 <div id='dashboardPage' class='page'>
-    {{#if hasSubscriptions}}
-    <h1>My Dashboard</h1>
-    <div id='dashboardSubscriptions'>
-        <div class='section'>
-            <h2>Currently Watching <span class='counter'>({{countCurrentlyWatching}})</span></h2>
-            <div class='content'>
-                {{#if hasCurrentlyWatching}}
-                    <div class='gridContainer'>
-                    {{#each getCurrentlyWatching}}
-                        {{> tinyGridItem this}}
-                    {{/each}}
-                    </div>
-                {{else}}
-                <div class='empty-message'>
-                    <div class='valigner'>
-                        You're not currently watching any animes.
-                    </div>
-                </div>
-                {{/if}}
-            </div>
-        </div>
-        <!--
-        Unwatched episodes of animes that you are currently following
-        Recommendations given to you by your friends
-        Your top rated animes
-        Currently active animes
-        -->
-    </div>
-    {{else}}
-    <div class='welcome-message'>
-        <div class='valigner'>
-            <img class='logo' src='assets/onigiri.png' />
-            <div class='title'>Welcome to Anigiri, <span>{{userFirstName}}</span>!</div>
-            <p>
-                Start subscribing to anime to begin tracking and sharing your watching experience.<br/>
-            </p>
-            <div class='redirect-btn bigbtn'>Start Now</div>
-        </div>
-    </div>
-    {{/if}}
+	{{#if hasSubscriptions}}
+	<h1>My Dashboard</h1>
+	<div id='dashboardSubscriptions'>
+		<div class='section'>
+			<h2>Currently Watching <span class='counter'>({{countCurrentlyWatching}})</span></h2>
+			<div class='content'>
+				{{#if hasCurrentlyWatching}}
+					<div class='gridContainer'>
+					{{#each getCurrentlyWatching}}
+						{{> tinyGridItem this}}
+					{{/each}}
+					</div>
+				{{else}}
+				<div class='empty-message'>
+					<div class='valigner'>
+						You're not currently watching any animes.
+					</div>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+		<!--
+		Unwatched episodes of animes that you are currently following
+		Recommendations given to you by your friends
+		Your top rated animes
+		Currently active animes
+		-->
+	</div>
+	{{else}}
+	<div class='welcome-message'>
+		<div class='valigner'>
+			<img class='logo' src='assets/onigiri.png' />
+			<div class='title'>Welcome to Anigiri, <span>{{userFirstName}}</span>!</div>
+			<p>
+				Start subscribing to anime to begin tracking and sharing your watching experience.<br/>
+			</p>
+			<div class='redirect-btn bigbtn'>Start Now</div>
+		</div>
+	</div>
+	{{/if}}
 </div>
 </template>

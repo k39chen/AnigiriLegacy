@@ -1,73 +1,73 @@
 <template name='overviewSubpage'>
 <div id='overviewSubpage' class='subpage'>
 {{#with getAnimeData}}
-    <div class='top'>
-        {{#if isSubscribed}}
-        <i class='subscribed fa fa-bookmark'></i>
-        {{/if}}
-        {{#if poster}}
-        <img class='poster' src='{{poster}}' />
-        {{/if}}
-        <div class='primInfo'>
-            {{#if startDate}}
-            <div class='field'>
-                <span class='label'>{{startDateLabel}}</span>
-                <span class='value'>{{startDate}}</span>
-            </div>
-            {{/if}}
-            {{#if endDate}}
-            <div class='field'>
-                <span class='label'>Ended On</span>
-                <span class='value'>{{endDate}}</span>
-            </div>
-            {{/if}}
-            {{#if showStatus}}
-            <div class='field'>
-                <span class='label'>Status</span>
-                <span class='value'>{{status}}</span>
-            </div>
-            {{/if}}
-            {{#if showEpisodes}}
-            <div class='field'>
-                <span class='label'>Episodes</span>
-                <span class='value'>{{{numEpisodes}}}</span>
-            </div>
-            {{/if}}
-            {{#if runningTime}}
-            <div class='field'>
-                <span class='label'>Length</span>
-                <span class='value'>{{runningTime}}</span>
-            </div>
-            {{/if}}
-            {{#if isSubscribed}}
-            <div class='field'>
-                <span class='label'>Progress</span>
-                <span class='value'>{{{progress}}}</span>
-            </div>
-            <div class='field'>
-                <span class='label'>Rating</span>
-                <span class='value'><span class='rating'>{{{rating}}}</span></span>
-            </div>
-            {{/if}}
-        </div>
-    </div>
-    {{#if plot}}
-    <div class='plot'>
-        {{plot}}
-    </div>
-    {{/if}}
-    {{#if genres}}
-    <div class='genres'>
-        <div class='title'>Genres</div>
-        <div class='list'>{{genres}}</div>
-    </div>
-    {{/if}}
-    {{#if themes}}
-    <div class='themes'>
-        <div class='title'>Themes</div>
-        <div class='list'>{{themes}}</div>
-    </div>
-    {{/if}}
+	<div class='top'>
+		{{#if isSubscribed}}
+		<i class='subscribed fa fa-bookmark'></i>
+		{{/if}}
+		{{#if poster}}
+		<img class='poster' src='{{poster}}' />
+		{{/if}}
+		<div class='primInfo'>
+			{{#if startDate}}
+			<div class='field'>
+				<span class='label'>{{startDateLabel}}</span>
+				<span class='value'>{{startDate}}</span>
+			</div>
+			{{/if}}
+			{{#if endDate}}
+			<div class='field'>
+				<span class='label'>Ended On</span>
+				<span class='value'>{{endDate}}</span>
+			</div>
+			{{/if}}
+			{{#if showStatus}}
+			<div class='field'>
+				<span class='label'>Status</span>
+				<span class='value'>{{status}}</span>
+			</div>
+			{{/if}}
+			{{#if showEpisodes}}
+			<div class='field'>
+				<span class='label'>Episodes</span>
+				<span class='value'>{{{numEpisodes}}}</span>
+			</div>
+			{{/if}}
+			{{#if runningTime}}
+			<div class='field'>
+				<span class='label'>Length</span>
+				<span class='value'>{{runningTime}}</span>
+			</div>
+			{{/if}}
+			{{#if isSubscribed}}
+			<div class='field'>
+				<span class='label'>Progress</span>
+				<span class='value'>{{{progress}}}</span>
+			</div>
+			<div class='field'>
+				<span class='label'>Rating</span>
+				<span class='value'><span class='rating'>{{{rating}}}</span></span>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+	{{#if plot}}
+	<div class='plot'>
+		{{plot}}
+	</div>
+	{{/if}}
+	{{#if genres}}
+	<div class='genres'>
+		<div class='title'>Genres</div>
+		<div class='list'>{{genres}}</div>
+	</div>
+	{{/if}}
+	{{#if themes}}
+	<div class='themes'>
+		<div class='title'>Themes</div>
+		<div class='list'>{{themes}}</div>
+	</div>
+	{{/if}}
 {{/with}}
 </div>
 </template>

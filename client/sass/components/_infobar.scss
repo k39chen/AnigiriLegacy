@@ -1,84 +1,84 @@
 #infoBar {
-    position: fixed;
-    top: 0px;
-    right: -340px;
-    bottom: 0px;
-    width: 340px;
-    background-color: #2A2C3C;
+	position: fixed;
+	top: 0px;
+	right: -340px;
+	bottom: 0px;
+	width: 340px;
+	background-color: #2A2C3C;
 
-    .header {
-        @include box-sizing;
-        padding: 12px 24px;
-        overflow: hidden;
-        height: 64px;
-        background-color: #212330;
-    }
-    .left {
-        float: left;
-    }
-    .right {
-        float: right;
-    }
-    .header {
-        .title {
-            width: 256px;
-            @include truncated-text;
-            color: #A2A4B5;
-            font-size: 1.2em;
-            line-height: 1.6em;
-        }
-        .type {
-            color: #585A70;
-            text-transform: uppercase;
-            font-size: 11px;
-            line-height: 1.4em;
-            font-weight: 400;
-        }
-    }
-    .close-btn {
-        cursor: pointer;
-        font-size: 2.0em;
-        color: #454653;
-        line-height: 40px;
+	.header {
+		@include box-sizing;
+		padding: 12px 24px;
+		overflow: hidden;
+		height: 64px;
+		background-color: #212330;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.header {
+		.title {
+			width: 256px;
+			@include truncated-text;
+			color: #A2A4B5;
+			font-size: 1.2em;
+			line-height: 1.6em;
+		}
+		.type {
+			color: #585A70;
+			text-transform: uppercase;
+			font-size: 11px;
+			line-height: 1.4em;
+			font-weight: 400;
+		}
+	}
+	.close-btn {
+		cursor: pointer;
+		font-size: 2.0em;
+		color: #454653;
+		line-height: 40px;
 
-        &.hover {
-            color: #5C5F6F;
-        }
-    }
-    #navbar {
-        text-align: center;
-        @include box-sizing;
-        height: 51px;
-        padding: 12px 0px;
-        border-bottom: solid 1px #414346;
+		&.hover {
+			color: #5C5F6F;
+		}
+	}
+	#navbar {
+		text-align: center;
+		@include box-sizing;
+		height: 51px;
+		padding: 12px 0px;
+		border-bottom: solid 1px #414346;
 
-        .navitem {
-            cursor: pointer;
-            display: inline-block;
-            color: #A2A4B5;
-            width: 72px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 16px;
+		.navitem {
+			cursor: pointer;
+			display: inline-block;
+			color: #A2A4B5;
+			width: 72px;
+			height: 24px;
+			line-height: 24px;
+			border-radius: 16px;
 
-            &.hover {
-                background-color: #383A4E;
-                color: #fff;
-            }
-            &.selected {
-                background-color: #f53b5b;
-                color: #fff;
-            }
-        }
-    }
-    .body {
-        position: fixed;
-        overflow-x: hidden;
-        overflow-y: auto;
-        @include box-sizing;
-        top: 115px;
-        right: -340px;
-        bottom: 0px;
-        width: 340px;
-    }
+			&.hover {
+				background-color: #383A4E;
+				color: #fff;
+			}
+			&.selected {
+				background-color: #f53b5b;
+				color: #fff;
+			}
+		}
+	}
+	.body {
+		position: fixed;
+		overflow-x: hidden;
+		overflow-y: auto;
+		@include box-sizing;
+		top: 115px;
+		right: -340px;
+		bottom: 0px;
+		width: 340px;
+	}
 }
