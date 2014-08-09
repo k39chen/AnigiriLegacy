@@ -1,7 +1,6 @@
-
 #searchBar,
 #friendSearchBar {
-    box-sizing: border-box;
+    @include box-sizing;
     border: solid 1px #4A4C5C;
     margin: 0 auto;
     margin-top: 24px;
@@ -9,34 +8,38 @@
     height: 32px;
     line-height: 29px;
     padding: 0px 8px;
-}
-#searchBar i,
-#friendSearchBar i {
-    margin-right: 4px;
-}
-#searchBar input,
-#friendSearchBar input {
-    width: 132px;
-    height: 16px;
-    line-height: 17px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    font-family: HelveticaNeue, Helvetica, Arial;
-    font-weight: 300;
-    font-size: $fontSize;
-    color: #fff;
-}
-#searchInput::-webkit-input-placeholder { color: #7a7a7a; }
-#searchInput:-moz-placeholder { color: #7a7a7a; }
-#searchInput:-ms-input-placeholder { color: #7a7a7a; }
 
-#friendSearchInput::-webkit-input-placeholder { color: #7a7a7a; }
-#friendSearchInput:-moz-placeholder { color: #7a7a7a; }
-#friendSearchInput:-ms-input-placeholder { color: #7a7a7a; }
+    i {
+        margin-right: 4px;
+    }
+    input {
+        width: 132px;
+        height: 16px;
+        line-height: 17px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: #fff;
+        font: {
+            family: HelveticaNeue, Helvetica, Arial;
+            weight: 300;
+            size: $fontSize;
+        }
+    }
+}
+$placeholderColor: #7a7a7a;
+#searchInput::-webkit-input-placeholder { color: $placeholderColor; }
+#searchInput:-moz-placeholder { color: $placeholderColor; }
+#searchInput:-ms-input-placeholder { color: $placeholderColor; }
 
-#friendSearchBar input {
-    color: #000;
+#friendSearchInput::-webkit-input-placeholder { color: $placeholderColor; }
+#friendSearchInput:-moz-placeholder { color: $placeholderColor; }
+#friendSearchInput:-ms-input-placeholder { color: $placeholderColor; }
+
+#friendSearchBar {
+    input {
+        color: #000;
+    }
 }
 
 // autocomplete

@@ -1,0 +1,28 @@
+/**
+ * Include this, but you will need to specify a discrete width value.
+ *
+ * @mixin truncated-text
+ */
+@mixin truncated-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/**
+ * @mixin box-sizing
+ */
+@mixin box-sizing($value: border-box) {
+	-webkit-box-sizing: $value; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: $value;    /* Firefox, other Gecko */
+	box-sizing: $value;         /* Opera/IE 8+ */
+}
+/**
+ * @mixin user-select
+ */
+@mixin user-select($value: none) {
+    -ms-user-select: $value;
+    -moz-user-select: -moz-$value;
+    -khtml-user-select: $value;
+    -webkit-user-select: $value;
+    user-select: $value;
+}

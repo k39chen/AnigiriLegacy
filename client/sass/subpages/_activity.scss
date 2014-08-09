@@ -1,127 +1,132 @@
-#activitySubpage .subscribe-btn {
-    cursor: pointer;
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #f53b5b;
-    color: #fff;
-    border-radius: 24px;
-}
-#activitySubpage .subscribe-btn.hover {
-    background-color: #f8738a;
-}
-#activitySubpage .section {
-    margin-bottom: 24px;
-}
-#activitySubpage .section h1 {
-    color: #585A70;
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 400;
-    margin-bottom: 4px;
-}
-#activitySubpage .section .content {
-    overflow: hidden;
-}
-#activitySubpage .progress {
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    line-height: 24px;
-    width: 94px;
-    margin-right: 2px;
-    text-align: center;
-    background-color: #212330;
-    margin-bottom: 4px;
-    border-radius: 32px;
-}
-#activitySubpage .progress.hover {
-    opacity: 0.7;
-}
-#activitySubpage .progress.selected {
-    opacity: 1.0;
-}
-#activitySubpage .progress.hover,
-#activitySubpage .progress.selected {
-    color: #fff;
-}
-#activitySubpage .progress[data-progress=backlogged].hover,
-#activitySubpage .progress[data-progress=backlogged].selected {
-    background-color: #DF5EDA;
-}
-#activitySubpage .progress[data-progress=watching].hover,
-#activitySubpage .progress[data-progress=watching].selected {
-    background-color: #5EB6DF;
-}
-#activitySubpage .progress[data-progress=onhold].hover,
-#activitySubpage .progress[data-progress=onhold].selected {
-    background-color: #DFD55E;
-}
-#activitySubpage .progress[data-progress=finished].hover,
-#activitySubpage .progress[data-progress=finished].selected {
-    background-color: #5EDF6E;
-}
-#activitySubpage .progress[data-progress=abandoned].hover,
-#activitySubpage .progress[data-progress=abandoned].selected {
-    background-color: #DF5E5E;
-}
-#activitySubpage .episodeControls {
-    float: left;
-    margin-right: 12px;
-}
-#activitySubpage .epCountControl {
-    cursor: pointer;
-    font-size: 28px;
-    color: #454653;
-    -ms-user-select: none; /* IE 10+ */
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-#activitySubpage .epCountUp.hover,
-#activitySubpage .epCountDown.hover {
-    color: #5C5F6F;
-}
-#activitySubpage .episodeCount {
-    float: left;
-    font-size: 32px !important;
-    height: 32px;
-    line-height: 32px;
-    font-size: 12px;
-    color: #5A6088;
-}
-#activitySubpage .currEpisode {
-    font-weight: 200;
-    color: #C6C6E7;
-}
-#activitySubpage .maxEpisodes {
-    font-size: $fontSize !important;
-}
-#activitySubpage .star {
-    cursor: pointer;
-    font-size: 24px;
-    margin-right: 2px;
-}
-#activitySubpage .fa-star-o {
-    color: #7a7a7a;
-}
-#activitySubpage .fa-star {
-    color: #DAC31A;
-}
-#activitySubpage .unsubscribe-btn {
-    cursor: pointer;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    text-align: center;
-    display: inline-block;
-    height: 32px;
-    line-height: 32px;
-    background-color: #3B3E50;
-    color: #97A5BE;   
-}
-#activitySubpage .unsubscribe-btn.hover {
-    background-color: #E21D3F;
-    color: #fff;
+#activitySubpage {
+    .subscribe-btn {
+        cursor: pointer;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f53b5b;
+        color: #fff;
+        border-radius: 24px;
+
+        &.hover {
+            background-color: #f8738a;
+        }
+    }
+    .unsubscribe-btn {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        text-align: center;
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        background-color: #3B3E50;
+        color: #97A5BE;   
+
+        &.hover {
+            background-color: #E21D3F;
+            color: #fff;
+        }
+    }
+    .section {
+        margin-bottom: 24px;
+
+        h1 {
+            color: #585A70;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+        .content {
+            overflow: hidden;
+
+            .progress {
+                cursor: pointer;
+                display: inline-block;
+                height: 24px;
+                line-height: 24px;
+                width: 94px;
+                margin-right: 2px;
+                text-align: center;
+                background-color: #212330;
+                margin-bottom: 4px;
+                border-radius: 32px;
+
+                &.hover {
+                    opacity: 0.7;
+                    color: #fff;
+                }
+                &.selected {
+                    opacity: 1.0;
+                    color: #fff;
+                }
+            }
+            .progress[data-progress=backlogged].hover,
+            .progress[data-progress=backlogged].selected {
+                background-color: $colorBacklogged;
+            }
+            .progress[data-progress=watching].hover,
+            .progress[data-progress=watching].selected {
+                background-color: $colorWatching;
+            }
+            .progress[data-progress=onhold].hover,
+            .progress[data-progress=onhold].selected {
+                background-color: $colorOnHold;
+            }
+            .progress[data-progress=finished].hover,
+            .progress[data-progress=finished].selected {
+                background-color: $colorFinished;
+            }
+            .progress[data-progress=abandoned].hover,
+            .progress[data-progress=abandoned].selected {
+                background-color: $colorAbandoned;
+            }
+            .episodeControls {
+                float: left;
+                margin-right: 12px;
+
+                .epCountControl {
+                    cursor: pointer;
+                    font-size: 28px;
+                    color: #454653;
+                    @include user-select;
+
+                    &.hover {
+                        color: #5C5F6F;
+                    }
+                }
+            }
+            .episodeCount {
+                float: left;
+                font-size: 32px !important;
+                height: 32px;
+                line-height: 32px;
+                font-size: 12px;
+                color: #5A6088;
+
+                .currEpisode {
+                    font-weight: 200;
+                    color: #C6C6E7;
+                }
+                .maxEpisodes {
+                    font-size: 13px !important;
+                }
+            }
+            .star {
+                cursor: pointer;
+                font-size: 24px;
+                margin-right: 2px;
+
+                &.fa-star-o {
+                    color: #7a7a7a;
+                }
+                &.fa-star {
+                    color: #DAC31A;
+                }
+
+            }
+        }
+    }
 }

@@ -1,20 +1,19 @@
 #splashScreen {
-
-}
-#splashScreen > .content {
-    text-align: center;
-}
-#splashScreen h1 {
-    padding-top: 20%;
-    color: #3E4956;
-    font-size: 48px;
-    line-height: 64px;
-}
-#splashScreen h2 {
-    color: #9399A3;
-    font-size: 18px;
-    margin-bottom: 48px;
-}
-#login-buttons {
-    display: none;
+	.content {
+		text-align: center;
+	}
+	h1 {
+	    padding-top: 20%;
+	    color: #3E4956;
+	    font-size: 48px;
+	    line-height: 64px;
+	}
+	h2 {
+	    color: #9399A3;
+	    font-size: 18px;
+	    margin-bottom: 48px;
+	}
+	#login-buttons {
+	    display: none;
+	}
 }

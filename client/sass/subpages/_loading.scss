@@ -1,0 +1,19 @@
+#loadingSubpage {
+    display: none;
+    position: fixed;
+    background-color: #2A2C3C;
+    top: 64px;
+    right: 0px;
+    bottom: 0px;
+    width: 340px;
+    overflow: hidden;
+    text-align: center;
+
+    img {
+        width: 132px;
+        height: 132px;
+        border: solid 12px #414857;
+        border-radius: 50%;
+        margin: 25% auto;
+    }
+}
