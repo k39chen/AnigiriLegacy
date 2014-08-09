@@ -1,6 +1,10 @@
 Template.adminPage.rendered = function(){
-	hideLoadingScreen();
+	// fade in the page
 	$('#adminPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+	// update the sidebar
+	$('#sideBar .option').removeClass("selected");
+	$('#sideBar .option[data-page="admin"]').addClass("selected");
 
 	Meteor.call('getAdminData', function(err,data){
 		Session.set('adminData',data);

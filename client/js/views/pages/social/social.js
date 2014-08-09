@@ -1,6 +1,10 @@
 Template.socialPage.rendered = function(){
-	hideLoadingScreen();
+	// fade in the page
 	$('#socialPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+	// update the sidebar
+	$('#sideBar .option').removeClass("selected");
+	$('#sideBar .option[data-page="social"]').addClass("selected");
 
 	// retrieve all the anime titles
 	var results = Meteor.call('getUsers', function(err,data){
@@ -23,9 +27,6 @@ Template.socialPage.rendered = function(){
 			else if (nameA > nameB) return 1;
 			return 0;
 		});
-
-		console.log( $("#friendSearchInput").length );
-
 		// we will now initialize it as an autocomplete searchbar
 		$('#friendSearchInput').autocomplete({
 			minLength: 1,

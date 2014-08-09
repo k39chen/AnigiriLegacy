@@ -1,42 +1,4 @@
 /**
- * Shows the loading screen overlay.
- *
- * @method showLoadingScreen
- */
-window.showLoadingScreen = function() {
-	$('#loadingScreen').css({display:'block',opacity:0}).stop().animate({opacity:0.8},500);
-};
-/**
- * Hides the loading screen overlay.
- *
- * @method hideLoadingScreen
- */
-window.hideLoadingScreen = function() {
-	$('#loadingScreen').css({display:'block',opacity:0.8}).stop().animate({opacity:0},500,function(){
-		$(this).css({display:'none'});
-	});
-};
-/**
- * Updates all the visual dependencies for page changing and then queues the associated
- * page for the appropriate data load.
- *
- * @method selectPage
- * @param page {String} The page identifier.
- */
-window.selectPage = function(page) {
-	if (Session.get('page') == page) return;
-
-	// update the selected visual for the sidebar
-	$('#sideBar .option').removeClass('selected');
-	$('#sideBar .option[data-page="'+page+'"]').addClass('selected');
-
-	// show the loading screen as we try to load the data
-	showLoadingScreen();
-
-	// update the session variable for the page
-	Session.set('page',page);
-};
-/**
  * Gets a human-readable version of anime progress strings.
  *
  * @method getTypeStr

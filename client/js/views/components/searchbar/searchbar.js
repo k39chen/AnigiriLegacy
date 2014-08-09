@@ -32,14 +32,16 @@ Template.searchBar.rendered = function(){
 				InfoBar.init(ui.item.data.annId);
 			}
 		});
-		$('#searchInput').data('ui-autocomplete')._renderItem = function(ul,item){
-			return $('<li>')
-				.append('<a>'+
-					'<div class="label">'+item.label+'</div>'+
-					'<div class="type">'+getTypeStr(item.type)+'</div>'+
-				'</a>')
-				.appendTo(ul);
-		};
+		if ($('#searchInput').data('ui-autocomplete')) {
+			$('#searchInput').data('ui-autocomplete')._renderItem = function(ul,item){
+				return $('<li>')
+					.append('<a>'+
+						'<div class="label">'+item.label+'</div>'+
+						'<div class="type">'+getTypeStr(item.type)+'</div>'+
+					'</a>')
+					.appendTo(ul);
+			};
+		}
 	});
 };
 Template.searchBar.events({

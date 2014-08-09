@@ -12,6 +12,7 @@ Template.account.events({
 	},
 	'click #signout': function(){
 		Meteor.logout();
+		Router.go("/");
 	}
 });
 Template.account.helpers({

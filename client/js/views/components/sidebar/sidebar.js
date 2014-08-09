@@ -14,7 +14,7 @@ Template.sideBar.rendered = function(){
 		var el = $(e.currentTarget);
 
 		// select the page
-		selectPage(el.attr('data-page'));
+		Router.go("/"+el.attr('data-page'));
 	}
 });
  

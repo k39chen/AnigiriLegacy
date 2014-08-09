@@ -1,6 +1,10 @@
 Template.statisticsPage.rendered = function(){
-	hideLoadingScreen();
+	// fade in the page
 	$('#statisticsPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+	// update the sidebar
+	$('#sideBar .option').removeClass("selected");
+	$('#sideBar .option[data-page="statistics"]').addClass("selected");
 };
 Template.statisticsPage.events({
 	'mouseover .redirect-btn': function(e) {
@@ -13,7 +17,7 @@ Template.statisticsPage.events({
 	},
 	'click .redirect-btn': function(e){
 		var el = $(e.target);
-		selectPage('discover');
+		Router.go('/discover');
 	},
 });
 Template.statisticsPage.helpers({

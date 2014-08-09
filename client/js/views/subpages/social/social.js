@@ -12,7 +12,7 @@ Template.socialSubpage.events({
 		el.removeClass('hover');
 	},
 	'click .addfriends-btn': function(e){
-		selectPage('social');
+		Router.go('/social');
 	},
 });
 Template.socialSubpage.helpers({

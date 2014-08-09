@@ -1,6 +1,10 @@
 Template.collectionPage.rendered = function(){
-	hideLoadingScreen();
+	// fade in the page
 	$('#collectionPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+	// update the sidebar
+	$('#sideBar .option').removeClass("selected");
+	$('#sideBar .option[data-page="collection"]').addClass("selected");
 };
 Template.collectionPage.events({
 	'mouseover .redirect-btn': function(e) {
@@ -13,7 +17,7 @@ Template.collectionPage.events({
 	},
 	'click .redirect-btn': function(e){
 		var el = $(e.target);
-		selectPage('discover');
+		Router.go("/discover");
 	}
 });
 Template.collectionPage.helpers({

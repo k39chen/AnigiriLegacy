@@ -1,6 +1,10 @@
 Template.dashboardPage.rendered = function(){
-	hideLoadingScreen();
+	// fade in the page
 	$('#dashboardPage').css({opacity:0}).stop().animate({opacity:1},500);
+
+	// update the sidebar
+	$('#sideBar .option').removeClass("selected");
+	$('#sideBar .option[data-page="dashboard"]').addClass("selected");
 };
 Template.dashboardPage.events({
 	'mouseover .redirect-btn': function(e) {
@@ -13,7 +17,7 @@ Template.dashboardPage.events({
 	},
 	'click .redirect-btn': function(e){
 		var el = $(e.target);
-		selectPage('discover');
+		Router.go("/discover");
 	}
 });
 Template.dashboardPage.helpers({
