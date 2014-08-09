@@ -4,8 +4,8 @@
 	overflow: hidden;
 	left: 0px;
 	bottom: 0px;
-	height: 72px;
-	width: 215px;
+	height: $bottomBarHeight;
+	width: $sideBarWidth;
 	background-color: #0D1922;
 
 	#account-portrait {
@@ -36,7 +36,7 @@
 				margin-right: 0.4em;
 			}
 			&.hover {
-				color: #f8738a;
+				color: $themeColor;
 			}
 		}
 	}

@@ -14,8 +14,8 @@
 		font-size: 2.0em;
 		color: #7E9094;
 		padding: 0px 32px;
-		height: 64px;
-		line-height: 64px;
+		height: $topBarHeight;
+		line-height: $topBarHeight;
 		@include box-sizing;
 		border-bottom: solid 1px #D8DEE5;
 	}
@@ -27,7 +27,7 @@
 		font-weight: 400;
 
 		.counter {
-			color: #f8738a;
+			color: $themeColor;
 		}
 	}
 }

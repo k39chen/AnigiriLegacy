@@ -27,14 +27,14 @@ html, body {
 	cursor: pointer;
 	display: inline-block;
 	padding: 12px 24px;
-	background-color: #f53b5b;
+	background-color: $themeAlt;
 	color: #fff;
 	border-radius: 24px;
 	font-size: 24px;
 	font-weight: 200;
 }
 .bigbtn.hover {
-	background-color: #f8738a;
+	background-color: $themeColor;
 }
 .empty-message p {
 	margin-bottom: 24px;

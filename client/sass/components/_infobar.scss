@@ -1,16 +1,16 @@
 #infoBar {
 	position: fixed;
 	top: 0px;
-	right: -340px;
+	right: -$infoBarWidth;
 	bottom: 0px;
-	width: 340px;
+	width: $infoBarWidth;
 	background-color: #2A2C3C;
 
 	.header {
 		@include box-sizing;
 		padding: 12px 24px;
 		overflow: hidden;
-		height: 64px;
+		height: $topBarHeight;
 		background-color: #212330;
 	}
 	.left {
@@ -66,7 +66,7 @@
 				color: #fff;
 			}
 			&.selected {
-				background-color: #f53b5b;
+				background-color: $themeAlt;
 				color: #fff;
 			}
 		}
@@ -77,8 +77,8 @@
 		overflow-y: auto;
 		@include box-sizing;
 		top: 115px;
-		right: -340px;
+		right: -$infoBarWidth;
 		bottom: 0px;
-		width: 340px;
+		width: $infoBarWidth;
 	}
 }

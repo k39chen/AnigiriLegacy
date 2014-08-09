@@ -2,10 +2,10 @@
 	display: none;
 	position: fixed;
 	background-color: #2A2C3C;
-	top: 64px;
+	top: $topBarHeight;
 	right: 0px;
 	bottom: 0px;
-	width: 340px;
+	width: $infoBarWidth;
 	overflow: hidden;
 	text-align: center;
 
