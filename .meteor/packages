@@ -13,3 +13,4 @@ xml2js
 cheerio
 http
 email
+iron-router

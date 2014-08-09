@@ -9,6 +9,10 @@ Meteor.subscribe('userSubscriptions');
 Meteor.subscribe('songs');
 Meteor.subscribe('userFriends');
 
+Router.map(function(){
+    this.route("about");
+});
+
 //====================================================================================
 // TEMPLATE: SPLASHSCREEN
 //====================================================================================
