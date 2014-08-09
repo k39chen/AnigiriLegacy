@@ -6,7 +6,7 @@ Template.socialPage.rendered = function(){
 	$('#sideBar .option').removeClass("selected");
 	$('#sideBar .option[data-page="social"]').addClass("selected");
 
-	// retrieve all the anime titles
+	// retrieve all the users titles
 	var results = Meteor.call('getUsers', function(err,data){
 		// format the data into autocomplete accepted formats
 		var source = $.map(data, function(item){

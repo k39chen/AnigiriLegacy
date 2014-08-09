@@ -4,9 +4,9 @@ Template.profilePage.rendered = function(){
 
 	// update the sidebar
 	$('#sideBar .option').removeClass("selected");
-	$('#sideBar .option[data-page="profile"]').addClass("selected");
+	$('#sideBar .option[data-page="social"]').addClass("selected");
 
-	// retrieve all the anime titles
+	// retrieve all the users
 	var results = Meteor.call('getUsers', function(err,data){
 		// format the data into autocomplete accepted formats
 		var source = $.map(data, function(item){
