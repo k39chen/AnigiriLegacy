@@ -26,7 +26,7 @@ Router.map(function(){
 		template: 'dashboardPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"dashboardPage": {to: 'page-container'}
+			'dashboardPage': {to: 'page-container'}
 		}
 	});
 	// set up collection router
@@ -35,7 +35,7 @@ Router.map(function(){
 		template: 'collectionPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"collectionPage": {to: 'page-container'}
+			'collectionPage': {to: 'page-container'}
 		}
 	});
 	// set up discover router
@@ -44,7 +44,7 @@ Router.map(function(){
 		template: 'discoverPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"discoverPage": {to: 'page-container'}
+			'discoverPage': {to: 'page-container'}
 		}
 	});
 	// set up social router
@@ -53,7 +53,7 @@ Router.map(function(){
 		template: 'socialPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"socialPage": {to: 'page-container'}
+			'socialPage': {to: 'page-container'}
 		}
 	});
 	// set up statistics router
@@ -62,7 +62,7 @@ Router.map(function(){
 		template: 'statisticsPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"statisticsPage": {to: 'page-container'}
+			'statisticsPage': {to: 'page-container'}
 		}
 	});
 	// set up admin router
@@ -71,8 +71,25 @@ Router.map(function(){
 		template: 'adminPage',
 		layoutTemplate: 'userScreen',
 		yieldTemplates: {
-			"adminPage": {to: 'page-container'}
+			'adminPage': {to: 'page-container'}
 		}
+	});
+	// set up the profile router
+	this.route('profile', {
+		path: '/profile/:_id',
+		template: 'profilePage',
+		layoutTemplate: 'userScreen',
+		yieldTemplates: {
+			'profilePage': {to: 'page-container'}
+		},
+		data: function() {
+			return Meteor.users.findOne({_id: this.params._id});
+		}
+	});
+	// have a natural fallback
+	this.route('notFoundScreen', {
+		path: '*',
+		template: 'notFoundScreen'
 	});
 
 

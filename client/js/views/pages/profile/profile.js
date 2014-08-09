@@ -1,10 +1,10 @@
-Template.socialPage.rendered = function(){
+Template.profilePage.rendered = function(){
 	// fade in the page
-	$('#socialPage').css({opacity:0}).stop().animate({opacity:1},500);
+	$('#profilePage').css({opacity:0}).stop().animate({opacity:1},500);
 
 	// update the sidebar
 	$('#sideBar .option').removeClass("selected");
-	$('#sideBar .option[data-page="social"]').addClass("selected");
+	$('#sideBar .option[data-page="profile"]').addClass("selected");
 
 	// retrieve all the anime titles
 	var results = Meteor.call('getUsers', function(err,data){
@@ -13,7 +13,6 @@ Template.socialPage.rendered = function(){
 			var fb = item.services.facebook,
 				fullname = fb.first_name + " " + fb.last_name;
 			return {
-				_id: item._id,
 				label: fullname,
 				value: fullname,
 				data: fb,
@@ -59,15 +58,28 @@ Template.socialPage.rendered = function(){
 						'</span>'+
 					'</a>')
 					.appendTo(ul);
-			}
-		};
+			};
+		}
 	});
 };
-Template.socialPage.events({
+Template.profilePage.events({
 	// ...
 });
-Template.socialPage.helpers({
-	hasFriends: function(){
-		return hasFriends();
+Template.profilePage.helpers({
+	title: function(){
+		var self = this;
+		if (self && self.services && self.services.facebook) {
+			return self.services.facebook.first_name+"'s Profile";
+		} else {
+			return 'Random';
+		}
+	},
+	firstName: function(){
+		var self = this;
+		if (self && self.services && self.services.facebook) {
+			return self.services.facebook.first_name+"'s Profile";
+		} else {
+			return 'Random';
+		}
 	}
 });
