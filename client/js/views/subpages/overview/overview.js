@@ -16,8 +16,8 @@ Template.overviewSubpage.rendered = function(){
 
     // truncate the plot paragraph (if available)
     if (!plot.is(':empty')) {
-        if ($('a.readmore',plot).size() == 0) {
-            plot.append('<a class="readmore">[Read more]</a>')
+        if ($('a.readmore',plot).size() === 0) {
+            plot.append('<a class="readmore">[Read more]</a>');
         }
         plot.dotdotdot({
             height: 96,
@@ -34,7 +34,7 @@ Template.overviewSubpage.helpers({
         return Session.get('infoBarData');
     },
     isSubscribed: function() {
-        return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) != null;
+        return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) !== null;
     },
     plot: function() {
         var data = Session.get('infoBarData');

@@ -1,6 +1,6 @@
 Template.account.rendered = function(){
     // ...
-}
+};
 Template.account.events({
     'mouseover #signout': function(e) {
         var el = $(e.currentTarget);

@@ -5,7 +5,7 @@
  */
 window.showLoadingScreen = function() {
     $('#loadingScreen').css({display:'block',opacity:0}).stop().animate({opacity:0.8},500);
-}
+};
 /**
  * Hides the loading screen overlay.
  *
@@ -15,7 +15,7 @@ window.hideLoadingScreen = function() {
     $('#loadingScreen').css({display:'block',opacity:0.8}).stop().animate({opacity:0},500,function(){
         $(this).css({display:'none'});
     });
-}
+};
 /**
  * Updates all the visual dependencies for page changing and then queues the associated
  * page for the appropriate data load.
@@ -35,7 +35,7 @@ window.selectPage = function(page) {
 
     // update the session variable for the page
     Session.set('page',page);
-}
+};
 /**
  * Gets a human-readable version of anime progress strings.
  *
@@ -51,7 +51,7 @@ window.getTypeStr = function(type) {
         case 'movie': return 'Movie';
         default: return type.capitalize();
     }
-}
+};
 /**
  * Returns the Facebook portrait URL given the user's facebook user ID.
  *
@@ -63,7 +63,7 @@ window.getTypeStr = function(type) {
 window.getUserPortrait = function(fb_uid, options) {
     var settings = $.extend({width:150,height:150},options);
     return 'https://graph.facebook.com/'+fb_uid+'/picture?width='+settings.width+'&height='+settings.height;
-}
+};
 /**
  * Determines whether or not a given anime type possesses episodes.
  *
@@ -77,7 +77,7 @@ window.hasEpisodes = function(type){
         type == 'oav' ||
         type == 'special';
 
-}
+};
 /**
  * Gets a human-readable version of anime progress strings.
  *
@@ -94,7 +94,7 @@ window.getProgressStr = function(progress) {
         case 'abandoned': return 'Abanonded';
         default: return progress.capitalize();
     }
-}
+};
 /**
  * Determine whether or not the current user has any subscriptions.
  *
@@ -103,7 +103,7 @@ window.getProgressStr = function(progress) {
  */
 window.hasSubscriptions = function() {
     return Subscriptions.find().count() > 0;
-}
+};
 /**
  * Determine whether or not the current user has any friends.
  *
@@ -112,7 +112,7 @@ window.hasSubscriptions = function() {
  */
 window.hasFriends = function() {
     return Friends.find().count() > 0;
-}
+};
 /**
  * Performs a client-side join between the subscription and anime data.
  *
@@ -150,7 +150,7 @@ window.getFullSubscriptions = function(subscriptions,sort){
         }
     }
     return result;
-}
+};
 /**
  * Determines if the provided date is in the future.
  *
@@ -160,7 +160,7 @@ window.getFullSubscriptions = function(subscriptions,sort){
  */
 window.isFuture = function(date) {
     return new Date(date) > new Date()
-}
+};
 /**
  * Formats date object to human-readable format.
  *
@@ -170,7 +170,7 @@ window.isFuture = function(date) {
  */
 window.formatDate = function(date) {
     return date.getShortMonthName() + ' ' + date.getDate() + ', ' + date.getFullYear();
-}
+};
 /**
  * Capitalizes all words in all elements of the provided string array.
  *
@@ -183,4 +183,4 @@ window.capitalizeAll = function(arr) {
     return $.map(arr, function(item){
         return item.capitalize();
     });
-}
+};

@@ -1,7 +1,7 @@
 Template.dashboardPage.rendered = function(){
     hideLoadingScreen();
     $('#dashboardPage').css({opacity:0}).stop().animate({opacity:1},500);
-}
+};
 Template.dashboardPage.events({
     'mouseover .redirect-btn': function(e) {
         var el = $(e.target);

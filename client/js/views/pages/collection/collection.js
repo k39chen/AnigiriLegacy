@@ -1,7 +1,7 @@
 Template.collectionPage.rendered = function(){
     hideLoadingScreen();
     $('#collectionPage').css({opacity:0}).stop().animate({opacity:1},500);
-}
+};
 Template.collectionPage.events({
     'mouseover .redirect-btn': function(e) {
         var el = $(e.target);

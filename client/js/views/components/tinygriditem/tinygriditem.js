@@ -1,4 +1,3 @@
-
 Template.tinyGridItem.rendered = function() {
     // ...
 };

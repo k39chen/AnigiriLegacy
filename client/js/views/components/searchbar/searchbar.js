@@ -8,7 +8,7 @@ Template.searchBar.rendered = function(){
                 value: item.title,
                 type: item.type,
                 data: item
-            }
+            };
         });
         // sort the source by category (and subsort alphabetically)
         source.sort(function(a,b){
@@ -41,7 +41,7 @@ Template.searchBar.rendered = function(){
                 .appendTo(ul);
         };
     });
-}
+};
 Template.searchBar.events({
     'click #searchBar': function(e) {
         $('#searchInput').val('');

@@ -1,4 +1,3 @@
-
 var SubscriptionForm = {
     setProgress: function(progress){
         // update the progress on the server

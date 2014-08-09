@@ -1,6 +1,6 @@
 Template.sideBar.rendered = function(){
     // ...
-}
+};
  Template.sideBar.events({
     'mouseover .option': function(e) {
         var el = $(e.currentTarget);
@@ -17,3 +17,4 @@ Template.sideBar.rendered = function(){
         selectPage(el.attr('data-page'));
     }
 });
+ 

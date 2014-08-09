@@ -18,7 +18,7 @@ String.prototype.slugify = function(){
     .replace(/-+/g, '-'); // collapse dashes
 
   return str;
-}
+};
 /** 
  * Capitalizes every word in the string.
  */
@@ -27,7 +27,7 @@ String.prototype.capitalize = function(){
     return str.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
-}
+};
 /**
  * An extensive list of month names.
  */

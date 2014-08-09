@@ -7,7 +7,7 @@ Template.userScreen.rendered = function() {
 
     // this is a fix for when the info bar some how has data in it already??
     InfoBar.clear();
-}
+};
 Template.userScreen.helpers({
     // some methods to determine which page to display
     showDashboardPage: function(){
