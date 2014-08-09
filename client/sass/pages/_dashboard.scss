@@ -1,0 +1,36 @@
+#dashboardPage .welcome-message .logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 24px;
+}
+#dashboardPage .welcome-message .title {
+    margin-bottom: 12px;
+    font-size: 36px;
+    font-weight: 200;
+    color: #4E596F;
+}
+#dashboardPage .welcome-message .title span {
+    color: #f53b5b;
+}
+#dashboardPage .welcome-message p {
+    margin-bottom: 36px;
+    font-size: 18px;
+    font-weight: 200;
+    color: #A2A9C5;
+}
+#dashboardPage .section {
+    margin-bottom: 36px;
+}
+#dashboardPage .section h2 {
+}
+#dashboardPage .section .content {
+    margin: 0 32px;
+}
+#dashboardPage .section .empty-message {
+    text-align: left;
+}
+#dashboardPage .gridContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}

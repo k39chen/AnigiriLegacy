@@ -1,0 +1,121 @@
+#infoBar {
+    position: fixed;
+    top: 0px;
+    right: -340px;
+    bottom: 0px;
+    width: 340px;
+    background-color: #2A2C3C;
+}
+#infoBar .header {
+    box-sizing: border-box;
+    padding: 12px 24px;
+    overflow: hidden;
+    height: 64px;
+    background-color: #212330;
+}
+#infoBar .left {
+    float :left;
+}
+#infoBar .right {
+    float: right;
+}
+#infoBar .header .title {
+    width: 256px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #A2A4B5;
+    font-size: 1.2em;
+    line-height: 1.6em;
+}
+#infoBar .header .type {
+    color: #585A70;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+#infoBar .close-btn {
+    cursor: pointer;
+    font-size: 2.0em;
+    color: #454653;
+    line-height: 40px;
+}
+#infoBar .close-btn.hover {
+    color: #5C5F6F;
+}
+#infoBar #navbar {
+    text-align: center;
+    box-sizing: border-box;
+    height: 51px;
+    padding: 12px 0px;
+    border-bottom: solid 1px #414346;
+}
+#infoBar .navitem {
+    cursor: pointer;
+    display: inline-block;
+    color: #A2A4B5;
+    width: 72px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 16px;
+}
+#infoBar .navitem.hover {
+    background-color: #383A4E;
+    color: #fff;
+}
+#infoBar .navitem.selected {
+    background-color: #f53b5b;
+    color: #fff;
+}
+#infoBar .body {
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    top: 115px;
+    right: -340px;
+    bottom: 0px;
+    width: 340px;
+}
+/** LOADING SUBPAGE **/
+#loadingSubpage {
+    display: none;
+    position: fixed;
+    background-color: #2A2C3C;
+    top: 64px;
+    right: 0px;
+    bottom: 0px;
+    width: 340px;
+    overflow: hidden;
+    text-align: center;
+}
+#loadingSubpage img {
+    width: 132px;
+    height: 132px;
+    border: solid 12px #414857;
+    border-radius: 50%;
+    margin: 25% auto;
+}
+/** SUBPAGES **/
+#infoBar .subpage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #A2A4B5;
+    padding: 12px 24px;
+}
+#infoBar .subpage .empty-message {
+    line-height: 1.5em;
+    color: #6F6F86;
+}
+#infoBar .subpage .empty-message p {
+    margin-bottom: 1.5em;
+    font-size: 14px;
+}
+#infoBar .subpage .empty-message .accent {
+    color: #C6C6E7;
+    font-size: 14px;
+}

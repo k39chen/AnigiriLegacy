@@ -1,0 +1,12 @@
+<template name='gridItem'>
+<span class='gridItem {{progress this}}' data-annId='{{annId}}'>
+    <div class='cover'>
+        <img src='{{poster this}}' />
+    </div>
+    <div class='title'>{{{title this}}}</div>
+    {{#if showEpisodes this}}
+    <div class='episodes'>{{{subbedEpisodes this}}}</div>
+    {{/if}}
+    <div class='rating'>{{{rating this}}}</div>
+</span>
+</template>

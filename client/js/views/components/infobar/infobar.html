@@ -1,0 +1,26 @@
+<template name='infoBar'>
+<div id='infoBar'>
+    <div class='header'>
+        <div class='left'>
+            <div class='title'>{{getTitle}}</div>
+            <div class='type'>{{getType}}</div>
+        </div>
+        <div class='right'>
+            <i class='close-btn fa fa-times-circle'></i>
+        </div>
+    </div>
+    <div id='navbar'>
+        <span class='navitem' data-subpage='overview'>Overview</span>
+        <span class='navitem' data-subpage='activity'>Activity</span>
+        <span class='navitem' data-subpage='music'>Music</span>
+        <span class='navitem' data-subpage='social'>Social</span>
+    </div>
+    <div class='body'>
+        {{#if showOverviewSubpage}}{{> overviewSubpage}}{{/if}}
+        {{#if showActivitySubpage}}{{> activitySubpage}}{{/if}}
+        {{#if showMusicSubpage}}{{> musicSubpage}}{{/if}}
+        {{#if showSocialSubpage}}{{> socialSubpage}}{{/if}}
+    </div>
+    {{> loadingSubpage}}
+</div>
+</template>

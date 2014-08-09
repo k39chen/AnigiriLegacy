@@ -1,0 +1,106 @@
+
+#searchBar,
+#friendSearchBar {
+    box-sizing: border-box;
+    border: solid 1px #4A4C5C;
+    margin: 0 auto;
+    margin-top: 24px;
+    width: 184px;
+    height: 32px;
+    line-height: 29px;
+    padding: 0px 8px;
+}
+#searchBar i,
+#friendSearchBar i {
+    margin-right: 4px;
+}
+#searchBar input,
+#friendSearchBar input {
+    width: 132px;
+    height: 16px;
+    line-height: 17px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: HelveticaNeue, Helvetica, Arial;
+    font-weight: 300;
+    font-size: $fontSize;
+    color: #fff;
+}
+#searchInput::-webkit-input-placeholder { color: #7a7a7a; }
+#searchInput:-moz-placeholder { color: #7a7a7a; }
+#searchInput:-ms-input-placeholder { color: #7a7a7a; }
+
+#friendSearchInput::-webkit-input-placeholder { color: #7a7a7a; }
+#friendSearchInput:-moz-placeholder { color: #7a7a7a; }
+#friendSearchInput:-ms-input-placeholder { color: #7a7a7a; }
+
+#friendSearchBar input {
+    color: #000;
+}
+
+// autocomplete
+.ui-autocomplete {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: none;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+}
+.ui-menu-item {
+    background-color: #2A2C3C;
+    color: #fff;
+    border-top: solid 1px #343646;
+    border-bottom: solid 1px #1A232E;
+}
+.ui-menu-item > a {
+    font-family: HelveticaNeue, Helvetica,Arial;
+    font-weight: 300 !important;
+    cursor: pointer;
+    border-radius: 0px;
+    color: #A2A4B5;
+    padding: 8px 16px !important;
+}
+.ui-menu-item > a.ui-state-active,
+.ui-menu-item > a.ui-state-focus,
+.ui-menu-item > a.ui-state-hover {
+    border: solid 1px transparent;
+    background-color: #383A4E;
+    color: #fff;
+}
+.ui-menu-item a {
+    overflow: hidden;
+}
+.ui-menu-item .group {
+    display: inline-block;
+}
+.ui-menu-item .portrait {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    vertical-align: bottom;
+    margin-right: 12px;
+}
+.ui-menu-item .label,
+.ui-menu-item .name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.ui-menu-item .type,
+.ui-menu-item .email {
+    color: #585A70;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 400;
+}
+.ui-menu-item .email {
+    text-transform: none;
+}
+.ui-menu-item .fa-check-circle {
+    color: #4de042;
+    font-size: 18px;
+    margin-top: 12px;
+}

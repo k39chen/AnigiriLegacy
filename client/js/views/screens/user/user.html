@@ -1,0 +1,14 @@
+<template name='userScreen'>
+<div id='userScreen' class='screen'>
+    {{> sideBar}}
+    <div id='page-container'>
+        {{#if showDashboardPage}}{{> dashboardPage}}{{/if}}
+        {{#if showCollectionPage}}{{> collectionPage}}{{/if}}
+        {{#if showDiscoverPage}}{{> discoverPage}}{{/if}}
+        {{#if showSocialPage}}{{> socialPage}}{{/if}}
+        {{#if showStatisticsPage}}{{> statisticsPage}}{{/if}}
+        {{#if showAdminPage}}{{> adminPage}}{{/if}}
+    </div>
+    {{> infoBar}}
+</div>
+</template>

@@ -1,0 +1,42 @@
+#account {
+    position: fixed;
+    box-sizing: border-box;
+    overflow: hidden;
+    left: 0px;
+    bottom: 0px;
+    height: 72px;
+    width: 215px;
+    background-color: #0D1922;
+}
+#account-portrait {
+    float: left;
+    line-height: 64px;
+    margin: 13px 12px 0px 24px;
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    border: solid 3px #5A6377;
+}
+#account-text {
+    float: left;
+    margin-top: 13px;
+}
+#account-name {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+}
+#signout {
+    cursor: pointer;
+    color: #5A6088;
+    font-size: 0.9em;
+    line-height: 1.0em;
+}
+#signout i {
+    margin-right: 0.4em;
+}
+#signout.hover {
+    color: #f8738a;
+}

@@ -1,0 +1,72 @@
+#sideBar {
+    position: fixed;
+    box-sizing: border-box;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 215px;
+}
+#sideBar .scrollable {
+    position: fixed;
+    top: 64px;
+    bottom: 72px;
+    left: 0px;
+    width: 215px;
+    overflow-y: auto;
+    background-color: #2A2C3C;
+}
+#sideBar .section {
+    padding-top: 16px;
+}
+#sideBar .section h1 {
+    color: #585A70;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 0px 24px;
+}
+#sideBar .option {
+    cursor: pointer;
+    padding: 6px 24px;
+    color: #A2A4B5;
+    -ms-user-select: none; /* IE 10+ */
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#sideBar .option.hover {
+    background-color: #383A4E;
+    color: #fff;
+}
+#sideBar .option.selected {
+    background-color: #212330;
+    color: #f8738a;
+}
+#sideBar .option i {
+    display: inline-block;
+    margin-right: 12px;
+}
+#corner {
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 215px;
+    height: 64px;
+    background-color: #f8738a;
+    padding: 0px 24px;
+    line-height: 68px;
+}
+#corner img {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin-top: 16px;
+    margin-right: 8px;
+}
+#corner h1 {
+    float: left;
+    color: #fff;
+    font-family: ProximaNova, Helvetica, Arial;
+    font-weight: 100;
+    font-size: 2.0em;
+}

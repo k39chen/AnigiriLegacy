@@ -1,0 +1,59 @@
+<template name='musicSubpage'>
+<div id='musicSubpage' class='subpage'>
+{{#if hasSongs}}
+{{#with getSongData}}
+    {{#if getOpeningThemes}}
+        <h1>Opening Themes</h1>
+        <div class='song-list'>
+        {{#each getOpeningThemes}}
+            <div class='song'>
+                <div class='num'>{{num}}</div>
+                <div class='group'>
+                    <div class='title'>{{song}}</div>
+                    <div class='artist'>{{artist}}</div>
+                </div>
+                <div class='episodes'>{{{displayEpisodes episodes}}}</div>
+            </div>
+        {{/each}}
+        </div>
+    {{/if}}
+    {{#if getEndingThemes}}
+        <h1>Ending Themes</h1>
+        <div class='song-list'>
+        {{#each getEndingThemes}}
+            <div class='song'>
+                <div class='num'>{{num}}</div>
+                <div class='group'>
+                    <div class='title'>{{song}}</div>
+                    <div class='artist'>{{artist}}</div>
+                </div>
+                <div class='episodes'>{{{displayEpisodes episodes}}}</div>
+            </div>
+        {{/each}}
+        </div>
+    {{/if}}
+    {{#if getInsertThemes}}
+        <h1>Insert Themes</h1>
+        <div class='song-list'>
+        {{#each getInsertThemes}}
+            <div class='song'>
+                <div class='num'>{{num}}</div>
+                <div class='group'>
+                    <div class='title'>{{song}}</div>
+                    <div class='artist'>{{artist}}</div>
+                </div>
+                <div class='episodes'>{{{displayEpisodes episodes}}}</div>
+            </div>
+        {{/each}}
+        </div>
+    {{/if}}
+{{/with}}
+{{else}}
+    <div class='empty-message'>
+        <div class='valigner'>
+            <p>There are no songs associated with this anime.</p>
+        </div>
+    </div>
+{{/if}}
+</div>
+</template>

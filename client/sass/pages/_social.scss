@@ -1,0 +1,12 @@
+#socialPage h1 {
+    overflow: hidden;
+}
+#socialPage h1 span {
+    float: left;
+}
+#socialPage h1 #friendSearchBar {
+    float: right;
+    font-size: $fontSize;
+    margin-top: 16px;
+    line-height: 34px;
+}

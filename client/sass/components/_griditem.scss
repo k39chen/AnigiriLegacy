@@ -1,0 +1,65 @@
+.gridItem {
+    cursor: pointer;
+    display: inline-block;
+    padding: 12px;
+    line-height: 1.3em;
+
+    box-sizing: border-box;
+    width: 193px;
+    height: 320px;
+    vertical-align: top;
+
+    text-align: left;
+}
+.gridItem.hover {
+    background-color: #DCDEE9;
+}
+.gridItem .cover {
+    box-sizing: border-box;
+    border: solid 1px #D7DAFF;
+    border-top: solid 5px transparent;
+    overflow: hidden;
+    width: 169px;
+    height: 244px;
+    margin-bottom: 4px;
+}
+.gridItem.finished .cover {
+    border-color: #5EDF6E;
+}
+.gridItem.watching .cover {
+    border-color: #5EB6DF;
+}
+.gridItem.backlogged .cover {
+    border-color: #DF5EDA;
+}
+.gridItem.onhold .cover {
+    border-color: #DFD55E;
+}
+.gridItem.abandoned .cover {
+    border-color: #DF5E5E;
+}
+.gridItem .cover img {
+    width: 100%;
+    height: 100%;
+}
+.gridItem .title {
+    width: 169px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: Arial;
+    font-weight: bold;
+    color: #45445A;
+}
+.gridItem .episodes span {
+    color: #B8BBD1;
+}
+.gridItem .rating .star {
+    margin-right: 2px;
+}
+.gridItem .rating .fa-star.unfilled {
+    color: #CCCDCE;
+}
+.gridItem .rating .fa-star {
+    color: #DAC31A;
+}

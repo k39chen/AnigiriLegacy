@@ -1,0 +1,17 @@
+<template name='socialSubpage'>
+<div id='socialSubpage' class='subpage'>
+{{#if hasFriends}}
+
+{{else}}
+    <div class='empty-message'>
+        <div class='valigner'>
+            <p>
+                You don't have any friends on Anigiri.<br/>
+                <span class='accent'>Would you like to add your friends?</span>
+            </p>
+            <div class='addfriends-btn'>Add Friends Now</div>
+        </div>
+    </div>
+{{/if}}
+</div>
+</template>

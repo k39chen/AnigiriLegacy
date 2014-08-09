@@ -2,13 +2,19 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {}
+      "iron-router": {},
+      "sass": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.8.2",
         "commit": "05415a8891ea87a00fb1e2388585f2ca5a38e0da"
+      },
+      "sass": {
+        "git": "https://github.com/particle4dev/meteor-sass.git",
+        "tag": "v0.1.7",
+        "commit": "b41757f87475186b1485ec54a819d6e027ee3d88"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

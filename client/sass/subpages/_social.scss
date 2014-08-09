@@ -1,0 +1,11 @@
+#socialSubpage .addfriends-btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f53b5b;
+    color: #fff;
+    border-radius: 24px;
+}
+#socialSubpage .addfriends-btn.hover {
+    background-color: #f8738a;
+}
