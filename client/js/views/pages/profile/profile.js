@@ -84,21 +84,21 @@ Template.profilePage.helpers({
 		return fb ? getUserPortrait(fb.id) : '';
 	},
 	numSubscriptions: function() {
-		
+		return Subscriptions.find({userId:this._id}).count();
 	},
 	finished: function() {
-
+		return Subscriptions.find({userId:this._id, progress:'finished'}).count();
 	},
 	watching: function() {
-
+		return Subscriptions.find({userId:this._id, progress:'watching'}).count();
 	},
 	backlogged: function() {
-
+		return Subscriptions.find({userId:this._id, progress:'backlogged'}).count();
 	},
 	onhold: function() {
-
+		return Subscriptions.find({userId:this._id, progress:'onhold'}).count();
 	},
 	abandoned: function() {
-
+		return Subscriptions.find({userId:this._id, progress:'abandoned'}).count();
 	}
 });

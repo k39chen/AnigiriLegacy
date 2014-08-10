@@ -34,21 +34,11 @@
 		display: inline-block;
 	}
 	.progress {
-		&.finished {
-			color: $colorFinished;
-		}
-		&.watching {
-			color: $colorWatching;
-		}
-		&.onhold {
-			color: $colorOnHold;
-		}
-		&.backlogged {
-			color: $colorBacklogged;
-		}
-		&.abandoned {
-			color: $colorAbandoned;
-		}
+		&.finished { color: $colorFinished; }
+		&.watching { color: $colorWatching; }
+		&.onhold { color: $colorOnHold; }
+		&.backlogged { color: $colorBacklogged; }
+		&.abandoned { color: $colorAbandoned; }
 	}
 	.rating {
 		.star {

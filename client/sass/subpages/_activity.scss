@@ -63,25 +63,15 @@
 					color: #fff;
 				}
 				&[data-progress=backlogged].hover,
-				&[data-progress=backlogged].selected {
-					background-color: $colorBacklogged;
-				}
+				&[data-progress=backlogged].selected { background-color: $colorBacklogged; }
 				&[data-progress=watching].hover,
-				&[data-progress=watching].selected {
-					background-color: $colorWatching;
-				}
+				&[data-progress=watching].selected { background-color: $colorWatching; }
 				&[data-progress=onhold].hover,
-				&[data-progress=onhold].selected {
-					background-color: $colorOnHold;
-				}
+				&[data-progress=onhold].selected { background-color: $colorOnHold; }
 				&[data-progress=finished].hover,
-				&[data-progress=finished].selected {
-					background-color: $colorFinished;
-				}
+				&[data-progress=finished].selected { background-color: $colorFinished; }
 				&[data-progress=abandoned].hover,
-				&[data-progress=abandoned].selected {
-					background-color: $colorAbandoned;
-				}
+				&[data-progress=abandoned].selected { background-color: $colorAbandoned; }
 			}
 			.episodeControls {
 				float: left;

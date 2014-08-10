@@ -39,21 +39,11 @@ $gridItemLineHeight: 1.3;
 			height: 100%;
 		}
 	}
-	&.finished .cover {
-		border-color: $colorFinished;
-	}
-	&.watching .cover {
-		border-color: $colorWatching;
-	}
-	&.backlogged .cover {
-		border-color: $colorBacklogged;
-	}
-	&.onhold .cover {
-		border-color: $colorOnHold;
-	}
-	&.abandoned .cover {
-		border-color: $colorAbandoned;
-	}
+	&.finished .cover { border-color: $colorFinished; }
+	&.watching .cover { border-color: $colorWatching; }
+	&.backlogged .cover { border-color: $colorBacklogged; }
+	&.onhold .cover { border-color: $colorOnHold; }
+	&.abandoned .cover { border-color: $colorAbandoned; }
 	.title {
 		width: $gridItemCoverWidth;
 		@include truncated-text;
