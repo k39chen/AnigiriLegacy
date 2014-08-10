@@ -62,26 +62,26 @@
 					opacity: 1.0;
 					color: #fff;
 				}
-			}
-			.progress[data-progress=backlogged].hover,
-			.progress[data-progress=backlogged].selected {
-				background-color: $colorBacklogged;
-			}
-			.progress[data-progress=watching].hover,
-			.progress[data-progress=watching].selected {
-				background-color: $colorWatching;
-			}
-			.progress[data-progress=onhold].hover,
-			.progress[data-progress=onhold].selected {
-				background-color: $colorOnHold;
-			}
-			.progress[data-progress=finished].hover,
-			.progress[data-progress=finished].selected {
-				background-color: $colorFinished;
-			}
-			.progress[data-progress=abandoned].hover,
-			.progress[data-progress=abandoned].selected {
-				background-color: $colorAbandoned;
+				&[data-progress=backlogged].hover,
+				&[data-progress=backlogged].selected {
+					background-color: $colorBacklogged;
+				}
+				&[data-progress=watching].hover,
+				&[data-progress=watching].selected {
+					background-color: $colorWatching;
+				}
+				&[data-progress=onhold].hover,
+				&[data-progress=onhold].selected {
+					background-color: $colorOnHold;
+				}
+				&[data-progress=finished].hover,
+				&[data-progress=finished].selected {
+					background-color: $colorFinished;
+				}
+				&[data-progress=abandoned].hover,
+				&[data-progress=abandoned].selected {
+					background-color: $colorAbandoned;
+				}
 			}
 			.episodeControls {
 				float: left;

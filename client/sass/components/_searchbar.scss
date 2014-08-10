@@ -1,3 +1,5 @@
+$placeholderColor: #7a7a7a;
+
 #searchBar {
 	@include box-sizing;
 	border: solid 1px #4A4C5C;
@@ -25,11 +27,12 @@
 			size: $fontSize;
 		}
 	}
+	#searchInput {
+		&::-webkit-input-placeholder { color: $placeholderColor; }
+		&:-moz-placeholder { color: $placeholderColor; }
+		&:-ms-input-placeholder { color: $placeholderColor; }
+	}
 }
-$placeholderColor: #7a7a7a;
-#searchInput::-webkit-input-placeholder { color: $placeholderColor; }
-#searchInput:-moz-placeholder { color: $placeholderColor; }
-#searchInput:-ms-input-placeholder { color: $placeholderColor; }
 
 // autocomplete
 .ui-autocomplete {

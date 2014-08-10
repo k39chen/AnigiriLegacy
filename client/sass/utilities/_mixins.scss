@@ -10,14 +10,16 @@
 }
 /**
  * @mixin box-sizing
+ * @param $value (default=border-box)
  */
 @mixin box-sizing($value: border-box) {
-	-webkit-box-sizing: $value; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: $value;	/* Firefox, other Gecko */
-	box-sizing: $value;		 /* Opera/IE 8+ */
+	-webkit-box-sizing: $value;
+	-moz-box-sizing: $value;
+	box-sizing: $value;
 }
 /**
  * @mixin user-select
+ * @param $value (default=none)
  */
 @mixin user-select($value: none) {
 	-ms-user-select: $value;
@@ -25,4 +27,13 @@
 	-khtml-user-select: $value;
 	-webkit-user-select: $value;
 	user-select: $value;
+}
+/**
+ * @mixin box-shadow
+ * @param $shadows...
+ */
+@mixin box-shadow($shadows...) {
+	-moz-box-shadow: $shadows;
+	-webkit-box-shadow: $shadows;
+	box-shadow: $shadows;
 }

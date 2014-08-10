@@ -1,3 +1,5 @@
+$placeholderColor: #7a7a7a;
+		
 #profilePage {
 	h1 {
 		overflow: hidden;
@@ -34,10 +36,11 @@
 					size: $fontSize;
 				}
 			}
+			#friendSearchInput {
+				&::-webkit-input-placeholder { color: $placeholderColor; }
+				&:-moz-placeholder { color: $placeholderColor; }
+				&:-ms-input-placeholder { color: $placeholderColor; }
+			}
 		}
-		$placeholderColor: #7a7a7a;
-		#friendSearchInput::-webkit-input-placeholder { color: $placeholderColor; }
-		#friendSearchInput:-moz-placeholder { color: $placeholderColor; }
-		#friendSearchInput:-ms-input-placeholder { color: $placeholderColor; }
 	}
 }
