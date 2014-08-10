@@ -7,8 +7,35 @@
 			<input id='friendSearchInput' type='text' placeholder='Search for a user...' />
 		</div>
 	</h1>
-	<span>{{firstName}}'s Profile</span>
+	<div id='header'>
+		<img class='portrait' src='{{portrait}}' />
 
-
+		<div id="statistics">
+			<div class="statistic">
+				<span class="value">{{numSubscriptions}}</span>
+				<span class="label"># Subscriptions</span>
+			</div>
+			<div class="statistic">
+				<span class="value">{{finished}}</span>
+				<span class="label finished">Finished</span>
+			</div>
+			<div class="statistic">
+				<span class="value">{{watching}}</span>
+				<span class="label">Watching</span>
+			</div>
+			<div class="statistic">
+				<span class="value">{{backlogged}}</span>
+				<span class="label">Backlogged</span>
+			</div>
+			<div class="statistic">
+				<span class="value">{{onhold}}</span>
+				<span class="label">On Hold</span>
+			</div>
+			<div class="statistic">
+				<span class="value">{{abandoned}}</span>
+				<span class="label">Abandoned</span>
+			</div>
+		</div>
+	</div>
 </div>
 </template>

@@ -1,3 +1,9 @@
+window.getUserId = function() {
+	if (!Meteor.user()) {
+		return null;
+	}
+	return Meteor.user()._id;
+}
 /**
  * Determines if a user is an admin user.
  *
@@ -8,17 +14,30 @@
 window.isAdminUser = function(_id) {
 	// use the currently logged in user id
 	if (_id === undefined) {
-		if (!Meteor.user()) {
-			return false;
-		}
-		_id = Meteor.user()._id;
+		_id = getUserId();
 	}
-	for (var i=0; i<ADMIN_USERS.length; i++) {
-		if (_id === ADMIN_USERS[i]) {
-			return true;
+	if (!_id) {
+		for (var i=0; i<ADMIN_USERS.length; i++) {
+			if (_id === ADMIN_USERS[i]) {
+				return true;
+			}
 		}
 	}
 	return false;
+};
+/**
+ * Given the Meteor user data, get the facebook user data, otherwise null.
+ *
+ * @method getFacebookUserData
+ * @param userData {Object} The Meteor user data.
+ * @return {Object} The facebook user data.
+ */
+window.getFacebookUserData = function(userData) {
+	if (userData && userData.services && userData.services.facebook) {
+		return userData.services.facebook;
+	} else {
+		return null;
+	}
 };
 /**
  * Gets a human-readable version of anime progress strings.
@@ -83,34 +102,66 @@ window.getProgressStr = function(progress) {
  * Determine whether or not the current user has any subscriptions.
  *
  * @method hasSubscriptions
+ * @param userId {String} The user id that we test against. (default=currentUserId) 
  * @return {Boolean} Whether or not the current user has subscriptions.
  */
-window.hasSubscriptions = function() {
-	return Subscriptions.find().count() > 0;
+window.hasSubscriptions = function(userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Subscriptions.find({userId: userId}).count() > 0 : false;
 };
 /**
  * Determine whether or not the current user has any friends.
  *
  * @method hasSubscriptions
+ * @param userId {String} The user id that we test against. (default=currentUserId) 
  * @return {Boolean} Whether or not the current user has friends.
  */
-window.hasFriends = function() {
-	return Friends.find().count() > 0;
+window.hasFriends = function(userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Friends.find({userId: userId}).count() > 0 : false;
+};
+/**
+ * Gets the subscription data an anime for a given user.
+ *
+ * @method getSubscriptionData
+ * @param annId {Number} The anime id that we are getting.
+ * @param userId {String} The user id that we want to fetch the subscriptions. (default=currentUserId)
+ * @return {Object} The subscription data.
+ */
+window.getSubscriptionData = function(annId, userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Subscriptions.findOne({userId: userId, annId: annId}) : null;
 };
 /**
  * Performs a client-side join between the subscription and anime data.
  *
- * @method getFullSubscriptions.
+ * @method getFullSubscriptions. 
  * @param subscriptions {Array} The array of subscriptions. (default=null)
+ * @param userId {String} The user id that we want to fetch the subscriptions. (default=currentUserId)
  * @param sort {Function} An optional sorting function. (default=null)
  * @return {Array} The sorted and complete set of subscription data.
  */
-window.getFullSubscriptions = function(subscriptions,sort){
+window.getFullSubscriptions = function(subscriptions,userId,sort){
 	var result = null;
 	
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	if (!userId) return null;
+
 	// if no subset of subscriptions is provided, then just use the full set
 	if (!subscriptions) {
-		subscriptions = Subscriptions.find().fetch();
+		subscriptions = Subscriptions.find({userId:userId}).fetch();
 	}
 	for (var i=0; i<subscriptions.length; i++) {
 		var sub = subscriptions[i],

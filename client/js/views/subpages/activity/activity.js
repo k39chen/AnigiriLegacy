@@ -22,7 +22,7 @@ var SubscriptionForm = {
 			annId = Session.get('infoBarAnnId');
 		if (!annId) return;
 		
-		var prevEpisodes = Subscriptions.findOne({annId:annId}).episodes,
+		var prevEpisodes = getSubscriptionData(annId).episodes,
 			newEpisodes = Math.min(episodes,data.numEpisodes);
 
 		if (prevEpisodes == newEpisodes) return;
@@ -144,7 +144,7 @@ Template.activitySubpage.events({
 	'mouseout .star': function(e){
 		var el = $(e.target),
 			annId = Session.get('infoBarAnnId'),
-			subscription = Subscriptions.findOne({annId:annId}),
+			subscription = getSubscriptionData(annId),
 			stars = $('#activitySubpage .stars');
 
 		if (!subscription) return;
@@ -186,13 +186,13 @@ Template.activitySubpage.events({
 });
 Template.activitySubpage.helpers({
 	getSubscription: function(){
-		return Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		return getSubscriptionData(Session.get('infoBarAnnId'));
 	},
 	isSubscribed: function() {
-		return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) != null;
+		return !(!getSubscriptionData(Session.get('infoBarAnnId')));
 	},
 	progress: function(){
-		var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		var subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		if (!subscription) return null;
 
 		var progressOptions = ['finished','watching','backlogged','X','onhold','abandoned'],
@@ -215,21 +215,21 @@ Template.activitySubpage.helpers({
 		return data.numEpisodes && hasEpisodes(data.type);
 	},
 	showEpisodeControls: function(){
-		var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		var subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		if (!subscription) return null;
 
 		return subscription.progress != 'finished';
 	},
 	episodes: function(){
 		var data = Session.get('infoBarData'),
-			subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+			subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		
 		if (!data || data.numEpisodes === null || !subscription) return null;
 
 		return '<span class="currEpisode">'+subscription.episodes+'</span><span class="maxEpisodes"> / '+data.numEpisodes+'</span>';
 	},
 	rating: function(){
-		var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		var subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		if (!subscription) return null;
 
 		var stars = '';

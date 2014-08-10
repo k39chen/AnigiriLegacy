@@ -72,19 +72,33 @@ Template.profilePage.events({
 });
 Template.profilePage.helpers({
 	title: function(){
-		var self = this;
-		if (self && self.services && self.services.facebook) {
-			return self.services.facebook.name;
-		} else {
-			return 'Random';
-		}
+		var self = this,
+			fb = getFacebookUserData(self);
+
+		return fb ? fb.name : '';
 	},
-	firstName: function(){
-		var self = this;
-		if (self && self.services && self.services.facebook) {
-			return self.services.facebook.name;
-		} else {
-			return 'Random';
-		}
+	portrait: function() {
+		var self = this,
+			fb = getFacebookUserData(self);
+
+		return fb ? getUserPortrait(fb.id) : '';
+	},
+	numSubscriptions: function() {
+		
+	},
+	finished: function() {
+
+	},
+	watching: function() {
+
+	},
+	backlogged: function() {
+
+	},
+	onhold: function() {
+
+	},
+	abandoned: function() {
+
 	}
 });

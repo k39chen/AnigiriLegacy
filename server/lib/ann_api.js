@@ -497,7 +497,7 @@ function insertSong(type,animeId,songStr){
 		song: songinfo.song,
 		artist: songinfo.artist,
 		episodes: songinfo.episodes
-	}
+	};
 	if (Songs.find({annId: animeId, type: type, num: songobj.num}).count() > 0) {
 		Songs.update({annId: animeId, type: type, num: songobj.num}, {$set: songobj});
 	} else {
@@ -541,10 +541,11 @@ function parseSongString(str) {
 			song	 : matches[1].replace(/"/g,''),
 			artist   : matches[2],
 			episodes : null
-		}
+		};
 	}
 	return null;	
-}
+};
+
 String.prototype.slugify = function(){
   var str = this;
   str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -562,4 +563,5 @@ String.prototype.slugify = function(){
 	.replace(/-+/g, '-'); // collapse dashes
 
   return str;
-}
+};
+

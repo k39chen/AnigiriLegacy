@@ -22,7 +22,7 @@ Template.dashboardPage.events({
 });
 Template.dashboardPage.helpers({
 	hasSubscriptions: function(){
-		return Subscriptions.find().count() > 0;
+		return hasSubscriptions();
 	},
 	userFirstName: function(){
 		var user = Meteor.user(), firstname = 'Otaku';
@@ -35,13 +35,13 @@ Template.dashboardPage.helpers({
 		return firstname;
 	},
 	hasCurrentlyWatching: function(){
-		return Subscriptions.find({progress:'watching'}).count() > 0;
+		return Subscriptions.find({userId: getUserId(), progress:'watching'}).count() > 0;
 	},
 	countCurrentlyWatching: function(){
-		return Subscriptions.find({progress:'watching'}).count();
+		return Subscriptions.find({userId: getUserId(), progress:'watching'}).count();
 	},
 	getCurrentlyWatching: function(){
-		var subscriptions = Subscriptions.find({progress:'watching'}).fetch();
+		var subscriptions = Subscriptions.find({userId: getUserId(), progress:'watching'}).fetch();
 		return getFullSubscriptions(subscriptions);
 	}
 });

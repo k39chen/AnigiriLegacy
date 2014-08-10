@@ -46,15 +46,15 @@ window.InfoBar = {
 		}
 		var settings = $.extend({duration:500},options),
 			barWidth = $('#infoBar').width(),
-			start	= {display: 'block', right: -barWidth, opacity: 1},
-			end	  = {right: 0},
-			dur	  = settings.duration;
+			start = {display: 'block', right: -barWidth, opacity: 1},
+			end = {right: 0},
+			dur = settings.duration;
 
-		$('#page-container') .css({right:0}).stop().animate({right:barWidth},dur);
-		$('#infoBar')		.css(start).stop().animate(end,dur);
+		$('#page-container').css({right:0}).stop().animate({right:barWidth},dur);
+		$('#infoBar').css(start).stop().animate(end,dur);
 		$('#infoBar > .body').css(start).stop().animate(end,dur);
 		
-		$('#loadingSubpage') .css(start).stop().animate(end,dur);
+		$('#loadingSubpage').css(start).stop().animate(end,dur);
 
 		this.isShown = true;
 	},
@@ -63,28 +63,28 @@ window.InfoBar = {
 
 		var settings = $.extend({duration:500},options),
 			barWidth = $('#infoBar').width(),
-			start	= {right: 0},
-			end	  = {right: -barWidth},
-			dur	  = settings.duration;
-		$('#page-container') .css({right:barWidth}).stop().animate({right:0},dur);
-		$('#infoBar')		.css(start).stop().animate(end,dur);
+			start = {right: 0},
+			end = {right: -barWidth},
+			dur = settings.duration;
+		$('#page-container').css({right:barWidth}).stop().animate({right:0},dur);
+		$('#infoBar').css(start).stop().animate(end,dur);
 		$('#infoBar > .body').css(start).stop().animate(end,dur);
-		$('#loadingSubpage') .css(start).stop().animate(end,dur);
+		$('#loadingSubpage').css(start).stop().animate(end,dur);
 		
 		this.isShown = false;
 	},
 	showLoad: function(options) {
 		var settings = $.extend({duration:400},options),
-			start	= {display:'block', opacity: 0},
-			end	  = {opacity: 1},
-			dur	  = settings.duration;
+			start = {display:'block', opacity: 0},
+			end	= {opacity: 1},
+			dur	= settings.duration;
 		$('#loadingSubpage').css(start).stop().animate(end,dur);
 	},
 	hideLoad: function(options) {
 		var settings = $.extend({duration:400},options),
-			start	= {display:'block', opacity: 1},
-			end	  = {opacity: 0},
-			dur	  = settings.duration;
+			start = {display:'block', opacity: 1},
+			end = {opacity: 0},
+			dur = settings.duration;
 		$('#loadingSubpage').css(start).stop().animate(end,dur,function(){
 			$(this).css({display:'none'});
 		});

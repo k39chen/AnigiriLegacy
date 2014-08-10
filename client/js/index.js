@@ -5,6 +5,7 @@ Meteor.subscribe('userAnimes');
 Meteor.subscribe('userSubscriptions');
 Meteor.subscribe('songs');
 Meteor.subscribe('userFriends');
+Meteor.subscribe('generalSubscriptions');
 
 // define our router configuration
 Router.configure({

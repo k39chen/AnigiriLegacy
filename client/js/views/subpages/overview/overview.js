@@ -34,7 +34,7 @@ Template.overviewSubpage.helpers({
 		return Session.get('infoBarData');
 	},
 	isSubscribed: function() {
-		return Subscriptions.findOne({annId: Session.get('infoBarAnnId')}) !== null;
+		return !(!getSubscriptionData(Session.get('infoBarAnnId')));
 	},
 	plot: function() {
 		var data = Session.get('infoBarData');
@@ -117,7 +117,7 @@ Template.overviewSubpage.helpers({
 	},
 	numEpisodes: function() {
 		var data = Session.get('infoBarData'),
-			subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+			subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 
 		if (!data || data.numEpisodes === null) return null;
 
@@ -128,13 +128,13 @@ Template.overviewSubpage.helpers({
 		}
 	},
 	progress: function() {
-		var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		var subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		if (!subscription || !subscription.progress) return;
 
 		return '<span class="progress '+subscription.progress+'">'+getProgressStr(subscription.progress)+'</span>';
 	},
 	rating: function() {
-		var subscription = Subscriptions.findOne({annId: Session.get('infoBarAnnId')});
+		var subscription = getSubscriptionData(Session.get('infoBarAnnId'));
 		if (!subscription || !subscription.rating) return;
 
 		var stars = '';
