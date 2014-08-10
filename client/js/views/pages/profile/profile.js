@@ -13,6 +13,7 @@ Template.profilePage.rendered = function(){
 			var fb = item.services.facebook,
 				fullname = fb.first_name + " " + fb.last_name;
 			return {
+				_id: item._id,
 				label: fullname,
 				value: fullname,
 				data: fb,
@@ -44,6 +45,10 @@ Template.profilePage.rendered = function(){
 		});
 		if ($('#friendSearchInput').data('ui-autocomplete')) {
 			$('#friendSearchInput').data('ui-autocomplete')._renderItem = function(ul,item){
+				// don't show the admin user as an option to view
+				if (isAdminUser(item._id)) {
+					return $("<li>");
+				}
 				return $('<li>')
 					.append('<a>'+
 						'<span class="group">'+
@@ -69,7 +74,7 @@ Template.profilePage.helpers({
 	title: function(){
 		var self = this;
 		if (self && self.services && self.services.facebook) {
-			return self.services.facebook.first_name+"'s Profile";
+			return self.services.facebook.name;
 		} else {
 			return 'Random';
 		}
@@ -77,7 +82,7 @@ Template.profilePage.helpers({
 	firstName: function(){
 		var self = this;
 		if (self && self.services && self.services.facebook) {
-			return self.services.facebook.first_name+"'s Profile";
+			return self.services.facebook.name;
 		} else {
 			return 'Random';
 		}

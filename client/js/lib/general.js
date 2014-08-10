@@ -1,4 +1,26 @@
 /**
+ * Determines if a user is an admin user.
+ *
+ * @method isAdmin
+ * @param _id {String} The user id. (Optional, defaults to currently logged in user)
+ * @return {Boolean} Whether or not the user is an admin.
+ */
+window.isAdminUser = function(_id) {
+	// use the currently logged in user id
+	if (_id === undefined) {
+		if (!Meteor.user()) {
+			return false;
+		}
+		_id = Meteor.user()._id;
+	}
+	for (var i=0; i<ADMIN_USERS.length; i++) {
+		if (_id === ADMIN_USERS[i]) {
+			return true;
+		}
+	}
+	return false;
+};
+/**
  * Gets a human-readable version of anime progress strings.
  *
  * @method getTypeStr

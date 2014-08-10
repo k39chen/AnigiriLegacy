@@ -1,7 +1,7 @@
 Template.sideBar.rendered = function(){
 	// ...
 };
- Template.sideBar.events({
+Template.sideBar.events({
 	'mouseover .option': function(e) {
 		var el = $(e.currentTarget);
 		el.addClass('hover');
@@ -17,4 +17,8 @@ Template.sideBar.rendered = function(){
 		Router.go("/"+el.attr('data-page'));
 	}
 });
- 
+Template.sideBar.helpers({
+	'isAdminUser': function() {
+		return isAdminUser();
+	}
+});

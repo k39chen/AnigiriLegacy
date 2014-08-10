@@ -14,7 +14,9 @@
 				<div class='option' data-page='discover'><i class='fa fa-globe'></i><span>Discover</span></div>
 				<div class='option' data-page='social'><i class='fa fa-users'></i><span>Social</span></div>
 				<div class='option' data-page='statistics'><i class='fa fa-bar-chart-o'></i><span>Statistics</span></div>
-				<div class='option' data-page='admin'><i class='fa fa-wrench'></i><span>Admin</span></div>
+				{{#if isAdminUser}}
+					<div class='option' data-page='admin'><i class='fa fa-wrench'></i><span>Admin</span></div>
+				{{/if}}
 			</div>
 		</div>
 	</div>

@@ -45,6 +45,10 @@ Template.socialPage.rendered = function(){
 		});
 		if ($('#friendSearchInput').data('ui-autocomplete')) {
 			$('#friendSearchInput').data('ui-autocomplete')._renderItem = function(ul,item){
+				// don't show the admin user as an option to view
+				if (isAdminUser(item._id)) {
+					return $("<li>");
+				}
 				return $('<li>')
 					.append('<a>'+
 						'<span class="group">'+
