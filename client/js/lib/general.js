@@ -1,8 +1,5 @@
 window.getUserId = function() {
-	if (!Meteor.user()) {
-		return null;
-	}
-	return Meteor.user()._id;
+	return Meteor.userId();
 }
 /**
  * Determines if a user is an admin user.
@@ -16,7 +13,7 @@ window.isAdminUser = function(_id) {
 	if (_id === undefined) {
 		_id = getUserId();
 	}
-	if (!_id) {
+	if (_id) {
 		for (var i=0; i<ADMIN_USERS.length; i++) {
 			if (_id === ADMIN_USERS[i]) {
 				return true;
@@ -99,20 +96,6 @@ window.getProgressStr = function(progress) {
 	}
 };
 /**
- * Determine whether or not the current user has any subscriptions.
- *
- * @method hasSubscriptions
- * @param userId {String} The user id that we test against. (default=currentUserId) 
- * @return {Boolean} Whether or not the current user has subscriptions.
- */
-window.hasSubscriptions = function(userId) {
-	// default to using the current user id if none is specified
-	if (!userId) {
-		userId = getUserId();
-	}
-	return userId ? Subscriptions.find({userId: userId}).count() > 0 : false;
-};
-/**
  * Determine whether or not the current user has any friends.
  *
  * @method hasSubscriptions
@@ -125,6 +108,47 @@ window.hasFriends = function(userId) {
 		userId = getUserId();
 	}
 	return userId ? Friends.find({userId: userId}).count() > 0 : false;
+};
+/**
+ * Determine whether or not the supplied user id corresponds to an already existing friend.
+ *
+ * @method isFriend
+ * @param friendId {String} The user id in question.
+ * @return {Boolean} Whether or not the user supplied is a friend of the current user.
+ */
+window.isFriend = function(friendId) {
+	if (!friendId) return false;
+	return Friends.find({
+		userId: getUserId(), // current user id
+		friendId: friendId,
+		status: 'approved'
+	}).count() > 0;
+};
+
+window.isPendingFriendRequest = function(friendId) {
+	if (!isFriend(friendId)) {
+		return !(!Friends.findOne({
+			userId: getUserId(),
+			friendId: friendId,
+			status: 'pending'
+		}));
+	}
+	return false;
+}
+
+/**
+ * Determine whether or not the current user has any subscriptions.
+ *
+ * @method hasSubscriptions
+ * @param userId {String} The user id that we test against. (default=currentUserId) 
+ * @return {Boolean} Whether or not the current user has subscriptions.
+ */
+window.hasSubscriptions = function(userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Subscriptions.find({userId: userId}).count() > 0 : false;
 };
 /**
  * Gets the subscription data an anime for a given user.

@@ -1,16 +1,4 @@
 #activitySubpage {
-	.subscribe-btn {
-		cursor: pointer;
-		display: inline-block;
-		padding: 8px 16px;
-		background-color: $themeAlt;
-		color: #fff;
-		border-radius: 24px;
-
-		&.hover {
-			background-color: $themeColor;
-		}
-	}
 	.unsubscribe-btn {
 		cursor: pointer;
 		position: absolute;

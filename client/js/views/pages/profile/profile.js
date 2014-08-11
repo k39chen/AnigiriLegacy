@@ -66,15 +66,53 @@ Template.profilePage.rendered = function(){
 			};
 		}
 	});
+
+	// by default select the `all` progress filter option
+	selectProgressFilter('all');
 };
 Template.profilePage.events({
-	// ...
+	'mouseover .back-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .back-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .back-btn': function(e) {
+		Router.go('/social');
+	},
+	'mouseover .addFriend-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .addFriend-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .addFriend-btn': function(e) {
+		Meteor.call('sendFriendRequest', this._id, function(err,data){
+			console.log(err,data);
+		});
+	},
+	'mouseover .progress-option': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .progress-option': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .progress-option': function(e) {
+		var el = $(e.currentTarget);
+		selectProgressFilter(el.data('progress'));
+	}
+
 });
 Template.profilePage.helpers({
 	title: function(){
 		var self = this,
 			fb = getFacebookUserData(self);
-
 		return fb ? fb.name : '';
 	},
 	portrait: function() {
@@ -82,6 +120,11 @@ Template.profilePage.helpers({
 			fb = getFacebookUserData(self);
 
 		return fb ? getUserPortrait(fb.id) : '';
+	},
+	email: function() {
+		var self = this,
+			fb = getFacebookUserData(self);
+		return fb ? fb.email : '';
 	},
 	numSubscriptions: function() {
 		return Subscriptions.find({userId:this._id}).count();
@@ -100,5 +143,32 @@ Template.profilePage.helpers({
 	},
 	abandoned: function() {
 		return Subscriptions.find({userId:this._id, progress:'abandoned'}).count();
+	},
+	hasSubscriptions: function() {
+		return hasSubscriptions(this._id);
+	},
+	getSubscriptions: function() {
+		return getFullSubscriptions(null,this._id);
+	},
+	isFriend: function(e) {
+		return isFriend(this._id);
+	},
+	isPending: function(e) {
+		return isPendingFriendRequest(this._id);
+	},
+	hasMutualFriends: function(e) {
+		return true;
+	},
+	hasRecommendations: function(e) {
+		return true;
 	}
 });
+function selectProgressFilter(progress) {
+	var el = $('.progress-option[data-progress="'+progress+'"]');
+
+	$('.progress-option').removeClass('selected').each(function(){
+		$('.pointer',this).css({visibility:'hidden'});
+	});
+	el.addClass('selected');
+	$('.pointer',el).css({visibility:'visible'});
+}

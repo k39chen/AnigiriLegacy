@@ -22,8 +22,7 @@
 		margin-top: 13px;
 
 		#account-name {
-			width: 100px;
-			@include truncated-text;
+			@include truncated-text(100px);
 			color: #fff;
 		}
 		#signout {

@@ -43,23 +43,138 @@ $placeholderColor: #7a7a7a;
 			}
 		}
 	}
-	#header {
-		overflow: hidden;
-		margin: 16px;
+	#profileBar {
+		position: absolute;
+		left: 0px;
+		top: 0;
+		bottom: 0px;
+		width: $profileBarWidth;
+		background: #ECF1FF;
+		color: #787C8D;
+		text-align: center;
 
-		.portrait {
-			float: left;
-			border-radius: 50%;
-			width: 150px;
-			height: 150px;
+		.header {
+			@include box-sizing;
+			text-align: center;
+			border-bottom: solid 1px #D8DEE5;
+			height: $topBarHeight;
+			line-height: $topBarHeight + 5px;
+			@include truncated-text($profileBarWidth);
+
+			.back-btn {
+				cursor: pointer;
+				font-size: 16px;
+				color: #D6DCF3;
+				margin-right: 8px;
+
+				&.hover {
+					color: $themeColor;
+				}
+			}
+			.title {
+				font-size: 18px;
+				font-weight: 200;
+			}
 		}
+		.scroll-container {
+			overflow-y: auto;
+			position: absolute;
+			top: $topBarHeight;
+			bottom: 0px;
+			left: 0px;
+			width: $profileBarWidth;
+
+			.expo {
+				padding-top: 24px;
+				padding-bottom: 18px;
+				background-color: #D7DCEB;
+
+				.portrait {
+					text-align: center;
+					img {
+						border-radius: 50%;
+						width: 100px;
+						height: 100px;
+					}
+				}
+				.addFriend-btn {
+					margin-top: 4px;
+					height: 1.0em;
+					line-height: 1.0em;
+				}
+				.email, .pendingRequest {
+					color: #9C9EB4;
+				}
+			}
+
+			.section {
+				margin-top: 8px;
+				margin-bottom: 12px;
+				text-align: left;
+
+				h3 {
+					color: #AAA8B4;
+					font-size: 10px;
+					text-transform: uppercase;
+					font-weight: 400;
+					margin-left: 24px;
+				}
+				.content {
+				}
+				.progress-option {
+					overflow: hidden;
+					padding-left: 24px;
+					cursor: pointer;
+
+					.label {
+						float: left;
+
+					}
+					.counter {
+						float: right;
+						margin-right: 12px;
+					}
+					.pointer {
+						visibility: hidden;
+						float: right;
+						color: #fff;
+						font-size: 48px;
+						line-height: 26px;
+						height: 26px;
+						margin-right: -3px;
+						margin-top: -10px;
+					}
+					.fa-star {
+						color: #FFCB7E;
+					}
+					.fa-circle {
+						&.finished { color: $colorFinished; }
+						&.watching { color: $colorWatching; }
+						&.backlogged { color: $colorBacklogged; }
+						&.onhold { color: $colorOnHold; }
+						&.abandoned { color: $colorAbandoned; }
+					}
+					&.hover {
+						background-color: #dae0f1;
+					}
+					&.selected {
+						background-color: #82BAFF;
+						color: #fff;
+					}
+				}
+			}
+		}
+		/*
 		#statistics {
-			float: left;
-			overflow: hidden;
+			text-align: center;
+
 			.statistic {
-				float: left;
+				cursor: pointer;
+				display: inline-block;
 				text-align: center;
 				margin: 0px 8px;
+				padding: 12px;
+				border-radius: 12px;
 
 				.value {
 					font: {
@@ -84,7 +199,15 @@ $placeholderColor: #7a7a7a;
 					}
 					line-height: 10px;
 				}
+				&.hover {
+					background: #eee;
+				}
 			}
 		}
+		*/
+	}
+	#profileGrid {
+		overflow: hidden;
+		padding: 16px;
 	}
 }

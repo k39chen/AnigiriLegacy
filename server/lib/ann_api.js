@@ -477,6 +477,69 @@ Meteor.methods({
 		Subscriptions.update({userId:userId,annId:animeId},{$set:{episodes:episodes}});
 		return episodes;
 	},
+	/**
+	 * Sends a friend request to the appropriate user. Will not allow multiple 
+	 * pending requests to be sent between two people.
+	 *
+	 * @method sendFriendRequest
+	 * @param friendId {String} The friend that we want to send the friend request to.
+	 */
+	sendFriendRequest: function(friendId) {
+		var userId = Meteor.userId();
+		
+		// don't send another friend request if they are already friends or
+		// if there is already a pending request between these two people
+		if (Friends.find({userId:userId,friendId:friendId,status:'approved'}).count() == 0 ||
+			Friends.find({userId:userId,friendId:friendId,status:'pending'}).count() == 0) 
+		{
+			// establish the friend request
+			var request_id = Friends.insert({
+				userId: userId,
+				friendId: friendId,
+				status: 'pending', // pending,approved
+				approveDate: null
+			});
+			// we need to create bidirectional friend request entry
+			Friends.insert({
+				userId: friendId,
+				friendId: userId,
+				status: 'pending',
+				approveDate: null
+			});
+			// return the friend request that was just sent
+			return Friends.findOne({_id:request_id});
+		}
+		// no friend request sent
+		return null;
+	},
+	/**
+	 * Approves a pending friend request.
+	 *
+	 * @method approveFriendRequest
+	 * @param friendId {String} The friend request that we want to be approving.
+	 */
+	approveFriendRequest: function(friendId) {
+		var userId = Meteor.userId();
+
+		// don't approve a friend request if there the two parties are
+		// already friends or if therewas no friend request pending to begin with
+		if (Friends.find({userId:userId,friendId:friendId}).count() > 0 &&
+			Friends.find({userId:userId,friendId:friendId,status:'pending'}).count() > 0) 
+		{
+			// establish the friend request approval
+			var approve_id = Friends.update(
+				{userId:userId,friendId:friendId},
+				{$set: {
+					status:'approved',
+					approveDate: new Date().valueOf()
+				}}
+			);
+			// return the friend request that was just approved
+			return Friends.findOne({_id:approve_id,});
+		}
+		// no friend request approved
+		return null;
+	}
 });
 
 // gets the time since the last update for this anime document

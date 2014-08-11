@@ -21,8 +21,7 @@
 	}
 	.header {
 		.title {
-			width: 256px;
-			@include truncated-text;
+			@include truncated-text(256px);
 			color: #A2A4B5;
 			font-size: 1.2em;
 			line-height: 1.6em;

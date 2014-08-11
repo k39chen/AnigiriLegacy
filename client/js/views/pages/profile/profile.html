@@ -1,41 +1,141 @@
 <template name='profilePage'>
 <div id='profilePage' class='page'>
 	<h1>
-		<span>{{{title}}}</span>
 		<div id='friendSearchBar'>
 			<i class='fa fa-search'></i>
 			<input id='friendSearchInput' type='text' placeholder='Search for a user...' />
 		</div>
 	</h1>
+	<div id='profileBar'>
+		<div class='header'>
+			<i class='back-btn fa fa-chevron-left'></i>
+			<span class='title'>{{title}}</span>
+			<i style='visibility:hidden;' class='back-btn fa fa-chevron-left'></i>
+		</div>
+		<div class='scroll-container'>
+			<div class='expo'>
+				<div class='portrait'>
+					<img src='{{portrait}}' />
+				</div>
+				{{#if isFriend}}
+					<div class='email'>{{email}}</div>
+				{{else}}
+					{{#if isPending}}
+						<div class='pendingRequest'>Friend Request Pending</div>
+					{{else}}
+						<div class='addFriend-btn anigiri-btn'>Add Friend</div>
+					{{/if}}
+				{{/if}}
+			</div>
+			{{#if hasMutualFriends}}
+			<div class='section'>
+				<h3>Mutual Friends</h3>
+				<div class='content'>
+				stuff
+				</div>
+			</div>
+			{{/if}}
+			{{#if hasRecommendations}}
+			<div class='section'>
+				<h3>Recommendations</h3>
+				<div class='content'>
+				stuff
+				</div>
+			</div>
+			{{/if}}
+			<div class='section'>
+				<h3>Animes</h3>
+				<div class='content'>
+					<div class='progress-options'>
+						<div class='progress-option' data-progress='all'>
+							<div class='label'><i class='fa fa-star'></i> All</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+						<div class='progress-option' data-progress='finished'>
+							<div class='label'><i class='fa fa-circle finished'></i> Finished</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+						<div class='progress-option' data-progress='watching'>
+							<div class='label'><i class='fa fa-circle watching'></i> Watching</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+						<div class='progress-option' data-progress='backlogged'>
+							<div class='label'><i class='fa fa-circle backlogged'></i> Backlogged</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+						<div class='progress-option' data-progress='onhold'>
+							<div class='label'><i class='fa fa-circle onhold'></i> On Hold</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+						<div class='progress-option' data-progress='abandoned'>
+							<div class='label'><i class='fa fa-circle abandoned'></i> Abandoned</div>
+							<div class='pointer'><i class='fa fa-caret-left'></i></div>
+							<div class='counter'>1234</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- mutual friends -->
+	<!-- have a 3-display carousel (three items at a time): click will bring it to the corresponding profile page -->
+	
+	<!-- recommendations -->
+	<!-- show number of accepted recommendations -->
+
+	<!-- animes -->
+	<!-- show the breakdown (finished/watching/etc...) and clicking will filter the grid -->
+
+	<!--
 	<div id='header'>
 		<img class='portrait' src='{{portrait}}' />
 
-		<div id="statistics">
-			<div class="statistic">
-				<div class="value">{{numSubscriptions}}</div>
-				<div class="label"># Subscriptions</div>
+		<div id='statistics'>
+			<div class='statistic'>
+				<div class='value finished'>{{finished}}</div>
+				<div class='label'>Finished</div>
 			</div>
-			<div class="statistic">
-				<div class="value finished">{{finished}}</div>
-				<div class="label">Finished</div>
+			<div class='statistic'>
+				<div class='value watching'>{{watching}}</div>
+				<div class='label'>Watching</div>
 			</div>
-			<div class="statistic">
-				<div class="value watching">{{watching}}</div>
-				<div class="label">Watching</div>
+			<div class='statistic'>
+				<div class='value backlogged'>{{backlogged}}</div>
+				<div class='label'>Backlogged</div>
 			</div>
-			<div class="statistic">
-				<div class="value backlogged">{{backlogged}}</div>
-				<div class="label">Backlogged</div>
+			<div class='statistic'>
+				<div class='value onhold'>{{onhold}}</div>
+				<div class='label'>On Hold</div>
 			</div>
-			<div class="statistic">
-				<div class="value onhold">{{onhold}}</div>
-				<div class="label">On Hold</div>
-			</div>
-			<div class="statistic">
-				<div class="value abandoned">{{abandoned}}</div>
-				<div class="label">Abandoned</div>
+			<div class='statistic'>
+				<div class='value abandoned'>{{abandoned}}</div>
+				<div class='label'>Abandoned</div>
 			</div>
 		</div>
 	</div>
+	-->
+
+	<!--
+	{{#if hasSubscriptions}}
+	<div id='profileGrid'>
+	{{#each getSubscriptions}}
+		{{> tinyGridItem this}}
+	{{/each}}
+	</div>
+	{{else}}
+	<div class='empty-message'>
+		<p>This user hasn't subscribed to any animes yet.</p>
+	</div>
+	{{/if}}
+	-->	
+
 </div>
 </template>

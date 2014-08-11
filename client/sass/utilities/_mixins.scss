@@ -2,11 +2,15 @@
  * Include this, but you will need to specify a discrete width value.
  *
  * @mixin truncated-text
+ * @param $width
  */
-@mixin truncated-text {
+@mixin truncated-text($width:"") {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	@if $width != "" {
+		width: $width;
+	}
 }
 /**
  * @mixin box-sizing
@@ -36,4 +40,13 @@
 	-moz-box-shadow: $shadows;
 	-webkit-box-shadow: $shadows;
 	box-shadow: $shadows;
+}
+/**
+ * @mixin opacity
+ * @param $value
+ */
+@mixin opacity($value) {
+	-khtml-opacity: $value;
+	-moz-opacity: $value;
+	opacity: $value;
 }
