@@ -45,6 +45,9 @@ Meteor.publish('songs', function(){
 Meteor.publish('userFriends',function(){
 	return Friends.find({userId: this.userId});
 });
+Meteor.publish('friendUsers', function(){
+	return Friends.find({friendId: this.userId});
+});
 Meteor.publish('generalSubscriptions', function(){
 	return Subscriptions.find();
 });

@@ -102,8 +102,35 @@ $placeholderColor: #7a7a7a;
 					height: 1.0em;
 					line-height: 1.0em;
 				}
+				.cancel-btn {
+					height: 1.0em;
+					line-height: 1.0em;
+				}
 				.email, .pendingRequest {
 					color: #9C9EB4;
+				}
+				.icon-btn {
+					text-align: center;
+					cursor: pointer;
+					display: inline-block;
+					width: 32px;
+					height: 32px;
+					line-height: 32px;
+					border-radius: 50%;
+					color: #fff;
+
+					&.accept-btn {
+						background: #3ECF3E;
+						&.hover {
+							background: darken(#3ECF3E,10%);
+						}
+					}
+					&.decline-btn {
+						background: #E94545;
+						&.hover {
+							background: darken(#E94545,10%);
+						}
+					}
 				}
 			}
 
@@ -164,47 +191,6 @@ $placeholderColor: #7a7a7a;
 				}
 			}
 		}
-		/*
-		#statistics {
-			text-align: center;
-
-			.statistic {
-				cursor: pointer;
-				display: inline-block;
-				text-align: center;
-				margin: 0px 8px;
-				padding: 12px;
-				border-radius: 12px;
-
-				.value {
-					font: {
-						size: 48px;
-						weight: 100;
-					}
-					height: 40px;
-					line-height: 48px;
-
-					&.finished { color: $colorFinished; }
-					&.watching { color: $colorWatching; }
-					&.backlogged { color: $colorBacklogged; }
-					&.onhold { color: $colorOnHold; }
-					&.abandoned { color: $colorAbandoned; }
-				}
-				.label {
-					text-transform: uppercase;
-					color: #aaa;
-					font: {
-						size: 10px;
-						weight: 300;
-					}
-					line-height: 10px;
-				}
-				&.hover {
-					background: #eee;
-				}
-			}
-		}
-		*/
 	}
 	#profileGrid {
 		overflow: hidden;

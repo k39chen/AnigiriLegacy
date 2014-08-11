@@ -21,9 +21,16 @@
 					<div class='email'>{{email}}</div>
 				{{else}}
 					{{#if isPending}}
-						<div class='pendingRequest'>Friend Request Pending</div>
+						<div class='pendingRequest'>Friend Request Pending...</div>
+						<div class='cancel-btn anigiri-btn'>Cancel Request</div>
 					{{else}}
-						<div class='addFriend-btn anigiri-btn'>Add Friend</div>
+						{{#if isApproving}}
+							<p>Wants to be friends! Accept?</p>
+							<div class='accept-btn icon-btn' data-friend-id='{{friendId}}'><i class='fa fa-check'></i></div>
+							<div class='decline-btn icon-btn' data-friend-id='{{friendId}}'><i class='fa fa-times'></i></div>
+						{{else}}
+							<div class='addFriend-btn anigiri-btn'>Add Friend</div>
+						{{/if}}
 					{{/if}}
 				{{/if}}
 			</div>

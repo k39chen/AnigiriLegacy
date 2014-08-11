@@ -478,6 +478,34 @@ Meteor.methods({
 		return episodes;
 	},
 	/**
+	 * @DANGEROUS!!
+	 *
+	 * Clears all friendships in the system, including pending requests.
+	 *
+	 * @method clearAllFriendships
+	 */
+	clearAllFriendships: function() {
+		console.log('Delete all friendships!!');
+		var friends = Friends.find().fetch();
+		for (var i=0; i<friends.length; i++) {
+			Friends.remove({_id:friends[i]._id});
+		}
+	},
+	/**
+	 * @DANGEROUS!!
+	 * 
+	 * Clears all friend requests in the system.
+	 *
+	 * @method clearAllFriendRequests
+	 */
+	clearAllFriendRequests: function() {
+		console.log('Deleting all friend requests!!');
+		var friends = Friends.find({status:'pending'}).fetch();
+		for (var i=0; i<friends.length; i++) {
+			Friends.remove({_id:friends[i]._id});
+		}
+	},
+	/**
 	 * Sends a friend request to the appropriate user. Will not allow multiple 
 	 * pending requests to be sent between two people.
 	 *
@@ -496,13 +524,33 @@ Meteor.methods({
 			var request_id = Friends.insert({
 				userId: userId,
 				friendId: friendId,
-				status: 'pending', // pending,approved
+				status: 'pending', // pending,approved,declined
 				approveDate: null
 			});
 			// return the friend request that was just sent
 			return Friends.findOne({_id:request_id});
 		}
 		// no friend request sent
+		return null;
+	},
+	/**
+	 * Cancels a pending friend request.
+	 *
+	 * @method cancelFriendRequest
+	 * @param friendId {String} The friend request that we want to cancelling.
+	 */
+	cancelFriendRequest: function(friendId) {
+		var userId = Meteor.userId();
+		console.log( 'Cancelling friend request', userId, friendId );
+
+		// don't cancel a friend request if there the two parties are
+		// already friends or if there was no friend request pending to begin with
+		if (Friends.find({userId:userId,friendId:friendId}).count() > 0 &&
+			Friends.find({userId:userId,friendId:friendId,status:'pending'}).count() > 0) 
+		{
+			// remove the friends request entry
+			Friends.remove({userId:userId,friendId:friendId});
+		}
 		return null;
 	},
 	/**
@@ -513,39 +561,46 @@ Meteor.methods({
 	 */
 	approveFriendRequest: function(friendId) {
 		var userId = Meteor.userId();
+		console.log( 'Approving friend request', userId, friendId );
 
 		// don't approve a friend request if there the two parties are
-		// already friends or if therewas no friend request pending to begin with
-		if (Friends.find({userId:userId,friendId:friendId}).count() > 0 &&
-			Friends.find({userId:userId,friendId:friendId,status:'pending'}).count() > 0) 
+		// already friends or if there was no friend request pending to begin with
+		if (Friends.find({userId:friendId,friendId:userId}).count() > 0 &&
+			Friends.find({userId:friendId,friendId:userId,status:'pending'}).count() > 0) 
 		{
 			// establish the friend request approval
 			var approve_id = Friends.update(
-				{userId:userId,friendId:friendId},
+				{userId:friendId,friendId:userId},
 				{$set: {
 					status:'approved',
 					approveDate: new Date().valueOf()
 				}}
 			);
 			// return the friend request that was just approved
-			return Friends.findOne({_id:approve_id,});
+			return Friends.findOne({_id:approve_id});
 		}
 		// no friend request approved
 		return null;
 	},
 	/**
-	 * @DANGEROUS!!
-	 * 
-	 * Clears all friend requests in the system.
+	 * Declines a pending friend request.
 	 *
-	 * @method clearAllFriendRequests
+	 * @method declineFriendRequest
+	 * @param friendId {String} The friend request that we are declining.
 	 */
-	clearAllFriendRequests: function() {
-		console.log('Deleting all friend requests!!');
-		var friends = Friends.find({status:'pending'}).fetch();
-		for (var i=0; i<friends.length; i++) {
-			Friends.remove({_id:friends[i]._id});
+	declineFriendRequest: function(friendId) {
+		var userId = Meteor.userId();
+		console.log( 'Declining friend request', userId, friendId );
+
+		// don't decline a friend request if there the two parties are
+		// already friends or if there was no friend request pending to begin with
+		if (Friends.find({userId:friendId,friendId:userId}).count() > 0 &&
+			Friends.find({userId:friendId,friendId:userId,status:'pending'}).count() > 0) 
+		{
+			// remove the friends request entry
+			Friends.remove({userId:friendId,friendId:userId});
 		}
+		return null;
 	}
 });
 

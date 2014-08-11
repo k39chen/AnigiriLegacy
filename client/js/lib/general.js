@@ -131,10 +131,49 @@ window.isFriend = function(friendId) {
  */
 window.isPendingFriendRequest = function(friendId) {
 	if (!isFriend(friendId)) {
-		return !(!Friends.findOne({userId:getUserId(), friendId:friendId, status:'pending'})) ||
-			!(!Friends.findOne({userId:friendId, friendId:getUserId(), status:'pending'}));
+		return !(!Friends.findOne({userId:getUserId(), friendId:friendId, status:'pending'}));
 	}
 	return false;
+};
+/**
+ * Detemine whether or not the supplied user id corresponds to a approving friend request.
+ *
+ * @method friendId {String} The user id in question.
+ * @return {Boolean} Whether or not the user suppplied is currently in the position to approve a friend request.
+ */
+window.isApprovingFriendRequest = function(friendId) {
+	if (!isFriend(friendId)) {
+		return !(!Friends.findOne({userId:friendId, friendId:getUserId(), status:'pending'}));
+	}
+	return false;
+};
+/**
+ * Get all approvable friend requests for the supplied user.
+ *
+ * @method getApprovableFriendRequests
+ * @param userId {String} The user id that we want to get approvable requests for. (default=currentUserId)
+ * @return {Array} The list of approvable friend requests.
+ */
+window.getApprovableFriendRequests = function(userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Friends.find({friendId:userId,status:'pending'}).fetch() : null;
+};
+/**
+ * Get all pending friend requests for the supplied user.
+ *
+ * @method getPendingFriendRequests
+ * @param userId {String} The user id that we want to get pending requests for. (default=currentUserId)
+ * @return {Array} The list of pending friend requests.
+ */
+window.getPendingFriendRequests = function(userId) {
+	// default to using the current user id if none is specified
+	if (!userId) {
+		userId = getUserId();
+	}
+	return userId ? Friends.find({userId:userId,status:'pending'}).fetch() : null;
 };
 /**
  * Determine whether or not the current user has any subscriptions.

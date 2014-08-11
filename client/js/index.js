@@ -5,6 +5,7 @@ Meteor.subscribe('userAnimes');
 Meteor.subscribe('userSubscriptions');
 Meteor.subscribe('songs');
 Meteor.subscribe('userFriends');
+Meteor.subscribe('friendUsers');
 Meteor.subscribe('generalSubscriptions');
 Meteor.subscribe('generalFriends');
 

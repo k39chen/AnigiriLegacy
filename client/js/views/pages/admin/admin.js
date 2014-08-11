@@ -38,6 +38,11 @@ Template.adminPage.events({
 		var el = $(e.target);
 		// clear all friend requests
 		Meteor.call('clearAllFriendRequests');
+	},
+	'click #clearAllFriendshipsBtn': function(e) {
+		var el = $(e.target);
+		// clear all friendships
+		Meteor.call('clearAllFriendships');
 	}
 });
 Template.adminPage.helpers({

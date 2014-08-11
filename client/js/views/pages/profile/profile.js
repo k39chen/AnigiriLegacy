@@ -46,7 +46,7 @@ Template.profilePage.rendered = function(){
 		if ($('#friendSearchInput').data('ui-autocomplete')) {
 			$('#friendSearchInput').data('ui-autocomplete')._renderItem = function(ul,item){
 				// don't show the admin user as an option to view
-				if (isAdminUser(item._id)) {
+				if (getUserId() == item._id) {
 					return $("<li>");
 				}
 				return $('<li>')
@@ -91,9 +91,46 @@ Template.profilePage.events({
 		el.removeClass('hover');
 	},
 	'click .addFriend-btn': function(e) {
-		Meteor.call('sendFriendRequest', this._id, function(err,data){
-			console.log(err,data);
-		});
+		// send the friend request
+		Meteor.call('sendFriendRequest', this._id);
+	},
+	'mouseover .cancel-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .cancel-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .cancel-btn': function(e) {
+		// cancel the friend request
+		Meteor.call('cancelFriendRequest', this._id);
+	},
+	'mouseover .accept-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .accept-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .accept-btn': function(e) {
+		var el = $(e.currentTarget),
+			friendId = el.data('friend-id');
+		Meteor.call('approveFriendRequest',friendId);
+	},
+	'mouseover .decline-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.addClass('hover');
+	},
+	'mouseout .decline-btn': function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass('hover');
+	},
+	'click .decline-btn': function(e) {
+		var el = $(e.currentTarget),
+			friendId = el.data('friend-id');
+		Meteor.call('declineFriendRequest',friendId);
 	},
 	'mouseover .progress-option': function(e) {
 		var el = $(e.currentTarget);
@@ -107,7 +144,6 @@ Template.profilePage.events({
 		var el = $(e.currentTarget);
 		selectProgressFilter(el.data('progress'));
 	}
-
 });
 Template.profilePage.helpers({
 	title: function(){
@@ -125,6 +161,9 @@ Template.profilePage.helpers({
 		var self = this,
 			fb = getFacebookUserData(self);
 		return fb ? fb.email : '';
+	},
+	friendId: function() {
+		return this._id;
 	},
 	numSubscriptions: function() {
 		return Subscriptions.find({userId:this._id}).count();
@@ -155,6 +194,9 @@ Template.profilePage.helpers({
 	},
 	isPending: function(e) {
 		return isPendingFriendRequest(this._id);
+	},
+	isApproving: function(e) {
+		return isApprovingFriendRequest(this._id);
 	},
 	hasMutualFriends: function(e) {
 		return true;

@@ -7,15 +7,42 @@
 			<h2>Currently Watching <span class='counter'>({{countCurrentlyWatching}})</span></h2>
 			<div class='content'>
 				{{#if hasCurrentlyWatching}}
-					<div class='gridContainer'>
-					{{#each getCurrentlyWatching}}
-						{{> tinyGridItem this}}
-					{{/each}}
-					</div>
+				<div class='gridContainer'>
+				{{#each getCurrentlyWatching}}
+					{{> tinyGridItem this}}
+				{{/each}}
+				</div>
 				{{else}}
 				<div class='empty-message'>
 					<div class='valigner'>
 						You're not currently watching any animes.
+					</div>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+		<div class='section'>
+			<h2>Pending Friend Requests</h2>
+			<div class='content'>
+				{{#if hasApprovableFriendRequests}}
+				<div class='approvableFriendRequestsContainer'>
+				{{#each getApprovableFriendRequests}}
+					<div class='friendRequest' data-friend-id='{{friendId this}}'>
+						<img class='portrait pull-left' src='{{portrait this}}' />
+						<div class='pull-left'>
+							<div class='friendName'>{{friendName this}}</div>
+							<div class='controls'>
+								<div class='accept-btn icon-btn' data-friend-id='{{friendId this}}'><i class='fa fa-check'></i></div>
+								<div class='decline-btn icon-btn' data-friend-id='{{friendId this}}'><i class='fa fa-times'></i></div>
+							</div>
+						</div>
+					</div>
+				{{/each}}
+				</div>
+				{{else}}
+				<div class='empty-message'>
+					<div class='valigner'>
+						No pending friend requests.
 					</div>
 				</div>
 				{{/if}}
