@@ -38,7 +38,7 @@
 			<div class='section'>
 				<h3>Mutual Friends</h3>
 				<div class='content'>
-				stuff
+				<!-- have a 3-display carousel (three items at a time): click will bring it to the corresponding profile page -->
 				</div>
 			</div>
 			{{/if}}
@@ -46,7 +46,7 @@
 			<div class='section'>
 				<h3>Recommendations</h3>
 				<div class='content'>
-				stuff
+				<!-- show the breakdown (finished/watching/etc...) and clicking will filter the grid -->
 				</div>
 			</div>
 			{{/if}}
@@ -91,58 +91,19 @@
 		</div>
 	</div>
 
-
-	<!-- mutual friends -->
-	<!-- have a 3-display carousel (three items at a time): click will bring it to the corresponding profile page -->
-	
-	<!-- recommendations -->
-	<!-- show number of accepted recommendations -->
-
-	<!-- animes -->
-	<!-- show the breakdown (finished/watching/etc...) and clicking will filter the grid -->
-
-	<!--
-	<div id='header'>
-		<img class='portrait' src='{{portrait}}' />
-
-		<div id='statistics'>
-			<div class='statistic'>
-				<div class='value finished'>{{finished}}</div>
-				<div class='label'>Finished</div>
-			</div>
-			<div class='statistic'>
-				<div class='value watching'>{{watching}}</div>
-				<div class='label'>Watching</div>
-			</div>
-			<div class='statistic'>
-				<div class='value backlogged'>{{backlogged}}</div>
-				<div class='label'>Backlogged</div>
-			</div>
-			<div class='statistic'>
-				<div class='value onhold'>{{onhold}}</div>
-				<div class='label'>On Hold</div>
-			</div>
-			<div class='statistic'>
-				<div class='value abandoned'>{{abandoned}}</div>
-				<div class='label'>Abandoned</div>
-			</div>
-		</div>
-	</div>
-	-->
-
-	<!--
 	{{#if hasSubscriptions}}
 	<div id='profileGrid'>
 	{{#each getSubscriptions}}
-		{{> tinyGridItem this}}
+		{{> gridItem this}}
 	{{/each}}
 	</div>
 	{{else}}
 	<div class='empty-message'>
-		<p>This user hasn't subscribed to any animes yet.</p>
+		<div class='valigner'>
+			<p>This user hasn't subscribed to any animes yet.</p>
+		</div>
 	</div>
 	{{/if}}
-	-->	
 
 </div>
 </template>

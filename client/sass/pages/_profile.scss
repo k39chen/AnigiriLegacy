@@ -44,8 +44,8 @@ $placeholderColor: #7a7a7a;
 		}
 	}
 	#profileBar {
-		position: absolute;
-		left: 0px;
+		position: fixed;
+		left: $sideBarWidth;
 		top: 0;
 		bottom: 0px;
 		width: $profileBarWidth;
@@ -210,5 +210,9 @@ $placeholderColor: #7a7a7a;
 	#profileGrid {
 		overflow: hidden;
 		padding: 16px;
+		margin-left: $profileBarWidth;
+	}
+	.empty-message {
+		margin-left: $profileBarWidth;
 	}
 }
