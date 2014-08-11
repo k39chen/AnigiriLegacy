@@ -118,24 +118,24 @@ window.hasFriends = function(userId) {
  */
 window.isFriend = function(friendId) {
 	if (!friendId) return false;
-	return Friends.find({
-		userId: getUserId(), // current user id
-		friendId: friendId,
-		status: 'approved'
-	}).count() > 0;
-};
 
+	return Friends.find({userId:getUserId(), friendId:friendId, status:'approved'}).count() > 0 ||
+	   Friends.find({userId:friendId, friendId:getUserId(), status:'approved'}).count() > 0;
+};
+/**
+ * Determine whether or not the supplied user id corresponds to a pending request.
+ *
+ * @method isPendingFriendRequest
+ * @param friendId {String} The user id in question.
+ * @return {Boolean} Whether or not the user supplied is currently waiting on a pending friend request.
+ */
 window.isPendingFriendRequest = function(friendId) {
 	if (!isFriend(friendId)) {
-		return !(!Friends.findOne({
-			userId: getUserId(),
-			friendId: friendId,
-			status: 'pending'
-		}));
+		return !(!Friends.findOne({userId:getUserId(), friendId:friendId, status:'pending'})) ||
+			!(!Friends.findOne({userId:friendId, friendId:getUserId(), status:'pending'}));
 	}
 	return false;
-}
-
+};
 /**
  * Determine whether or not the current user has any subscriptions.
  *

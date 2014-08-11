@@ -499,13 +499,6 @@ Meteor.methods({
 				status: 'pending', // pending,approved
 				approveDate: null
 			});
-			// we need to create bidirectional friend request entry
-			Friends.insert({
-				userId: friendId,
-				friendId: userId,
-				status: 'pending',
-				approveDate: null
-			});
 			// return the friend request that was just sent
 			return Friends.findOne({_id:request_id});
 		}
@@ -539,6 +532,20 @@ Meteor.methods({
 		}
 		// no friend request approved
 		return null;
+	},
+	/**
+	 * @DANGEROUS!!
+	 * 
+	 * Clears all friend requests in the system.
+	 *
+	 * @method clearAllFriendRequests
+	 */
+	clearAllFriendRequests: function() {
+		console.log('Deleting all friend requests!!');
+		var friends = Friends.find({status:'pending'}).fetch();
+		for (var i=0; i<friends.length; i++) {
+			Friends.remove({_id:friends[i]._id});
+		}
 	}
 });
 

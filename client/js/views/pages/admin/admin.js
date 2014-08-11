@@ -34,6 +34,11 @@ Template.adminPage.events({
 		// delete all songs
 		Meteor.call('deleteAllSongs');
 	},
+	'click #clearFriendRequestsBtn': function(e) {
+		var el = $(e.target);
+		// clear all friend requests
+		Meteor.call('clearAllFriendRequests');
+	}
 });
 Template.adminPage.helpers({
 	getTotalAnimes: function(){
