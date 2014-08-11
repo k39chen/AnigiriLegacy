@@ -159,7 +159,16 @@ $placeholderColor: #7a7a7a;
 					}
 					.counter {
 						float: right;
-						margin-right: 12px;
+						margin-right: 4px;
+						font-size: 10px;
+						color: #fff;
+						background: #D9D9FA;
+						display: inline-block;
+						height: 18px;
+						line-height: 18px;
+						margin-top: 4px;
+						padding: 0 6px;
+						border-radius: 16px;
 					}
 					.pointer {
 						visibility: hidden;
@@ -183,10 +192,16 @@ $placeholderColor: #7a7a7a;
 					}
 					&.hover {
 						background-color: #dae0f1;
+						.counter {
+							background: $themeColor;
+						}
 					}
 					&.selected {
 						background-color: #82BAFF;
 						color: #fff;
+						.counter {
+							background: $themeColor;
+						}
 					}
 				}
 			}

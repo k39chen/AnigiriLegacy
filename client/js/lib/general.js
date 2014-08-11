@@ -107,7 +107,7 @@ window.hasFriends = function(userId) {
 	if (!userId) {
 		userId = getUserId();
 	}
-	return userId ? Friends.find({userId: userId}).count() > 0 : false;
+	return userId ? (Friends.find({userId: userId}).count() > 0 || Friends.find({friendId: userId})) : false;
 };
 /**
  * Determine whether or not the supplied user id corresponds to an already existing friend.
@@ -174,6 +174,28 @@ window.getPendingFriendRequests = function(userId) {
 		userId = getUserId();
 	}
 	return userId ? Friends.find({userId:userId,status:'pending'}).fetch() : null;
+};
+/**
+ * Get friends list.
+ *
+ * @method getFriends
+ * @return {Array} The list of friends.
+ */
+window.getFriends = function() {
+	var friendsList = Friends.find({userId:getUserId(),status:'approved'}).fetch().concat(Friends.find({friendId:getUserId()}).fetch()),
+		list = [];
+	for (var i=0; i<friendsList.length; i++) {
+		if (friendsList[i].userId == getUserId()) {
+			list.push(friendsList[i].friendId);
+		} else {
+			list.push(friendsList[i].userId);
+		}
+	}
+	for (var i=0; i<list.length; i++) {
+		list[i] = Meteor.users.findOne({_id:list[i]});
+	}
+	console.log(list);
+	return list;
 };
 /**
  * Determine whether or not the current user has any subscriptions.

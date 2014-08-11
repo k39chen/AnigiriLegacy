@@ -73,5 +73,8 @@ Template.socialPage.events({
 Template.socialPage.helpers({
 	hasFriends: function(){
 		return hasFriends();
+	},
+	getFriends: function() {
+		return getFriends();
 	}
 });

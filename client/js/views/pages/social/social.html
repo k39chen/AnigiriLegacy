@@ -8,7 +8,11 @@
 		</div>
 	</h1>
 	{{#if hasFriends}}
-	SOCIAL PAGE: LIST ALL FRIENDS HERE
+	<div id='friendsGrid'>
+	{{#each getFriends}}
+
+	{{/each}}
+	</div>
 	{{else}}
 	<div class='empty-message'>
 		<div class='valigner'>

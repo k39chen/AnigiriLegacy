@@ -51,8 +51,3 @@ Meteor.publish('friendUsers', function(){
 Meteor.publish('generalSubscriptions', function(){
 	return Subscriptions.find();
 });
-
-
-Meteor.publish('generalFriends', function(){
-	return Friends.find({});
-});
