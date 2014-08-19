@@ -7,6 +7,7 @@ ANIMATRIX v2 SPEC
 + do autocomplete shortlist for animes (grab aggregate data from animenewsnetwork.com/api) - including alternate names for good measure
 + have a 3-state acknowledgement process (new/acquired/rejected)
 + have a 4-state anime episode watch process (abandoned/watching/queued/completed)
++ visualization of anime/friend relevance. See http://bl.ocks.org/paulovn/9686202
 
 *** NOTE: For cron jobs like at node-cron (https://github.com/ncb000gt/node-cron)
 
@@ -17,3 +18,5 @@ ANIMATRIX v2 SPEC
 *** For image uploads: 
 + http://stackoverflow.com/questions/10099202/how-would-one-handle-a-file-upload-with-meteor
 + https://www.inkfilepicker.com/
+
+
