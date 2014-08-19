@@ -1,6 +1,12 @@
+/**
+ * Returns the current user ID.
+ *
+ * @method getUserId
+ * @return {String} The user ID.
+ */
 window.getUserId = function() {
 	return Meteor.userId();
-}
+};
 /**
  * Determines if a user is an admin user.
  *
