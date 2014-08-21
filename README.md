@@ -10,7 +10,7 @@ Notes
 A system that allows users to track animes and share their favourites with friends. Can also receive information about your currently watchcing animes and notifies you when new episodes are out. Requires Facebook sign in as the basis of user identification. This project was built using the MeteorJS framework. 
 
 This project is a rebound and extension of the following legacy projects:
-+ [AnimeReocrd](https://github.com/k39chen/AnimeRecord)
++ [AnimeRecord](https://github.com/k39chen/AnimeRecord)
 + [AnimeTracker](https://github.com/k39chen/AnimeTracker)
 
 Usage
