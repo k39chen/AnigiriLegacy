@@ -3,36 +3,36 @@ window.InfoBar = {
 	isShown: false,
 	init: function(annId) {
 		this.clear();
-		Session.set('infoBarAnnId',annId);
+		Session.set("infoBarAnnId",annId);
 
 		// show the info bar
 		this.show();
 
 		// make this call so the user can see a preview of whats being loaded (title/type)
-		Meteor.call('getSimpleAnimeData', annId, function(err,data){
-			Session.set('infoBarData',data);
+		Meteor.call("getSimpleAnimeData", annId, function(err,data){
+			Session.set("infoBarData",data);
 		
 			// get the rest of the anime data
-			Meteor.call('getAnimeData', annId, function(err,animeData){
-				Session.set('infoBarData', $.extend(Session.get('infoBarData'), animeData));
+			Meteor.call("getAnimeData", annId, function(err,animeData){
+				Session.set("infoBarData", $.extend(Session.get("infoBarData"), animeData));
 				UI.render(Template.infoBar);
 			});
 		});
 	},
 	clear: function() {
-		Session.set('subpage',null);
-		Session.set('infoBarAnnId',null);
-		Session.set('infoBarData',null);
+		Session.set("subpage",null);
+		Session.set("infoBarAnnId",null);
+		Session.set("infoBarData",null);
 	},
 	selectSubpage: function(subpage) {
-		// don't bother trying to change subpages if the target page is the same as the
+		// don"t bother trying to change subpages if the target page is the same as the
 		// currently selected one.
-		if (Session.get('subpage') == subpage) return;
-		Session.set('subpage',subpage);
+		if (Session.get("subpage") == subpage) return;
+		Session.set("subpage",subpage);
 
 		// update the selector for the navbar
-		$('#navbar .navitem').removeClass('selected');
-		$('#navbar .navitem[data-subpage="'+subpage+'"]').addClass('selected');
+		$("#navbar .navitem").removeClass("selected");
+		$("#navbar .navitem[data-subpage='"+subpage+"']").addClass("selected");
 
 		if (!this.firstLoad) {
 			this.showLoad();
@@ -45,16 +45,16 @@ window.InfoBar = {
 			return;
 		}
 		var settings = $.extend({duration:500},options),
-			barWidth = $('#infoBar').width(),
-			start = {display: 'block', right: -barWidth, opacity: 1},
+			barWidth = $("#infoBar").width(),
+			start = {display: "block", right: -barWidth, opacity: 1},
 			end = {right: 0},
 			dur = settings.duration;
 
-		$('#page-container').css({right:0}).stop().animate({right:barWidth},dur);
-		$('#infoBar').css(start).stop().animate(end,dur);
-		$('#infoBar > .body').css(start).stop().animate(end,dur);
+		$("#page-container").css({right:0}).stop().animate({right:barWidth},dur);
+		$("#infoBar").css(start).stop().animate(end,dur);
+		$("#infoBar > .body").css(start).stop().animate(end,dur);
 		
-		$('#loadingSubpage').css(start).stop().animate(end,dur);
+		$("#loadingSubpage").css(start).stop().animate(end,dur);
 
 		this.isShown = true;
 	},
@@ -62,88 +62,88 @@ window.InfoBar = {
 		if (!this.isShown) return;
 
 		var settings = $.extend({duration:500},options),
-			barWidth = $('#infoBar').width(),
+			barWidth = $("#infoBar").width(),
 			start = {right: 0},
 			end = {right: -barWidth},
 			dur = settings.duration;
-		$('#page-container').css({right:barWidth}).stop().animate({right:0},dur);
-		$('#infoBar').css(start).stop().animate(end,dur);
-		$('#infoBar > .body').css(start).stop().animate(end,dur);
-		$('#loadingSubpage').css(start).stop().animate(end,dur);
+		$("#page-container").css({right:barWidth}).stop().animate({right:0},dur);
+		$("#infoBar").css(start).stop().animate(end,dur);
+		$("#infoBar > .body").css(start).stop().animate(end,dur);
+		$("#loadingSubpage").css(start).stop().animate(end,dur);
 		
 		this.isShown = false;
 	},
 	showLoad: function(options) {
 		var settings = $.extend({duration:400},options),
-			start = {display:'block', opacity: 0},
+			start = {display:"block", opacity: 0},
 			end	= {opacity: 1},
 			dur	= settings.duration;
-		$('#loadingSubpage').css(start).stop().animate(end,dur);
+		$("#loadingSubpage").css(start).stop().animate(end,dur);
 	},
 	hideLoad: function(options) {
 		var settings = $.extend({duration:400},options),
-			start = {display:'block', opacity: 1},
+			start = {display:"block", opacity: 1},
 			end = {opacity: 0},
 			dur = settings.duration;
-		$('#loadingSubpage').css(start).stop().animate(end,dur,function(){
-			$(this).css({display:'none'});
+		$("#loadingSubpage").css(start).stop().animate(end,dur,function(){
+			$(this).css({display:"none"});
 		});
 	}
 };
 Template.infoBar.created = function(){
-	if (!Session.get('infoBarData')) return;
+	if (!Session.get("infoBarData")) return;
 
 	// select the Overview subpage by default
-	InfoBar.selectSubpage('overview');
+	InfoBar.selectSubpage("overview");
 };
 Template.infoBar.events({
-	'mouseover .close-btn': function(e) {
+	"mouseover .close-btn": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .close-btn': function(e) {
+	"mouseout .close-btn": function(e) {
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .close-btn': function(e) {
+	"click .close-btn": function(e) {
 		var el = $(e.currentTarget);
-		$('#searchInput').val('');
+		$("#searchInput").val("");
 		
 		InfoBar.hide();
 	},
-	'mouseover .navitem': function(e) {
+	"mouseover .navitem": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .navitem': function(e) {
+	"mouseout .navitem": function(e) {
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .navitem': function(e) {
+	"click .navitem": function(e) {
 		var el = $(e.currentTarget);
 
 		// show the subpage
-		InfoBar.selectSubpage(el.attr('data-subpage'));
+		InfoBar.selectSubpage(el.attr("data-subpage"));
 	}
 });
 Template.infoBar.helpers({
 	getTitle: function(){
-		return Session.get('infoBarData') ? Session.get('infoBarData').title : null;
+		return Session.get("infoBarData") ? Session.get("infoBarData").title : null;
 	},
 	getType: function() {
-		return Session.get('infoBarData') ? getTypeStr(Session.get('infoBarData').type) : null;
+		return Session.get("infoBarData") ? getTypeStr(Session.get("infoBarData").type) : null;
 	},
 	// some methods to determine which subpage to display
 	showOverviewSubpage: function(){
-		return Session.equals('subpage','overview');
+		return Session.equals("subpage","overview");
 	},
 	showActivitySubpage: function(){
-		return Session.equals('subpage','activity');
+		return Session.equals("subpage","activity");
 	},
 	showMusicSubpage: function(){
-		return Session.equals('subpage','music');
+		return Session.equals("subpage","music");
 	},
 	showSocialSubpage: function(){
-		return Session.equals('subpage','social');
+		return Session.equals("subpage","social");
 	}
 });

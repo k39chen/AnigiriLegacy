@@ -1,6 +1,6 @@
 Template.searchBar.rendered = function(){
 	// retrieve all the anime titles
-	var results = Meteor.call('getAnimes', function(err,data){
+	var results = Meteor.call("getAnimes", function(err,data){
 		// format the data into autocomplete accepted formats
 		var source = $.map(data,function(item){
 			return {
@@ -13,12 +13,12 @@ Template.searchBar.rendered = function(){
 		// sort the source by category (and subsort alphabetically)
 		source.sort(function(a,b){
 			if (a.type == b.type) { return b.label-a.label; } 
-			else if (a.type == 'tv') { return 0; }
-			else if (a.type == 'oav') { return 1; }
+			else if (a.type == "tv") { return 0; }
+			else if (a.type == "oav") { return 1; }
 			else { return 2; }
 		});
 		// we will now initialize it as an autocomplete searchbar
-		$('#searchInput').autocomplete({
+		$("#searchInput").autocomplete({
 			minLength: 3,
 			source: source,
 			open : function(){
@@ -32,13 +32,13 @@ Template.searchBar.rendered = function(){
 				InfoBar.init(ui.item.data.annId);
 			}
 		});
-		if ($('#searchInput').data('ui-autocomplete')) {
-			$('#searchInput').data('ui-autocomplete')._renderItem = function(ul,item){
-				return $('<li>')
-					.append('<a>'+
-						'<div class="label">'+item.label+'</div>'+
-						'<div class="type">'+getTypeStr(item.type)+'</div>'+
-					'</a>')
+		if ($("#searchInput").data("ui-autocomplete")) {
+			$("#searchInput").data("ui-autocomplete")._renderItem = function(ul,item){
+				return $("<li>")
+					.append("<a>"+
+						"<div class='label'>"+item.label+"</div>"+
+						"<div class='type'>"+getTypeStr(item.type)+"</div>"+
+					"</a>")
 					.appendTo(ul);
 			};
 		}
@@ -46,6 +46,6 @@ Template.searchBar.rendered = function(){
 };
 Template.searchBar.events({
 	'click #searchBar': function(e) {
-		$('#searchInput').val('');
+		$('#searchInput').val("");
 	}
 });

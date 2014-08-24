@@ -2,15 +2,15 @@ Template.account.rendered = function(){
 	// ...
 };
 Template.account.events({
-	'mouseover #signout': function(e) {
+	"mouseover #signout": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout #signout': function(e){
+	"mouseout #signout": function(e){
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click #signout': function(){
+	"click #signout": function(){
 		Meteor.logout();
 		Router.go("/");
 	}

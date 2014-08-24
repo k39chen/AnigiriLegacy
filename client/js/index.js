@@ -1,83 +1,83 @@
 // Meteor subscriptions
-Meteor.subscribe('users');
-Meteor.subscribe('userData');
-Meteor.subscribe('userAnimes');
-Meteor.subscribe('userSubscriptions');
-Meteor.subscribe('songs');
-Meteor.subscribe('userFriends');
-Meteor.subscribe('friendUsers');
-Meteor.subscribe('allAnimes');
-Meteor.subscribe('generalSubscriptions');
+Meteor.subscribe("users");
+Meteor.subscribe("userData");
+Meteor.subscribe("userAnimes");
+Meteor.subscribe("userSubscriptions");
+Meteor.subscribe("songs");
+Meteor.subscribe("userFriends");
+Meteor.subscribe("friendUsers");
+Meteor.subscribe("allAnimes");
+Meteor.subscribe("generalSubscriptions");
 
 // installs the `cast` component for grid layouts
 Meteor.startup(function() {
-	$('head').append('<script src="/cast.js"></script>');
+	$("head").append("<script src='/cast.js'></script>");
 });
 
 // define our router configuration
 Router.configure({
-	notFound: 'notFound',
-	layoutTemplate: 'userScreen',
-	loadingTemplate: 'loadingScreen'
+	notFound: "notFound",
+	layoutTemplate: "userScreen",
+	loadingTemplate: "loadingScreen"
 });
-Router.onBeforeAction('loading');
+Router.onBeforeAction("loading");
 
 // define our routes
 Router.map(function(){
 	// set up dashboard router
-	this.route('dashboardPage', {
-		path: '/dashboard',
-		template: 'dashboardPage',
+	this.route("dashboardPage", {
+		path: "/dashboard",
+		template: "dashboardPage",
 		yieldTemplates: {
-			'dashboardPage': {to: 'page-container'}
+			"dashboardPage": {to: "page-container"}
 		}
 	});
 	// set up collection router
-	this.route('collectionPage', {
-		path: '/collection',
-		template: 'collectionPage',
+	this.route("collectionPage", {
+		path: "/collection",
+		template: "collectionPage",
 		yieldTemplates: {
-			'collectionPage': {to: 'page-container'}
+			"collectionPage": {to: "page-container"}
 		}
 	});
 	// set up discover router
-	this.route('discoverPage', {
-		path: '/discover',
-		template: 'discoverPage',
+	this.route("discoverPage", {
+		path: "/discover",
+		template: "discoverPage",
 		yieldTemplates: {
-			'discoverPage': {to: 'page-container'}
+			"discoverPage": {to: "page-container"}
 		}
 	});
 	// set up social router
-	this.route('socialPage', {
-		path: '/social',
-		template: 'socialPage',
+	this.route("socialPage", {
+		path: "/social",
+		template: "socialPage",
 		yieldTemplates: {
-			'socialPage': {to: 'page-container'}
+			"socialPage": {to: "page-container"}
 		}
 	});
 	// set up statistics router
-	this.route('statisticsPage', {
-		path: '/statistics',
-		template: 'statisticsPage',
+	this.route("statisticsPage", {
+		path: "/statistics",
+		template: "statisticsPage",
 		yieldTemplates: {
-			'statisticsPage': {to: 'page-container'}
+			"statisticsPage": {to: "page-container"}
 		}
 	});
 	// set up admin router
-	this.route('adminPage', {
-		path: '/admin',
-		template: 'adminPage',
+	this.route("adminPage", {
+		path: "/admin",
+		template: "adminPage",
 		yieldTemplates: {
-			'adminPage': {to: 'page-container'}
+			"adminPage": {to: "page-container"}
 		}
 	});
 	// set up the profile router
-	this.route('profile', {
-		path: '/profile/:_id',
-		template: 'profilePage',
+	this.route("profile", {
+		path: "/profile/:_id",
+		template: "profilePage",
 		yieldTemplates: {
-			'profilePage': {to: 'page-container'}
+			"profilePage": {to: "page-container"}
 		},
 		data: function() {
 			return Meteor.users.findOne({_id: this.params._id});
@@ -85,16 +85,16 @@ Router.map(function(){
 	});
 
 	// set up splash page router
-	this.route('splashScreen', {
-		path: '/',
-		template: 'splashScreen',
-		layoutTemplate: 'splashScreen'
+	this.route("splashScreen", {
+		path: "/",
+		template: "splashScreen",
+		layoutTemplate: "splashScreen"
 	});
 	// have a natural fallback
-	this.route('notFoundScreen', {
-		path: '*',
-		template: 'notFoundScreen',
-		layoutTemplate: 'notFoundScreen'
+	this.route("notFoundScreen", {
+		path: "*",
+		template: "notFoundScreen",
+		layoutTemplate: "notFoundScreen"
 	});
 
 });

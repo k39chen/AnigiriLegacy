@@ -1,37 +1,37 @@
 Template.musicSubpage.rendered = function(){
 	InfoBar.hideLoad();
-	$('#musicSubpage').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#musicSubpage").css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.musicSubpage.helpers({
 	hasSongs: function(){
-		return Songs.find({annId: Session.get('infoBarAnnId')}).fetch().length > 0;
+		return Songs.find({annId: Session.get("infoBarAnnId")}).fetch().length > 0;
 	},
 	getSongData: function(){
-		return Songs.find({annId: Session.get('infoBarAnnId')}).fetch();
+		return Songs.find({annId: Session.get("infoBarAnnId")}).fetch();
 	},
 	getOpeningThemes: function() {
-		return Songs.find({annId: Session.get('infoBarAnnId'), type: 'op'}).fetch();
+		return Songs.find({annId: Session.get("infoBarAnnId"), type: "op"}).fetch();
 	},
 	getEndingThemes: function(){
-		return Songs.find({annId: Session.get('infoBarAnnId'), type: 'ed'}).fetch();
+		return Songs.find({annId: Session.get("infoBarAnnId"), type: "ed"}).fetch();
 	},
 	getInsertThemes: function(){
-		return Songs.find({annId: Session.get('infoBarAnnId'), type: 'in'}).fetch();
+		return Songs.find({annId: Session.get("infoBarAnnId"), type: "in"}).fetch();
 	},
 	displayEpisodes: function(episodes){
 		if (!episodes || !episodes.length || !episodes[0]) return null;
 
-		// we're only going to display the first episode range
+		// we"re only going to display the first episode range
 		var epRange = episodes[0];
-		var label = 'Ep';
-		var value = '';
+		var label = "Ep";
+		var value = "";
 
 		value = epRange.start;
 		if (epRange.end) {
-			var maxEpisodes = epRange.end == -1 ? Session.get('infoBarData').numEpisodes : epRange.end;
-			label += 's';
-			value += ('-' + maxEpisodes);
+			var maxEpisodes = epRange.end == -1 ? Session.get("infoBarData").numEpisodes : epRange.end;
+			label += "s";
+			value += ("-" + maxEpisodes);
 		}
-		return '<div class="label">'+label+'</div><div class="value">'+value+'</div>';
+		return "<div class='label'>"+label+"</div><div class='value'>"+value+"</div>";
 	}
 });

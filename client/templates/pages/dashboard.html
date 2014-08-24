@@ -1,47 +1,47 @@
-<template name='dashboardPage'>
-<div id='dashboardPage' class='page'>
+<template name="dashboardPage">
+<div id="dashboardPage" class="page">
 	{{#if hasSubscriptions}}
 	<h1>My Dashboard</h1>
-	<div id='dashboardSubscriptions'>
-		<div class='section'>
-			<h2>Currently Watching <span class='counter'>({{countCurrentlyWatching}})</span></h2>
-			<div class='content'>
+	<div id="dashboardSubscriptions">
+		<div class="section">
+			<h2>Currently Watching <span class="counter">({{countCurrentlyWatching}})</span></h2>
+			<div class="content">
 				{{#if hasCurrentlyWatching}}
-				<div class='gridContainer'>
+				<div class="gridContainer">
 				{{#each getCurrentlyWatching}}
 					{{> tinyGridItem this}}
 				{{/each}}
 				</div>
 				{{else}}
-				<div class='empty-message'>
-					<div class='valigner'>
-						You're not currently watching any animes.
+				<div class="empty-message">
+					<div class="valigner">
+						You"re not currently watching any animes.
 					</div>
 				</div>
 				{{/if}}
 			</div>
 		</div>
-		<div class='section'>
+		<div class="section">
 			<h2>Pending Friend Requests</h2>
-			<div class='content'>
+			<div class="content">
 				{{#if hasApprovableFriendRequests}}
-				<div class='approvableFriendRequestsContainer'>
+				<div class="approvableFriendRequestsContainer">
 				{{#each getApprovableFriendRequests}}
-					<div class='friendRequest' data-friend-id='{{friendId this}}'>
-						<img class='portrait pull-left' src='{{portrait this}}' />
-						<div class='pull-left'>
-							<div class='friendName'>{{friendName this}}</div>
-							<div class='controls'>
-								<div class='accept-btn icon-btn' data-friend-id='{{friendId this}}'><i class='fa fa-check'></i></div>
-								<div class='decline-btn icon-btn' data-friend-id='{{friendId this}}'><i class='fa fa-times'></i></div>
+					<div class="friendRequest" data-friend-id="{{friendId this}}">
+						<img class="portrait pull-left" src="{{portrait this}}" />
+						<div class="pull-left">
+							<div class="friendName">{{friendName this}}</div>
+							<div class="controls">
+								<div class="accept-btn icon-btn" data-friend-id="{{friendId this}}"><i class="fa fa-check"></i></div>
+								<div class="decline-btn icon-btn" data-friend-id="{{friendId this}}"><i class="fa fa-times"></i></div>
 							</div>
 						</div>
 					</div>
 				{{/each}}
 				</div>
 				{{else}}
-				<div class='empty-message'>
-					<div class='valigner'>
+				<div class="empty-message">
+					<div class="valigner">
 						No pending friend requests.
 					</div>
 				</div>
@@ -56,14 +56,14 @@
 		-->
 	</div>
 	{{else}}
-	<div class='welcome-message'>
-		<div class='valigner'>
-			<img class='logo' src='assets/onigiri.png' />
-			<div class='title'>Welcome to Anigiri, <span>{{userFirstName}}</span>!</div>
+	<div class="welcome-message">
+		<div class="valigner">
+			<img class="logo" src="assets/onigiri.png" />
+			<div class="title">Welcome to Anigiri, <span>{{userFirstName}}</span>!</div>
 			<p>
 				Start subscribing to anime to begin tracking and sharing your watching experience.<br/>
 			</p>
-			<div class='redirect-btn angiri-bigbtn'>Start Now</div>
+			<div class="redirect-btn angiri-bigbtn">Start Now</div>
 		</div>
 	</div>
 	{{/if}}

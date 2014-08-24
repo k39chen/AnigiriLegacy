@@ -1,13 +1,13 @@
 Template.socialPage.rendered = function(){
 	// fade in the page
-	$('#socialPage').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#socialPage").css({opacity:0}).stop().animate({opacity:1},500);
 
 	// update the sidebar
-	$('#sideBar .option').removeClass("selected");
-	$('#sideBar .option[data-page="social"]').addClass("selected");
+	$("#sideBar .option").removeClass("selected");
+	$("#sideBar .option[data-page='social']").addClass("selected");
 
 	// retrieve all the users titles
-	var results = Meteor.call('getUsers', function(err,data){
+	var results = Meteor.call("getUsers", function(err,data){
 		// format the data into autocomplete accepted formats
 		var source = $.map(data, function(item){
 			var fb = item.services.facebook,
@@ -29,7 +29,7 @@ Template.socialPage.rendered = function(){
 			return 0;
 		});
 		// we will now initialize it as an autocomplete searchbar
-		$('#friendSearchInput').autocomplete({
+		$("#friendSearchInput").autocomplete({
 			minLength: 1,
 			source: source,
 			open : function(){
@@ -43,25 +43,25 @@ Template.socialPage.rendered = function(){
 				Router.go("/profile/"+ui.item._id);
 			}
 		});
-		if ($('#friendSearchInput').data('ui-autocomplete')) {
-			$('#friendSearchInput').data('ui-autocomplete')._renderItem = function(ul,item){
-				// don't show the admin user as an option to view
+		if ($("#friendSearchInput").data("ui-autocomplete")) {
+			$("#friendSearchInput").data("ui-autocomplete")._renderItem = function(ul,item){
+				// don"t show the admin user as an option to view
 				if (getUserId() == item._id) {
 					return $("<li>");
 				}
-				return $('<li>')
-					.append('<a>'+
-						'<span class="group">'+
-							'<img class="portrait" src="'+getUserPortrait(item.data.id)+'" />'+
-						'</span>'+
-						'<span class="group">'+
-							'<div class="name">'+item.data.first_name+' '+item.data.last_name+'</div>'+
-							'<div class="email">'+item.data.email+'</div>'+
-						'</span>'+
-						'<span class="group" style="float:right;">'+
-							'<i class="fa fa-check-circle" '+(item.isFriends ? 'style="display:none;"' : '')+'></i>'+
-						'</span>'+
-					'</a>')
+				return $("<li>")
+					.append("<a>"+
+						"<span class='group'>"+
+							"<img class='portrait' src='"+getUserPortrait(item.data.id)+"' />"+
+						"</span>"+
+						"<span class='group'>"+
+							"<div class='name'>"+item.data.first_name+" "+item.data.last_name+"</div>"+
+							"<div class='email'>"+item.data.email+"</div>"+
+						"</span>"+
+						"<span class='group' style='float:right;'>"+
+							"<i class='fa fa-check-circle' "+(item.isFriends ? "style='display:none;'" : "")+"></i>"+
+						"</span>"+
+					"</a>")
 					.appendTo(ul);
 			}
 		};

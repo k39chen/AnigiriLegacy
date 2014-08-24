@@ -1,24 +1,24 @@
-<template name='socialPage'>
-<div id='socialPage' class='page'>
+<template name="socialPage">
+<div id="socialPage" class="page">
 	<h1>
 		<span>My Friends</span>
-		<div id='friendSearchBar'>
-			<i class='fa fa-search'></i>
-			<input id='friendSearchInput' type='text' placeholder='Search for a user...' />
+		<div id="friendSearchBar">
+			<i class="fa fa-search"></i>
+			<input id="friendSearchInput" type="text" placeholder="Search for a user..." />
 		</div>
 	</h1>
 	{{#if hasFriends}}
-	<div id='friendsGrid'>
+	<div id="friendsGrid">
 	{{#each getFriends}}
 		{{> friend this}}
 	{{/each}}
 	</div>
 	{{else}}
-	<div class='empty-message'>
-		<div class='valigner'>
+	<div class="empty-message">
+		<div class="valigner">
 			<p>
-			You don't have any friends on Anigiri yet.<br/>
-			<span class='accent'>Start sharing your favourite animes now!</span>
+			You don"t have any friends on Anigiri yet.<br/>
+			<span class="accent">Start sharing your favourite animes now!</span>
 			</p>
 		</div>
 	</div>

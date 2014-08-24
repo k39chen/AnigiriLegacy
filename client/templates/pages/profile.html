@@ -1,88 +1,88 @@
-<template name='profilePage'>
-<div id='profilePage' class='page'>
+<template name="profilePage">
+<div id="profilePage" class="page">
 	<h1>
-		<div id='friendSearchBar'>
-			<i class='fa fa-search'></i>
-			<input id='friendSearchInput' type='text' placeholder='Search for a user...' />
+		<div id="friendSearchBar">
+			<i class="fa fa-search"></i>
+			<input id="friendSearchInput" type="text" placeholder="Search for a user..." />
 		</div>
 	</h1>
-	<div id='profileBar'>
-		<div class='header'>
-			<i class='back-btn fa fa-chevron-left'></i>
-			<span class='title'>{{title}}</span>
-			<i style='visibility:hidden;' class='back-btn fa fa-chevron-left'></i>
+	<div id="profileBar">
+		<div class="header">
+			<i class="back-btn fa fa-chevron-left"></i>
+			<span class="title">{{title}}</span>
+			<i style="visibility:hidden;" class="back-btn fa fa-chevron-left"></i>
 		</div>
-		<div class='scroll-container'>
-			<div class='expo'>
-				<div class='portrait'>
-					<img src='{{portrait}}' />
+		<div class="scroll-container">
+			<div class="expo">
+				<div class="portrait">
+					<img src="{{portrait}}" />
 				</div>
 				{{#if isFriend}}
-					<div class='email'>{{email}}</div>
+					<div class="email">{{email}}</div>
 				{{else}}
 					{{#if isPending}}
-						<div class='pendingRequest'>Friend Request Pending...</div>
-						<div class='cancel-btn anigiri-btn'>Cancel Request</div>
+						<div class="pendingRequest">Friend Request Pending...</div>
+						<div class="cancel-btn anigiri-btn">Cancel Request</div>
 					{{else}}
 						{{#if isApproving}}
 							<p>Wants to be friends! Accept?</p>
-							<div class='accept-btn icon-btn' data-friend-id='{{friendId}}'><i class='fa fa-check'></i></div>
-							<div class='decline-btn icon-btn' data-friend-id='{{friendId}}'><i class='fa fa-times'></i></div>
+							<div class="accept-btn icon-btn" data-friend-id="{{friendId}}"><i class="fa fa-check"></i></div>
+							<div class="decline-btn icon-btn" data-friend-id="{{friendId}}"><i class="fa fa-times"></i></div>
 						{{else}}
-							<div class='addFriend-btn anigiri-btn'>Add Friend</div>
+							<div class="addFriend-btn anigiri-btn">Add Friend</div>
 						{{/if}}
 					{{/if}}
 				{{/if}}
 			</div>
 			{{#if hasMutualFriends}}
-			<div class='section'>
+			<div class="section">
 				<h3>Mutual Friends</h3>
-				<div class='content'>
+				<div class="content">
 				<!-- have a 3-display carousel (three items at a time): click will bring it to the corresponding profile page -->
 				</div>
 			</div>
 			{{/if}}
 			{{#if hasRecommendations}}
-			<div class='section'>
+			<div class="section">
 				<h3>Recommendations</h3>
-				<div class='content'>
+				<div class="content">
 				<!-- show the breakdown (finished/watching/etc...) and clicking will filter the grid -->
 				</div>
 			</div>
 			{{/if}}
-			<div class='section'>
+			<div class="section">
 				<h3>Animes</h3>
-				<div class='content'>
-					<div class='progress-options'>
-						<div class='progress-option' data-progress='all'>
-							<div class='label'><i class='fa fa-star'></i> All</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{numSubscriptions}}</div>
+				<div class="content">
+					<div class="progress-options">
+						<div class="progress-option" data-progress="all">
+							<div class="label"><i class="fa fa-star"></i> All</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{numSubscriptions}}</div>
 						</div>
-						<div class='progress-option' data-progress='finished'>
-							<div class='label'><i class='fa fa-circle finished'></i> Finished</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{finished}}</div>
+						<div class="progress-option" data-progress="finished">
+							<div class="label"><i class="fa fa-circle finished"></i> Finished</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{finished}}</div>
 						</div>
-						<div class='progress-option' data-progress='watching'>
-							<div class='label'><i class='fa fa-circle watching'></i> Watching</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{watching}}</div>
+						<div class="progress-option" data-progress="watching">
+							<div class="label"><i class="fa fa-circle watching"></i> Watching</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{watching}}</div>
 						</div>
-						<div class='progress-option' data-progress='backlogged'>
-							<div class='label'><i class='fa fa-circle backlogged'></i> Backlogged</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{backlogged}}</div>
+						<div class="progress-option" data-progress="backlogged">
+							<div class="label"><i class="fa fa-circle backlogged"></i> Backlogged</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{backlogged}}</div>
 						</div>
-						<div class='progress-option' data-progress='onhold'>
-							<div class='label'><i class='fa fa-circle onhold'></i> On Hold</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{onhold}}</div>
+						<div class="progress-option" data-progress="onhold">
+							<div class="label"><i class="fa fa-circle onhold"></i> On Hold</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{onhold}}</div>
 						</div>
-						<div class='progress-option' data-progress='abandoned'>
-							<div class='label'><i class='fa fa-circle abandoned'></i> Abandoned</div>
-							<div class='pointer'><i class='fa fa-caret-left'></i></div>
-							<div class='counter'>{{abandoned}}</div>
+						<div class="progress-option" data-progress="abandoned">
+							<div class="label"><i class="fa fa-circle abandoned"></i> Abandoned</div>
+							<div class="pointer"><i class="fa fa-caret-left"></i></div>
+							<div class="counter">{{abandoned}}</div>
 						</div>
 					</div>
 				</div>
@@ -92,15 +92,15 @@
 	</div>
 
 	{{#if hasSubscriptions}}
-	<div id='profileGrid'>
+	<div id="profileGrid">
 	{{#each getSubscriptions}}
 		{{> gridItem this}}
 	{{/each}}
 	</div>
 	{{else}}
-	<div class='empty-message'>
-		<div class='valigner'>
-			<p>This user hasn't subscribed to any animes yet.</p>
+	<div class="empty-message">
+		<div class="valigner">
+			<p>This user hasn"t subscribed to any animes yet.</p>
 		</div>
 	</div>
 	{{/if}}

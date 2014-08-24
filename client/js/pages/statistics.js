@@ -1,23 +1,23 @@
 Template.statisticsPage.rendered = function(){
 	// fade in the page
-	$('#statisticsPage').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#statisticsPage").css({opacity:0}).stop().animate({opacity:1},500);
 
 	// update the sidebar
-	$('#sideBar .option').removeClass("selected");
-	$('#sideBar .option[data-page="statistics"]').addClass("selected");
+	$("#sideBar .option").removeClass("selected");
+	$("#sideBar .option[data-page='statistics']").addClass("selected");
 };
 Template.statisticsPage.events({
-	'mouseover .redirect-btn': function(e) {
+	"mouseover .redirect-btn": function(e) {
 		var el = $(e.target);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .redirect-btn': function(e) {
+	"mouseout .redirect-btn": function(e) {
 		var el = $(e.target);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .redirect-btn': function(e){
+	"click .redirect-btn": function(e){
 		var el = $(e.target);
-		Router.go('/discover');
+		Router.go("/discover");
 	},
 });
 Template.statisticsPage.helpers({

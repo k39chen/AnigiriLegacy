@@ -1,6 +1,6 @@
 Template.splashScreen.rendered = function() {
 	// fade in this screen
-	$('#splashScreen').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#splashScreen").css({opacity:0}).stop().animate({opacity:1},500);
 
 	// wait until we have a proper user
 	var interval = window.setInterval(function(){
@@ -13,15 +13,15 @@ Template.splashScreen.rendered = function() {
 	},1000);
 };
 Template.splashScreen.events({
-	'mouseover #signin': function(e) {
+	"mouseover #signin": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout #signin': function(e){
+	"mouseout #signin": function(e){
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click #signin': function(e){
-		$('.login-button').trigger('click');
+	"click #signin": function(e){
+		$(".login-button").trigger("click");
 	}
 });

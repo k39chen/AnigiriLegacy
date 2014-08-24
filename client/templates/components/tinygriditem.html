@@ -1,16 +1,16 @@
-<template name='tinyGridItem'>
-<span class='tinyGridItem {{progress this}}' data-annId='{{annId}}'>
-	<div class='cover'>
-		<img src='{{poster this}}' />
+<template name="tinyGridItem">
+<span class="tinyGridItem {{progress this}}" data-annId="{{annId}}">
+	<div class="cover">
+		<img src="{{poster this}}" />
 	</div>
-	<div class='mask'></div>
-	<div class='maskcontent'>
-		<div class='title'>{{{title this}}}</div>
+	<div class="mask"></div>
+	<div class="maskcontent">
+		<div class="title">{{{title this}}}</div>
 		{{#if showEpisodes this}}
-		<div class='episodes'>{{{subbedEpisodes this}}}</div>
+		<div class="episodes">{{{subbedEpisodes this}}}</div>
 		{{/if}}
-		<div class='rating'>{{{rating this}}}</div>
+		<div class="rating">{{{rating this}}}</div>
 	</div>
-	<div class='hoverTarget'></div>
+	<div class="hoverTarget"></div>
 </span>
 </template>

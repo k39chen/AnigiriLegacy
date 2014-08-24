@@ -51,15 +51,15 @@ window.getFacebookUserData = function(userData) {
  */
 window.getTypeStr = function(type) {
 	switch (type) {
-		case 'tv': return 'TV Series';
-		case 'oav': return 'Original Video Animation';
-		case 'ona': return 'Original Net Animation';
-		case 'movie': return 'Movie';
+		case "tv": return "TV Series";
+		case "oav": return "Original Video Animation";
+		case "ona": return "Original Net Animation";
+		case "movie": return "Movie";
 		default: return type.capitalize();
 	}
 };
 /**
- * Returns the Facebook portrait URL given the user's facebook user ID.
+ * Returns the Facebook portrait URL given the user"s facebook user ID.
  *
  * @method getUserPortrait
  * @param fb_uid {Number} The user facebook id.
@@ -68,7 +68,7 @@ window.getTypeStr = function(type) {
  */
 window.getUserPortrait = function(fb_uid, options) {
 	var settings = $.extend({width:150,height:150},options);
-	return 'https://graph.facebook.com/'+fb_uid+'/picture?width='+settings.width+'&height='+settings.height;
+	return "https://graph.facebook.com/"+fb_uid+"/picture?width="+settings.width+"&height="+settings.height;
 };
 /**
  * Determines whether or not a given anime type possesses episodes.
@@ -78,10 +78,10 @@ window.getUserPortrait = function(fb_uid, options) {
  * @return {Boolean} The boolean of whether or not the anime type has episodes.
  */
 window.hasEpisodes = function(type){
-	return type == 'tv' ||
-		type == 'ona' ||
-		type == 'oav' ||
-		type == 'special';
+	return type == "tv" ||
+		type == "ona" ||
+		type == "oav" ||
+		type == "special";
 
 };
 /**
@@ -93,11 +93,11 @@ window.hasEpisodes = function(type){
  */
 window.getProgressStr = function(progress) {
 	switch (progress) {
-		case 'finished': return 'Finished';
-		case 'watching': return 'Watching';
-		case 'onhold': return 'On Hold';
-		case 'backlogged': return 'Backlogged';
-		case 'abandoned': return 'Abanonded';
+		case "finished": return "Finished";
+		case "watching": return "Watching";
+		case "onhold": return "On Hold";
+		case "backlogged": return "Backlogged";
+		case "abandoned": return "Abanonded";
 		default: return progress.capitalize();
 	}
 };
@@ -125,8 +125,8 @@ window.hasFriends = function(userId) {
 window.isFriend = function(friendId) {
 	if (!friendId) return false;
 
-	return Friends.find({userId:getUserId(), friendId:friendId, status:'approved'}).count() > 0 ||
-	   Friends.find({userId:friendId, friendId:getUserId(), status:'approved'}).count() > 0;
+	return Friends.find({userId:getUserId(), friendId:friendId, status:"approved"}).count() > 0 ||
+	   Friends.find({userId:friendId, friendId:getUserId(), status:"approved"}).count() > 0;
 };
 /**
  * Determine whether or not the supplied user id corresponds to a pending request.
@@ -137,7 +137,7 @@ window.isFriend = function(friendId) {
  */
 window.isPendingFriendRequest = function(friendId) {
 	if (!isFriend(friendId)) {
-		return !(!Friends.findOne({userId:getUserId(), friendId:friendId, status:'pending'}));
+		return !(!Friends.findOne({userId:getUserId(), friendId:friendId, status:"pending"}));
 	}
 	return false;
 };
@@ -149,7 +149,7 @@ window.isPendingFriendRequest = function(friendId) {
  */
 window.isApprovingFriendRequest = function(friendId) {
 	if (!isFriend(friendId)) {
-		return !(!Friends.findOne({userId:friendId, friendId:getUserId(), status:'pending'}));
+		return !(!Friends.findOne({userId:friendId, friendId:getUserId(), status:"pending"}));
 	}
 	return false;
 };
@@ -165,7 +165,7 @@ window.getApprovableFriendRequests = function(userId) {
 	if (!userId) {
 		userId = getUserId();
 	}
-	return userId ? Friends.find({friendId:userId,status:'pending'}).fetch() : null;
+	return userId ? Friends.find({friendId:userId,status:"pending"}).fetch() : null;
 };
 /**
  * Get all pending friend requests for the supplied user.
@@ -179,7 +179,7 @@ window.getPendingFriendRequests = function(userId) {
 	if (!userId) {
 		userId = getUserId();
 	}
-	return userId ? Friends.find({userId:userId,status:'pending'}).fetch() : null;
+	return userId ? Friends.find({userId:userId,status:"pending"}).fetch() : null;
 };
 /**
  * Get friends list.
@@ -188,7 +188,7 @@ window.getPendingFriendRequests = function(userId) {
  * @return {Array} The list of friends.
  */
 window.getFriends = function() {
-	var friendsList = Friends.find({userId:getUserId(),status:'approved'}).fetch().concat(Friends.find({friendId:getUserId()}).fetch()),
+	var friendsList = Friends.find({userId:getUserId(),status:"approved"}).fetch().concat(Friends.find({friendId:getUserId()}).fetch()),
 		list = [];
 	for (var i=0; i<friendsList.length; i++) {
 		if (friendsList[i].userId == getUserId()) {
@@ -294,7 +294,7 @@ window.isFuture = function(date) {
  * @return {String} The human-readable date string.
  */
 window.formatDate = function(date) {
-	return date.getShortMonthName() + ' ' + date.getDate() + ', ' + date.getFullYear();
+	return date.getShortMonthName() + " " + date.getDate() + ", " + date.getFullYear();
 };
 /**
  * Capitalizes all words in all elements of the provided string array.

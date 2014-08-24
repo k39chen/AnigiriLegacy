@@ -1,24 +1,24 @@
 Template.friend.rendered = function() {
-	var $el = $(this.find('.portrait'));
+	var $el = $(this.find(".portrait"));
 	$el.css({opacity:0.8});
 };
 Template.friend.events({
-	'mouseover .friend': function(e) {
+	"mouseover .friend": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover')
-		el.find('.portrait').css({opacity:1});//.stop().animate({opacity:1},300);
+		el.addClass("hover")
+		el.find(".portrait").css({opacity:1});
 	},
-	'mouseout .friend': function(e) {
+	"mouseout .friend": function(e) {
 		var el = $(e.currentTarget);
-		el.removeClass('hover')
-		el.find('.portrait').css({opacity:0.8});
+		el.removeClass("hover")
+		el.find(".portrait").css({opacity:0.8});
 	},
-	'click .friend': function(e) {
+	"click .friend": function(e) {
 		var el = $(e.currentTarget);
-		var friendId = el.attr('data-friendId');
+		var friendId = el.attr("data-friendId");
 
 		// show this friend's profile
-		Router.go('/profile/'+friendId);
+		Router.go("/profile/"+friendId);
 	}
 });
 Template.friend.helpers({
@@ -26,12 +26,12 @@ Template.friend.helpers({
 		var self = this,
 			fb = getFacebookUserData(self);
 
-		return fb ? getUserPortrait(fb.id) : '';
+		return fb ? getUserPortrait(fb.id) : "";
 	},
 	name: function() {
 		var self = this,
 			fb = getFacebookUserData(self);
-		return fb ? fb.name : '';
+		return fb ? fb.name : "";
 	},
 	friendId: function() {
 		return this._id;

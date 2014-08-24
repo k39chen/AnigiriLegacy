@@ -2,17 +2,17 @@ Template.gridItem.rendered = function() {
 	// ...
 };
 Template.gridItem.events({
-	'mouseover .gridItem': function(e){
+	"mouseover .gridItem": function(e){
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .gridItem': function(e){
+	"mouseout .gridItem": function(e){
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .gridItem': function(e){
+	"click .gridItem": function(e){
 		var el = $(e.currentTarget);
-		var annId = parseInt(el.attr('data-annId'),10);
+		var annId = parseInt(el.attr("data-annId"),10);
 		
 		// get the anime data
 		InfoBar.init(annId);
@@ -34,25 +34,25 @@ Template.gridItem.helpers({
 	},
 	unsubbedEpisodes: function(item) {
 		if (isFuture(item.startDate)) {
-			return 'Upcoming Series';
+			return "Upcoming Series";
 		}
-		return item.endDate || item.subscription.progress == 'finished'
-			? item.numEpisodes+' Episodes'
-			: '+'+item.numEpisodes+' Episodes (Ongoing)';
+		return item.endDate || item.subscription.progress == "finished"
+			? item.numEpisodes+" Episodes"
+			: "+"+item.numEpisodes+" Episodes (Ongoing)";
 	},
 	subbedEpisodes: function(item) {
 		return isFuture(item.startDate) 
-			? 'Upcoming Series'
-			: '<span>'+item.subscription.episodes+'</span> / '+item.numEpisodes+' Episodes';
+			? "Upcoming Series"
+			: "<span>"+item.subscription.episodes+"</span> / "+item.numEpisodes+" Episodes";
 	},
 	rating: function(item){
-		var stars = '';
-		var star_empty = '<i class="star fa fa-star unfilled"></i>';
-		var star_filled = '<i class="star fa fa-star"></i>';
+		var stars = "";
+		var star_empty = "<i class='star fa fa-star unfilled'></i>";
+		var star_filled = "<i class='star fa fa-star'></i>";
 	
 		for (var i=0; i<MAX_RATING; i++) {
 			stars += (i < item.subscription.rating ? star_filled : star_empty);
 		}
-		return '<div class="stars">'+stars+'</div>';
+		return "<div class='stars'>"+stars+"</div>";
 	}
 });

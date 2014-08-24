@@ -1,18 +1,18 @@
 Template.socialSubpage.rendered = function(){
 	InfoBar.hideLoad();
-	$('#socialSubpage').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#socialSubpage").css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.socialSubpage.events({
-	'mouseover .addfriends-btn': function(e){
+	"mouseover .addfriends-btn": function(e){
 		var el = $(e.target);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .addfriends-btn': function(e){
+	"mouseout .addfriends-btn": function(e){
 		var el = $(e.target);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .addfriends-btn': function(e){
-		Router.go('/social');
+	"click .addfriends-btn": function(e){
+		Router.go("/social");
 	},
 });
 Template.socialSubpage.helpers({

@@ -1,49 +1,49 @@
 Template.dashboardPage.rendered = function(){
 	// fade in the page
-	$('#dashboardPage').css({opacity:0}).stop().animate({opacity:1},500);
+	$("#dashboardPage").css({opacity:0}).stop().animate({opacity:1},500);
 
 	// update the sidebar
-	$('#sideBar .option').removeClass("selected");
-	$('#sideBar .option[data-page="dashboard"]').addClass("selected");
+	$("#sideBar .option").removeClass("selected");
+	$("#sideBar .option[data-page='dashboard']").addClass("selected");
 };
 Template.dashboardPage.events({
-	'mouseover .redirect-btn': function(e) {
+	"mouseover .redirect-btn": function(e) {
 		var el = $(e.target);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .redirect-btn': function(e) {
+	"mouseout .redirect-btn": function(e) {
 		var el = $(e.target);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .redirect-btn': function(e){
+	"click .redirect-btn": function(e){
 		var el = $(e.target);
 		Router.go("/discover");
 	},
-	'mouseover .accept-btn': function(e) {
+	"mouseover .accept-btn": function(e) {
 		var el = $(e.target);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .accept-btn': function(e) {
+	"mouseout .accept-btn": function(e) {
 		var el = $(e.target);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .accept-btn': function(e) {
+	"click .accept-btn": function(e) {
 		var el = $(e.target),
-			friendId = $(el.parent()).data('friend-id');
-		Meteor.call('approveFriendRequest', friendId);
+			friendId = $(el.parent()).data("friend-id");
+		Meteor.call("approveFriendRequest", friendId);
 	},
-	'mouseover .decline-btn': function(e) {
+	"mouseover .decline-btn": function(e) {
 		var el = $(e.target);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .decline-btn': function(e) {
+	"mouseout .decline-btn": function(e) {
 		var el = $(e.target);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .decline-btn': function(e) {
+	"click .decline-btn": function(e) {
 		var el = $(e.target),
-			friendId = $(el.parent()).data('friend-id');
-		Meteor.call('declineFriendRequest', friendId);
+			friendId = $(el.parent()).data("friend-id");
+		Meteor.call("declineFriendRequest", friendId);
 	}
 });
 Template.dashboardPage.helpers({
@@ -51,9 +51,9 @@ Template.dashboardPage.helpers({
 		return hasSubscriptions();
 	},
 	userFirstName: function(){
-		var user = Meteor.user(), firstname = 'Otaku';
+		var user = Meteor.user(), firstname = "Otaku";
 		if (user && user.profile && user.profile.name) {
-			var names = user.profile.name.split(' ');
+			var names = user.profile.name.split(" ");
 			if (names.length > 0) {
 				firstname = names[0];
 			}
@@ -61,13 +61,13 @@ Template.dashboardPage.helpers({
 		return firstname;
 	},
 	hasCurrentlyWatching: function(){
-		return Subscriptions.find({userId: getUserId(), progress:'watching'}).count() > 0;
+		return Subscriptions.find({userId: getUserId(), progress:"watching"}).count() > 0;
 	},
 	countCurrentlyWatching: function(){
-		return Subscriptions.find({userId: getUserId(), progress:'watching'}).count();
+		return Subscriptions.find({userId: getUserId(), progress:"watching"}).count();
 	},
 	getCurrentlyWatching: function(){
-		var subscriptions = Subscriptions.find({userId: getUserId(), progress:'watching'}).fetch();
+		var subscriptions = Subscriptions.find({userId: getUserId(), progress:"watching"}).fetch();
 		return getFullSubscriptions(subscriptions);
 	},
 	hasApprovableFriendRequests: function() {

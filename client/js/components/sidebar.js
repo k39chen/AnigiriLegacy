@@ -2,23 +2,23 @@ Template.sideBar.rendered = function(){
 	// ...
 };
 Template.sideBar.events({
-	'mouseover .option': function(e) {
+	"mouseover .option": function(e) {
 		var el = $(e.currentTarget);
-		el.addClass('hover');
+		el.addClass("hover");
 	},
-	'mouseout .option': function(e) {
+	"mouseout .option": function(e) {
 		var el = $(e.currentTarget);
-		el.removeClass('hover');
+		el.removeClass("hover");
 	},
-	'click .option': function(e) {
+	"click .option": function(e) {
 		var el = $(e.currentTarget);
 
 		// select the page
-		Router.go("/"+el.attr('data-page'));
+		Router.go("/"+el.attr("data-page"));
 	}
 });
 Template.sideBar.helpers({
-	'isAdminUser': function() {
+	"isAdminUser": function() {
 		return isAdminUser();
 	}
 });
