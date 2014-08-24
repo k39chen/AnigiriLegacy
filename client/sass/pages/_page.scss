@@ -18,6 +18,11 @@
 		line-height: $topBarHeight;
 		@include box-sizing;
 		border-bottom: solid 1px #D8DEE5;
+	
+		.fa {
+			color: $themeColor;
+			margin-right: 4px;
+		}
 	}
 	h2 {
 		margin: 24px 32px 4px 32px;
