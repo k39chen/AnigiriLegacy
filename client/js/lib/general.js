@@ -200,7 +200,6 @@ window.getFriends = function() {
 	for (var i=0; i<list.length; i++) {
 		list[i] = Meteor.users.findOne({_id:list[i]});
 	}
-	console.log(list);
 	return list;
 };
 /**
