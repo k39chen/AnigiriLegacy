@@ -6,6 +6,12 @@ Template.profilePage.rendered = function(){
 	$('#sideBar .option').removeClass("selected");
 	$('#sideBar .option[data-page="social"]').addClass("selected");
 
+	// HACK: make the empty-message centered in the browser
+	$('.empty-message').width($('#profilePage').width() - $('#sideBar').width());
+	$(window).resize(function(){
+		$('.empty-message').width($('#profilePage').width() - $('#sideBar').width());
+	});
+	
 	// retrieve all the users
 	var results = Meteor.call('getUsers', function(err,data){
 		// format the data into autocomplete accepted formats
