@@ -11,11 +11,16 @@
 	font-size: $gridItemFontSize;
 
 	&.hover {
-		background-color: #DCDEE9;
+		background-color: #F5F5F8;
+		.title {
+			color: $themeColor;
+		}
+		.episodes > span {
+			color: #000;
+		}
 	}
 	.cover {
 		@include box-sizing;
-		border: solid 1px #D7DAFF;
 		border-top: solid 5px transparent;
 		overflow: hidden;
 		width: $gridItemCoverWidth;

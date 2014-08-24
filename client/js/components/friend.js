@@ -1,5 +1,6 @@
 Template.friend.rendered = function() {
-	$('.friend > .portrait').css({opacity:0.8})
+	var $el = $(this.find('.portrait'));
+	$el.css({opacity:0.8});
 };
 Template.friend.events({
 	'mouseover .friend': function(e) {
