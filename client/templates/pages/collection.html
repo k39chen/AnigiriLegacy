@@ -2,11 +2,13 @@
 <div id="collectionPage" class="page">
 	{{#if hasSubscriptions}}
 	<h1><i class="fa fa-th-large"></i> Collection</h1>
-	<div id="collectionFilters"></div>
-	<div id="collectionGrid">
-		{{#each getSubscriptions}}
-			{{> gridItem this}}
-		{{/each}}
+	<div class="pageContent">
+		<div id="collectionFilters"></div>
+		<div id="collectionGrid">
+			{{#each getSubscriptions}}
+				{{> gridItem this}}
+			{{/each}}
+		</div>
 	</div>
 	{{else}}
 	<div class="emptyMessage">

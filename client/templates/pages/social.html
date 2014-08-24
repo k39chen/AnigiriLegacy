@@ -8,10 +8,12 @@
 		</div>
 	</h1>
 	{{#if hasFriends}}
-	<div id="friendsGrid">
-	{{#each getFriends}}
-		{{> friend this}}
-	{{/each}}
+	<div class="pageContent">
+		<div id="friendsGrid">
+		{{#each getFriends}}
+			{{> friend this}}
+		{{/each}}
+		</div>
 	</div>
 	{{else}}
 	<div class="emptyMessage">

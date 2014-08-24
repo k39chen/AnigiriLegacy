@@ -92,10 +92,12 @@
 	</div>
 
 	{{#if hasSubscriptions}}
-	<div id="profileGrid">
-	{{#each getSubscriptions}}
-		{{> gridItem this}}
-	{{/each}}
+	<div class="pageContent">
+		<div id="profileGrid">
+		{{#each getSubscriptions}}
+			{{> gridItem this}}
+		{{/each}}
+		</div>
 	</div>
 	{{else}}
 	<div class="emptyMessage">

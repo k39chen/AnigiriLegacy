@@ -10,6 +10,12 @@
 	height: 100%;
 
 	h1 {
+		position: fixed;
+		z-index: 99;
+		top: 0px;
+		left: $sideBarWidth;
+		right: 0px;
+		background-color: #fff;
 		font-weight: 200;
 		font-size: 2.0em;
 		color: #7E9094;
@@ -24,15 +30,19 @@
 			margin-right: 4px;
 		}
 	}
-	h2 {
-		margin: 24px 32px 4px 32px;
-		color: #AAA8B4;
-		font-size: 12px;
-		text-transform: uppercase;
-		font-weight: 400;
+	.pageContent {
+		@include box-sizing(border-box);
+		padding-top: $topBarHeight;
+		h2 {
+			margin: 24px 32px 4px 32px;
+			color: #AAA8B4;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-weight: 400;
 
-		.counter {
-			color: $themeColor;
+			.counter {
+				color: $themeColor;
+			}
 		}
 	}
 }

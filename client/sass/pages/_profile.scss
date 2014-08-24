@@ -46,6 +46,7 @@ $placeholderColor: #7a7a7a;
 	}
 	#profileBar {
 		position: fixed;
+		z-index: 100;
 		left: $sideBarWidth;
 		top: 0;
 		bottom: 0px;

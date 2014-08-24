@@ -51,6 +51,7 @@ window.InfoBar = {
 			dur = settings.duration;
 
 		$("#page-container").css({right:0}).stop().animate({right:barWidth},dur);
+		$(".page > h1").css({right:0}).stop().animate({right:barWidth},dur);
 		$("#infoBar").css(start).stop().animate(end,dur);
 		$("#infoBar > .body").css(start).stop().animate(end,dur);
 		
@@ -67,6 +68,7 @@ window.InfoBar = {
 			end = {right: -barWidth},
 			dur = settings.duration;
 		$("#page-container").css({right:barWidth}).stop().animate({right:0},dur);
+		$(".page > h1").css({right:barWidth}).stop().animate({right:0},dur);
 		$("#infoBar").css(start).stop().animate(end,dur);
 		$("#infoBar > .body").css(start).stop().animate(end,dur);
 		$("#loadingSubpage").css(start).stop().animate(end,dur);

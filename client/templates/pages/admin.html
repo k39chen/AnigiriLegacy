@@ -1,30 +1,31 @@
 <template name="adminPage">
 <div id="adminPage" class="page">
 	<h1><i class="fa fa-wrench"></i> Administrator Panel</h1>
-	
-	<h2>Summary</h2>
-	<table>
-		<tr>
-			<th>Total Animes</th>
-			<th>Total ANN Info</th>
-			<th>Total HB Info</th>
-			<th>Total Covers</th>
-			<th>Total Songs</th>
-		</tr>
-		<tr>
-			<td>{{{getTotalAnimes}}}</td>
-			<td>{{{getTotalANN}}}</td>
-			<td>{{{getTotalHBI}}}</td>
-			<td>{{{getTotalCovers}}}</td>
-			<td>{{{getTotalSongs}}}</td>
-		</tr>
-	</table>
-	<div class="button-group">
-		<span id="fetchAnimesBtn" class="button">Fetch Animes</span>
-		<span id="deleteAnimesBtn" class="button">Delete Animes</span>
-		<span id="deleteSongsBtn" class="button">Delete Songs</span>
-		<span id="clearFriendRequestsBtn" class="button">Clear Friend Requests</span>
-		<span id="clearAllFriendshipsBtn" class="button">Clear All Friendships</span>
+	<div class="pageContent">
+		<h2>Summary</h2>
+		<table>
+			<tr>
+				<th>Total Animes</th>
+				<th>Total ANN Info</th>
+				<th>Total HB Info</th>
+				<th>Total Covers</th>
+				<th>Total Songs</th>
+			</tr>
+			<tr>
+				<td>{{{getTotalAnimes}}}</td>
+				<td>{{{getTotalANN}}}</td>
+				<td>{{{getTotalHBI}}}</td>
+				<td>{{{getTotalCovers}}}</td>
+				<td>{{{getTotalSongs}}}</td>
+			</tr>
+		</table>
+		<div class="button-group">
+			<span id="fetchAnimesBtn" class="button">Fetch Animes</span>
+			<span id="deleteAnimesBtn" class="button">Delete Animes</span>
+			<span id="deleteSongsBtn" class="button">Delete Songs</span>
+			<span id="clearFriendRequestsBtn" class="button">Clear Friend Requests</span>
+			<span id="clearAllFriendshipsBtn" class="button">Clear All Friendships</span>
+		</div>
 	</div>
 </div>
 </template>
