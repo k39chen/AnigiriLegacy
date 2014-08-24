@@ -9,6 +9,11 @@ Meteor.subscribe('friendUsers');
 Meteor.subscribe('allAnimes');
 Meteor.subscribe('generalSubscriptions');
 
+// installs the `cast` component for grid layouts
+Meteor.startup(function() {
+	$('head').append('<script src="/cast.js"></script>');
+});
+
 // define our router configuration
 Router.configure({
 	notFound: 'notFound',
