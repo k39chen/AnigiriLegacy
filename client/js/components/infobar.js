@@ -25,7 +25,7 @@ window.InfoBar = {
 		Session.set("infoBarData",null);
 	},
 	selectSubpage: function(subpage) {
-		// don"t bother trying to change subpages if the target page is the same as the
+		// don't bother trying to change subpages if the target page is the same as the
 		// currently selected one.
 		if (Session.get("subpage") == subpage) return;
 		Session.set("subpage",subpage);

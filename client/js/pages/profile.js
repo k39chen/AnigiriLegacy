@@ -6,10 +6,10 @@ Template.profilePage.rendered = function(){
 	$("#sideBar .option").removeClass("selected");
 	$("#sideBar .option[data-page='social']").addClass("selected");
 
-	// HACK: make the empty-message centered in the browser
-	$(".empty-message").width($("#profilePage").width() - $("#sideBar").width());
+	// HACK: make the emptyMessage centered in the browser
+	$(".emptyMessage").width($("#profilePage").width() - $("#sideBar").width());
 	$(window).resize(function(){
-		$(".empty-message").width($("#profilePage").width() - $("#sideBar").width());
+		$(".emptyMessage").width($("#profilePage").width() - $("#sideBar").width());
 	});
 	
 	// retrieve all the users
@@ -51,7 +51,7 @@ Template.profilePage.rendered = function(){
 		});
 		if ($("#friendSearchInput").data("ui-autocomplete")) {
 			$("#friendSearchInput").data("ui-autocomplete")._renderItem = function(ul,item){
-				// don"t show the admin user as an option to view
+				// don't show the admin user as an option to view
 				if (getUserId() == item._id) {
 					return $("<li>");
 				}

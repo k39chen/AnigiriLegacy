@@ -17,13 +17,13 @@ html, body {
 	margin: 0 auto;
 }
 .welcome-message,
-.empty-message {
+.emptyMessage {
 	display: table;
 	width: 100%;
 	height: 90%;
 	text-align: center;
 }
-.empty-message {
+.emptyMessage {
 	p {
 		margin-bottom: 24px;
 		line-height: 1.75em;
