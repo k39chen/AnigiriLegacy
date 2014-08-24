@@ -5,12 +5,6 @@ Template.profilePage.rendered = function(){
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");
 	$("#sideBar .option[data-page='social']").addClass("selected");
-
-	// HACK: make the emptyMessage centered in the browser
-	$(".emptyMessage").width($("#profilePage").width() - $("#sideBar").width());
-	$(window).resize(function(){
-		$(".emptyMessage").width($("#profilePage").width() - $("#sideBar").width());
-	});
 	
 	// retrieve all the users
 	var results = Meteor.call("getUsers", function(err,data){
