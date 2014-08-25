@@ -6,12 +6,14 @@
 		text-align: center;
 
 		.portrait {
+			@include transition;
 			width: 96px;
 			height: 96px;
 			border-radius: 50%;
 			border: solid 4px #DFE0E2;
 		}
 		.name {
+			@include transition;
 			@include truncated-text(128px);
 			line-height: 1.0em;
 		}

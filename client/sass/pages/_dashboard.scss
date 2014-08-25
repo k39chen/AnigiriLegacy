@@ -64,12 +64,14 @@
 			color: #fff;
 
 			&.accept-btn {
+				@include transition;
 				background: #3ECF3E;
 				&.hover {
 					background: darken(#3ECF3E,10%);
 				}
 			}
 			&.decline-btn {
+				@include transition;
 				background: #E94545;
 				&.hover {
 					background: darken(#E94545,10%);

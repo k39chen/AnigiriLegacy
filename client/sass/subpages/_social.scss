@@ -5,6 +5,7 @@
 		padding-bottom: 32px;
 	}
 	.friend {
+		@include transition;
 		cursor: pointer;
 		padding: 12px 16px;
 		overflow: hidden;
@@ -28,6 +29,7 @@
 		&.hover {
 			background-color: #383a4e;
 			.name {
+				@include transition;
 				color: #fff;
 				&.hover {
 					color: $themeColor;

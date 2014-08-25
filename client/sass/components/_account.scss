@@ -26,6 +26,7 @@
 			color: #fff;
 		}
 		#signout {
+			@include transition;
 			cursor: pointer;
 			color: #5A6088;
 			font-size: 0.9em;

@@ -122,12 +122,14 @@ $placeholderColor: #7a7a7a;
 					color: #fff;
 
 					&.accept-btn {
+						@include transition;
 						background: #3ECF3E;
 						&.hover {
 							background: darken(#3ECF3E,10%);
 						}
 					}
 					&.decline-btn {
+						@include transition;
 						background: #E94545;
 						&.hover {
 							background: darken(#E94545,10%);
@@ -151,6 +153,7 @@ $placeholderColor: #7a7a7a;
 				.content {
 				}
 				.progress-option {
+					@include transition;
 					overflow: hidden;
 					padding-left: 24px;
 					cursor: pointer;
@@ -160,6 +163,7 @@ $placeholderColor: #7a7a7a;
 
 					}
 					.counter {
+						@include transition;
 						float: right;
 						margin-right: 4px;
 						font-size: 10px;

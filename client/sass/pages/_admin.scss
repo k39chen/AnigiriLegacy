@@ -19,6 +19,7 @@
 		text-align: center;
 
 		.button {
+			@include transition;
 			cursor: pointer;
 			background-color: $themeColor;
 			color: #fff;

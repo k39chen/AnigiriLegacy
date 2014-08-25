@@ -37,6 +37,7 @@ html, body {
 	}
 }
 .angiri-bigbtn {
+	@include transition;
 	cursor: pointer;
 	display: inline-block;
 	background-color: $themeAlt;
@@ -52,6 +53,7 @@ html, body {
 	}
 }
 .anigiri-btn {
+	@include transition;
 	cursor: pointer;
 	display: inline-block;
 	padding: 8px 16px;

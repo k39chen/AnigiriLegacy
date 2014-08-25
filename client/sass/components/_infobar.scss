@@ -35,6 +35,7 @@
 		}
 	}
 	.close-btn {
+		@include transition;
 		cursor: pointer;
 		font-size: 2.0em;
 		color: #454653;
@@ -52,6 +53,7 @@
 		border-bottom: solid 1px #414346;
 
 		.navitem {
+			@include transition;
 			cursor: pointer;
 			display: inline-block;
 			color: #A2A4B5;
