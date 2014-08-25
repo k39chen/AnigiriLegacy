@@ -1,9 +1,9 @@
 #activitySubpage {
 	.unsubscribe-btn {
 		cursor: pointer;
-		position: absolute;
+		position: fixed;
 		bottom: 0px;
-		left: 0px;
+		width: $infoBarWidth;
 		right: 0px;
 		text-align: center;
 		display: inline-block;

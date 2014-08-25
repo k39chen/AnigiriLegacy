@@ -1,7 +1,18 @@
 <template name="socialSubpage">
 <div id="socialSubpage" class="subpage">
 {{#if hasFriends}}
-
+	<div id="friendsList">
+	{{#each getFriends}}
+		<div class="friend" data-friendId="{{friendId}}">
+			<img class="portrait" src="{{portrait this}}" />
+			<div class="pull-left">
+				<div class="name">{{name}}</div>
+				<div class="email">{{email}}</div>
+			</div>
+		</div>
+	{{/each}}
+	</div>
+	<div class="friendSearchBar">Put a search bar in me</div>
 {{else}}
 	<div class="emptyMessage">
 		<div class="valigner">

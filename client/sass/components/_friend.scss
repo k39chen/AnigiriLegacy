@@ -1,25 +1,27 @@
-.friend {
-	float: left;
-	cursor: pointer;
-	margin: 12px;
-	text-align: center;
+#socialPage {
+	.friend {
+		float: left;
+		cursor: pointer;
+		margin: 12px;
+		text-align: center;
 
-	.portrait {
-		width: 96px;
-		height: 96px;
-		border-radius: 50%;
-		border: solid 4px #DFE0E2;
-	}
-	.name {
-		@include truncated-text(128px);
-		line-height: 1.0em;
-	}
-	&.hover {
 		.portrait {
-			border-color: $themeColor;
+			width: 96px;
+			height: 96px;
+			border-radius: 50%;
+			border: solid 4px #DFE0E2;
 		}
 		.name {
-			color: $themeColor;
+			@include truncated-text(128px);
+			line-height: 1.0em;
+		}
+		&.hover {
+			.portrait {
+				border-color: $themeColor;
+			}
+			.name {
+				color: $themeColor;
+			}
 		}
 	}
 }
