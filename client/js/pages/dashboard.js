@@ -1,6 +1,9 @@
 Template.dashboardPage.rendered = function(){
 	// initialize the page
 	initPage("dashboard");
+
+	// test searchbox
+	$("<div/>").searchbox();
 };
 Template.dashboardPage.events({
 	"mouseover .redirect-btn": function(e) {
