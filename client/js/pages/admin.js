@@ -1,13 +1,6 @@
 Template.adminPage.rendered = function(){
-	// fade in the page
-	$("#adminPage").css({opacity:0}).stop().animate({opacity:1},500);
-
-	// ensure the page header is correctly sized
-	$(".page > h1").css({right:$("#page-container").css("right")});
-
-	// update the sidebar
-	$("#sideBar .option").removeClass("selected");
-	$("#sideBar .option[data-page='admin']").addClass("selected");
+	// initialize the page
+	initPage("admin");
 
 	Meteor.call("getAdminData", function(err,data){
 		Session.set("adminData",data);
