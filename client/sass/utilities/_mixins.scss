@@ -4,49 +4,70 @@
  * @mixin truncated-text
  * @param $width
  */
+
 @mixin truncated-text($width:"") {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	@if $width != "" {
-		width: $width;
-	}
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @if $width !="" {
+        width: $width;
+    }
 }
 /**
  * @mixin box-sizing
  * @param $value (default=border-box)
  */
-@mixin box-sizing($value: border-box) {
-	-webkit-box-sizing: $value;
-	-moz-box-sizing: $value;
-	box-sizing: $value;
+
+@mixin box-sizing($value:border-box) {
+    -webkit-box-sizing: $value;
+    -moz-box-sizing: $value;
+    box-sizing: $value;
 }
 /**
  * @mixin user-select
  * @param $value (default=none)
  */
-@mixin user-select($value: none) {
-	-ms-user-select: $value;
-	-moz-user-select: -moz-$value;
-	-khtml-user-select: $value;
-	-webkit-user-select: $value;
-	user-select: $value;
+
+@mixin user-select($value:none) {
+    -ms-user-select: $value;
+    -moz-user-select: -moz-$value;
+    -khtml-user-select: $value;
+    -webkit-user-select: $value;
+    user-select: $value;
 }
 /**
  * @mixin box-shadow
  * @param $shadows...
  */
+
 @mixin box-shadow($shadows...) {
-	-moz-box-shadow: $shadows;
-	-webkit-box-shadow: $shadows;
-	box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
 }
 /**
  * @mixin opacity
  * @param $value
  */
+
 @mixin opacity($value) {
-	-khtml-opacity: $value;
-	-moz-opacity: $value;
-	opacity: $value;
+    -khtml-opacity: $value;
+    -moz-opacity: $value;
+    opacity: $value;
+}
+/**
+ * @mixin transition
+ * @param $properties (default=all)
+ * @param $duration (default=.3s)
+ * @param $easing (default=ease)
+ */
+@mixin transition($properties:all, $duration:.3s, $easing:ease) {
+    @if length($properties) > 1 {
+        transition-property: $properties;
+        transition-duration: $duration;
+        transition-timing-function: $easing;
+    }
+    @else {
+        transition: $properties $duration $easing;
+    }
 }

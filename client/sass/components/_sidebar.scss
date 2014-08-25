@@ -28,6 +28,7 @@
 	}
 	.options {
 		.option {
+			@include transition;
 			cursor: pointer;
 			padding: 6px 24px;
 			color: #A2A4B5;
