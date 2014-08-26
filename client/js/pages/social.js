@@ -55,11 +55,9 @@ Template.socialPage.events({
 });
 Template.socialPage.helpers({
 	hasFriends: function(){
-		console.log( hasFriends() );
 		return hasFriends();
 	},
 	getFriends: function() {
-		console.log( getFriends() );
 		return getFriends();
 	}
 });
