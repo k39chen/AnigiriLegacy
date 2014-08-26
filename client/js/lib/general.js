@@ -113,7 +113,7 @@ window.hasFriends = function(userId) {
 	if (!userId) {
 		userId = getUserId();
 	}
-	return userId ? (Friends.find({userId:userId,status:"approved"}).count() > 0 || Friends.find({friendId:userId,status:"approved"})).count() > 0 : false;
+	return userId ? (Friends.find({userId:userId,status:"approved"}).count() > 0 || Friends.find({friendId:userId,status:"approved"}).count() > 0) : false;
 };
 /**
  * Determine whether or not the supplied user id corresponds to an already existing friend.
