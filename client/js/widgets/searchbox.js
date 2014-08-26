@@ -73,7 +73,7 @@
 					}
 					// update the source data
 					self.options.source = source;
-					if ($input.hasClass("ui-autocomplete")) {
+					if ($input.hasClass("ui-autocomplete-input")) {
 						$input.autocomplete("option","source",source);
 					}
 				});
