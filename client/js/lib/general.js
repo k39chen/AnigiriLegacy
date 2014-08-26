@@ -188,7 +188,7 @@ window.getPendingFriendRequests = function(userId) {
  * @return {Array} The list of friends.
  */
 window.getFriends = function() {
-	var friendsList = Friends.find({userId:getUserId(),status:"approved"}).fetch().concat(Friends.find({friendId:getUserId()}).fetch()),
+	var friendsList = Friends.find({userId:getUserId(),status:"approved"}).fetch().concat(Friends.find({friendId:getUserId(),status:"approved"}).fetch()),
 		list = [];
 	for (var i=0; i<friendsList.length; i++) {
 		if (friendsList[i].userId == getUserId()) {
