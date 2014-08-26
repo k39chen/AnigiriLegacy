@@ -1,6 +1,6 @@
 #page-container {
 	position: absolute;
-	@include box-sizing;
+	.box-sizing;
 	top: 0px;
 	left: 215px;
 	right: 0px;
@@ -13,26 +13,26 @@
 		position: fixed;
 		z-index: 99;
 		top: 0px;
-		left: $sideBarWidth;
+		left: @sideBarWidth;
 		right: 0px;
 		background-color: #fff;
 		font-weight: 200;
 		font-size: 2.0em;
 		color: #7E9094;
 		padding: 0px 32px;
-		height: $topBarHeight;
-		line-height: $topBarHeight;
-		@include box-sizing;
+		height: @topBarHeight;
+		line-height: @topBarHeight;
+		.box-sizing;
 		border-bottom: solid 1px #D8DEE5;
 	
 		.fa {
-			color: $themeColor;
+			color: @themeColor;
 			margin-right: 4px;
 		}
 	}
 	.pageContent {
-		@include box-sizing(border-box);
-		padding-top: $topBarHeight;
+		.box-sizing(border-box);
+		padding-top: @topBarHeight;
 		h2 {
 			margin: 24px 32px 4px 32px;
 			color: #AAA8B4;
@@ -41,7 +41,7 @@
 			font-weight: 400;
 
 			.counter {
-				color: $themeColor;
+				color: @themeColor;
 			}
 		}
 	}

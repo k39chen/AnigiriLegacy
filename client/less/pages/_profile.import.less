@@ -1,4 +1,4 @@
-$placeholderColor: #7a7a7a;
+@placeholderColor: #7a7a7a;
 		
 #profilePage {
 	h1 {
@@ -18,31 +18,31 @@ $placeholderColor: #7a7a7a;
 	#profileBar {
 		position: fixed;
 		z-index: 100;
-		left: $sideBarWidth;
+		left: @sideBarWidth;
 		top: 0;
 		bottom: 0px;
-		width: $profileBarWidth;
+		width: @profileBarWidth;
 		background: #ECF1FF;
 		color: #787C8D;
 		text-align: center;
 
 		.header {
-			@include box-sizing;
+			.box-sizing;
 			text-align: center;
 			border-bottom: solid 1px #D8DEE5;
-			height: $topBarHeight;
-			line-height: $topBarHeight + 5px;
-			@include truncated-text($profileBarWidth);
+			height: @topBarHeight;
+			line-height: @topBarHeight + 5px;
+			.truncated-text(@profileBarWidth);
 
 			.back-btn {
-				@include transition;
+				.transition;
 				cursor: pointer;
 				font-size: 16px;
 				color: #D6DCF3;
 				margin-right: 8px;
 
 				&.hover {
-					color: $themeColor;
+					color: @themeColor;
 				}
 			}
 			.title {
@@ -53,10 +53,10 @@ $placeholderColor: #7a7a7a;
 		.scroll-container {
 			overflow-y: auto;
 			position: absolute;
-			top: $topBarHeight;
+			top: @topBarHeight;
 			bottom: 0px;
 			left: 0px;
-			width: $profileBarWidth;
+			width: @profileBarWidth;
 
 			.expo {
 				padding-top: 24px;
@@ -94,14 +94,14 @@ $placeholderColor: #7a7a7a;
 					color: #fff;
 
 					&.accept-btn {
-						@include transition;
+						.transition;
 						background: #3ECF3E;
 						&.hover {
 							background: darken(#3ECF3E,10%);
 						}
 					}
 					&.decline-btn {
-						@include transition;
+						.transition;
 						background: #E94545;
 						&.hover {
 							background: darken(#E94545,10%);
@@ -160,23 +160,23 @@ $placeholderColor: #7a7a7a;
 						color: #FFCB7E;
 					}
 					.fa-circle {
-						&.finished { color: $colorFinished; }
-						&.watching { color: $colorWatching; }
-						&.backlogged { color: $colorBacklogged; }
-						&.onhold { color: $colorOnHold; }
-						&.abandoned { color: $colorAbandoned; }
+						&.finished { color: @colorFinished; }
+						&.watching { color: @colorWatching; }
+						&.backlogged { color: @colorBacklogged; }
+						&.onhold { color: @colorOnHold; }
+						&.abandoned { color: @colorAbandoned; }
 					}
 					&.hover {
 						background-color: #dae0f1;
 						.counter {
-							background: $themeColor;
+							background: @themeColor;
 						}
 					}
 					&.selected {
 						background-color: #82BAFF;
 						color: #fff;
 						.counter {
-							background: $themeColor;
+							background: @themeColor;
 						}
 					}
 				}
@@ -186,11 +186,11 @@ $placeholderColor: #7a7a7a;
 	#profileGrid {
 		overflow: hidden;
 		padding: 16px;
-		margin-left: $profileBarWidth;
+		margin-left: @profileBarWidth;
 	}
 	.emptyMessage {
-		@include box-sizing(border-box);
-		padding-left: $profileBarWidth;
+		.box-sizing(border-box);
+		padding-left: @profileBarWidth;
 		height: 80%;
 	}
 }

@@ -1,7 +1,8 @@
-$placeholderColor: #7a7a7a;
+@placeholderColor: #7a7a7a;
+
 
 .searchbox {
-	@include box-sizing;
+	.box-sizing;
 	border: solid 1px #4A4C5C;
 	margin: 0 auto;
 	margin-top: 24px;
@@ -15,7 +16,7 @@ $placeholderColor: #7a7a7a;
 		margin-right: 4px;
 		color: #7E9094;
 	}
-	input {
+	input[type=text] {
 		width: 132px;
 		height: 16px;
 		line-height: 17px;
@@ -23,26 +24,21 @@ $placeholderColor: #7a7a7a;
 		outline: none;
 		background-color: transparent;
 		color: #fff;
-		font: {
-			family: HelveticaNeue, Helvetica, Arial;
-			weight: 300;
-			size: $fontSize;
-		}
-	}
-	input[type=text] {
-		&::-webkit-input-placeholder { color: $placeholderColor; }
-		&:-moz-placeholder { color: $placeholderColor; }
-		&:-ms-input-placeholder { color: $placeholderColor; }
+		font-family: HelveticaNeue, Helvetica, Arial;
+		font-weight: 300;
+		font-size: @fontSize;
+		&::-webkit-input-placeholder { color: @placeholderColor; }
+		&:-moz-placeholder { color: @placeholderColor; }
+		&:-ms-input-placeholder { color: @placeholderColor; }
 	}
 }
-
 // autocomplete
 .ui-autocomplete {
 	max-height: 400px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	border: none;
-	border-radius: 0px;
+	.border-radius(0,0,0,0);
 	margin: 0;
 	padding: 0;
 }
@@ -56,7 +52,7 @@ $placeholderColor: #7a7a7a;
 	font-family: HelveticaNeue, Helvetica,Arial;
 	font-weight: 300 !important;
 	cursor: pointer;
-	border-radius: 0px;
+	.border-radius(0,0,0,0);
 	color: #A2A4B5;
 	padding: 8px 16px !important;
 }

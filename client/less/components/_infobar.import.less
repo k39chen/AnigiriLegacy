@@ -1,16 +1,16 @@
 #infoBar {
 	position: fixed;
 	top: 0px;
-	right: -$infoBarWidth;
+	right: -@infoBarWidth;
 	bottom: 0px;
-	width: $infoBarWidth;
+	width: @infoBarWidth;
 	background-color: #2A2C3C;
 
 	.header {
-		@include box-sizing;
+		.box-sizing;
 		padding: 12px 24px;
 		overflow: hidden;
-		height: $topBarHeight;
+		height: @topBarHeight;
 		background-color: #212330;
 	}
 	.left {
@@ -21,7 +21,7 @@
 	}
 	.header {
 		.title {
-			@include truncated-text(256px);
+			.truncated-text(256px);
 			color: #A2A4B5;
 			font-size: 1.2em;
 			line-height: 1.6em;
@@ -35,7 +35,7 @@
 		}
 	}
 	.close-btn {
-		@include transition;
+		.transition;
 		cursor: pointer;
 		font-size: 2.0em;
 		color: #454653;
@@ -47,13 +47,13 @@
 	}
 	#navbar {
 		text-align: center;
-		@include box-sizing;
+		.box-sizing;
 		height: 51px;
 		padding: 12px 0px;
 		border-bottom: solid 1px #414346;
 
 		.navitem {
-			@include transition;
+			.transition;
 			cursor: pointer;
 			display: inline-block;
 			color: #A2A4B5;
@@ -67,7 +67,7 @@
 				color: #fff;
 			}
 			&.selected {
-				background-color: $themeAlt;
+				background-color: @themeAlt;
 				color: #fff;
 			}
 		}
@@ -76,10 +76,10 @@
 		position: fixed;
 		overflow-x: hidden;
 		overflow-y: auto;
-		@include box-sizing;
+		.box-sizing;
 		top: 115px;
-		right: -$infoBarWidth;
+		right: -@infoBarWidth;
 		bottom: 0px;
-		width: $infoBarWidth;
+		width: @infoBarWidth;
 	}
 }

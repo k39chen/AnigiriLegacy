@@ -12,7 +12,7 @@
 			color: #4E596F;
 
 			span {
-				color: $themeAlt;
+				color: @themeAlt;
 			}
 		}
 		p {
@@ -51,7 +51,7 @@
 		.friendName {
 			line-height: 1.5em;
 			margin-top: 6px;
-			@include truncated-text(114px);
+			.truncated-text(114px);
 		}
 		.icon-btn {
 			text-align: center;
@@ -64,14 +64,14 @@
 			color: #fff;
 
 			&.accept-btn {
-				@include transition;
+				.transition;
 				background: #3ECF3E;
 				&.hover {
 					background: darken(#3ECF3E,10%);
 				}
 			}
 			&.decline-btn {
-				@include transition;
+				.transition;
 				background: #E94545;
 				&.hover {
 					background: darken(#E94545,10%);

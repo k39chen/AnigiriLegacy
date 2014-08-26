@@ -1,11 +1,11 @@
 #account {
 	position: fixed;
-	@include box-sizing;
+	.box-sizing;
 	overflow: hidden;
 	left: 0px;
 	bottom: 0px;
-	height: $bottomBarHeight;
-	width: $sideBarWidth;
+	height: @bottomBarHeight;
+	width: @sideBarWidth;
 	background-color: #0D1922;
 
 	#account-portrait {
@@ -22,11 +22,11 @@
 		margin-top: 13px;
 
 		#account-name {
-			@include truncated-text(100px);
+			.truncated-text(100px);
 			color: #fff;
 		}
 		#signout {
-			@include transition;
+			.transition;
 			cursor: pointer;
 			color: #5A6088;
 			font-size: 0.9em;
@@ -36,7 +36,7 @@
 				margin-right: 0.4em;
 			}
 			&.hover {
-				color: $themeColor;
+				color: @themeColor;
 			}
 		}
 	}

@@ -1,17 +1,17 @@
 #sideBar {
 	position: fixed;
-	@include box-sizing;
+	.box-sizing;
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
-	width: $sideBarWidth;
+	width: @sideBarWidth;
 
 	.scrollable {
 		position: fixed;
-		top: $topBarHeight;
-		bottom: $bottomBarHeight;
+		top: @topBarHeight;
+		bottom: @bottomBarHeight;
 		left: 0px;
-		width: $sideBarWidth;
+		width: @sideBarWidth;
 		overflow-y: auto;
 		background-color: #2A2C3C;
 	}
@@ -28,11 +28,11 @@
 	}
 	.options {
 		.option {
-			@include transition;
+			.transition;
 			cursor: pointer;
 			padding: 6px 24px;
 			color: #A2A4B5;
-			@include user-select;
+			.user-select;
 		
 			&.hover {
 				background-color: #383A4E;
@@ -40,7 +40,7 @@
 			}
 			&.selected {
 				background-color: #212330;
-				color: $themeColor;
+				color: @themeColor;
 			}
 			i {
 				display: inline-block;
@@ -51,10 +51,10 @@
 }
 #corner {
 	overflow: hidden;
-	@include box-sizing;
-	width: $sideBarWidth;
-	height: $topBarHeight;
-	background-color: $themeColor;
+	.box-sizing;
+	width: @sideBarWidth;
+	height: @topBarHeight;
+	background-color: @themeColor;
 	padding: 0px 24px;
 	line-height: 68px;
 

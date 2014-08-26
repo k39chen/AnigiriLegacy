@@ -9,10 +9,10 @@
 	text-align: left;
 
 	.cover {
-		@include box-sizing;
+		.box-sizing;
 		overflow: hidden;
-		width: $tinyGridItemWidth;
-		height: $tinyGridItemHeight;
+		width: @tinyGridItemWidth;
+		height: @tinyGridItemHeight;
 
 		img {
 			width: 100%;
@@ -41,7 +41,7 @@
 		color: #D4D6E0;
 	}
 	.title {
-		@include truncated-text($tinyGridItemWidth - tinyGridItemScale(12px));
+		.truncated-text(@tinyGridItemWidth - 12px);
 		font-family: Arial;
 		font-weight: bold;
 		color: #fff;

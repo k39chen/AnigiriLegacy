@@ -5,7 +5,7 @@
 		padding-bottom: 32px;
 	}
 	.friend {
-		@include transition;
+		.transition;
 		cursor: pointer;
 		padding: 12px 16px;
 		overflow: hidden;
@@ -29,10 +29,10 @@
 		&.hover {
 			background-color: #383a4e;
 			.name {
-				@include transition;
+				.transition;
 				color: #fff;
 				&.hover {
-					color: $themeColor;
+					color: @themeColor;
 				}
 			}
 		}
@@ -41,7 +41,7 @@
 		cursor: pointer;
 		position: fixed;
 		bottom: 0px;
-		width: $infoBarWidth;
+		width: @infoBarWidth;
 		right: 0px;
 		text-align: center;
 		display: inline-block;
