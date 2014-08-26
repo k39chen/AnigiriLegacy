@@ -15,6 +15,7 @@ cmather:iron-core@0.2.0
 cmather:iron-dynamic-template@0.2.1
 cmather:iron-layout@0.2.0
 cmather:iron-router@0.8.2
+coffeescript@1.0.2
 ctl-helper@1.0.2
 ctl@1.0.0
 d3@1.0.0
@@ -39,6 +40,7 @@ meteor@1.0.2
 minifiers@1.0.2
 minimongo@1.0.1
 mongo-livedata@1.0.3
+mrt:iron-router-progress@0.4.1
 oauth2@1.0.0
 oauth@1.0.0
 observe-sequence@1.0.1
