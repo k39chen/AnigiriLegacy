@@ -21,7 +21,7 @@ Template.profilePage.rendered = function(){
 				label: fullname,
 				value: fullname,
 				data: fb,
-				isFriends: false
+				isFriends: isFriend(item._id)
 			};
 		},
 		sort: function(a,b){
@@ -36,22 +36,17 @@ Template.profilePage.rendered = function(){
 			Router.go("/profile/"+ui.item._id);
 		},
 		renderItem: function(ul,item){
-			// don't show the admin user as an option to view
+			// don't show the current user as an option to view
 			if (getUserId() == item._id) {
 				return $("<li>");
 			}
-			return $("<li>").append("<a>"+
-				"<span class='group'>"+
-					"<img class='portrait' src='"+getUserPortrait(item.data.id)+"' />"+
-				"</span>"+
-				"<span class='group'>"+
-					"<div class='name'>"+item.data.first_name+" "+item.data.last_name+"</div>"+
-					"<div class='email'>"+item.data.email+"</div>"+
-				"</span>"+
-				"<span class='group' style='float:right;'>"+
-					"<i class='fa fa-check-circle' "+(item.isFriends ? "style='display:none;'" : "")+"></i>"+
-				"</span>"+
-			"</a>").appendTo(ul);
+			var html = getTemplateHTML("friendMenuItem", {
+				portrait: getUserPortrait(item.data.id),
+				name: item.data.first_name + " " + item.data.last_name,
+				email: item.data.email,
+				isFriends: item.isFriends
+			});
+			return $("<li>").append(html).appendTo(ul);
 		}
 	});
 

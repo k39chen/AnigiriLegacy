@@ -309,3 +309,14 @@ window.capitalizeAll = function(arr) {
 		return item.capitalize();
 	});
 };
+/**
+ * Gets the HTML as a string from a template.
+ *
+ * @method getTemplateHTML
+ * @param tmpl {String} The template name.
+ * @param data {Object} Optional data to provide the template.
+ * @return {String} The template HTML as a string.
+ */
+window.getTemplateHTML = function(tmpl,data) {
+	return Blaze.toHTML(Blaze.With(data, function(){ return Template[tmpl]; }));
+}

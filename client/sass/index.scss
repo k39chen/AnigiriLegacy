@@ -33,6 +33,10 @@
 @import "subpages/_social";
 @import "subpages/_loading";
 
+// import fragments
+@import "fragments/_animeMenuItem";
+@import "fragments/_friendMenuItem";
+
 // import components
 @import "components/_sidebar";
 @import "components/_account";

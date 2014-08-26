@@ -73,31 +73,3 @@ $placeholderColor: #7a7a7a;
 .ui-menu-item .group {
 	display: inline-block;
 }
-.ui-menu-item .portrait {
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	vertical-align: bottom;
-	margin-right: 12px;
-}
-.ui-menu-item .label,
-.ui-menu-item .name {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.ui-menu-item .type,
-.ui-menu-item .email {
-	color: #585A70;
-	text-transform: uppercase;
-	font-size: 11px;
-	font-weight: 400;
-}
-.ui-menu-item .email {
-	text-transform: none;
-}
-.ui-menu-item .fa-check-circle {
-	color: #4de042;
-	font-size: 18px;
-	margin-top: 12px;
-}

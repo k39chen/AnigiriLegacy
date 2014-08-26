@@ -24,12 +24,11 @@ Template.sideBar.rendered = function(){
 			InfoBar.init(ui.item.data.annId);
 		},
 		renderItem: function(ul,item){
-			return $("<li>")
-				.append("<a>"+
-					"<div class='label'>"+item.label+"</div>"+
-					"<div class='type'>"+getTypeStr(item.type)+"</div>"+
-				"</a>")
-				.appendTo(ul);
+			var html = getTemplateHTML("animeMenuItem", {
+				label: item.label,
+				type: getTypeStr(item.type)
+			});
+			return $("<li>").append(html).appendTo(ul);
 		}
 	});
 };

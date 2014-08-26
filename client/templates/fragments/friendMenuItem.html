@@ -1,0 +1,16 @@
+<template name="friendMenuItem">
+<a class="friendMenuItem">
+	<span class="group">
+		<img class="portrait" src="{{portrait}}" />
+	</span>
+	<span class="group">
+		<div class="name">{{name}}</div>
+		<div class="email">{{email}}</div>
+	</span>
+	<span class="group" style="float:right;">
+		{{#if isFriends}}
+		<i class="fa fa-check-circle"></i>
+		{{/if}}
+	</span>
+</a>
+</template>
