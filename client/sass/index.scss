@@ -6,6 +6,9 @@
 @import "utilities/_macros";
 @import "utilities/_defaults";
 
+// import widgets
+@import "widgets/_searchbox";
+
 // import screens
 @import "screens/_splash";
 @import "screens/_user";
@@ -32,7 +35,6 @@
 
 // import components
 @import "components/_sidebar";
-@import "components/_searchbar";
 @import "components/_account";
 @import "components/_infobar";
 @import "components/_griditem";

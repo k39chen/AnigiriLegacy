@@ -1,6 +1,6 @@
 $placeholderColor: #7a7a7a;
 
-#searchBar {
+.searchbox {
 	@include box-sizing;
 	border: solid 1px #4A4C5C;
 	margin: 0 auto;
@@ -10,8 +10,10 @@ $placeholderColor: #7a7a7a;
 	line-height: 29px;
 	padding: 0px 8px;
 
-	i {
+	i.fa.fa-search {
+		font-size: 14px;
 		margin-right: 4px;
+		color: #7E9094;
 	}
 	input {
 		width: 132px;
@@ -27,7 +29,7 @@ $placeholderColor: #7a7a7a;
 			size: $fontSize;
 		}
 	}
-	#searchInput {
+	input[type=text] {
 		&::-webkit-input-placeholder { color: $placeholderColor; }
 		&:-moz-placeholder { color: $placeholderColor; }
 		&:-ms-input-placeholder { color: $placeholderColor; }
