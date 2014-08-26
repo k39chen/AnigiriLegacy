@@ -16,6 +16,7 @@ Meteor.startup(function() {
 
 // define our router configuration
 Router.configure({
+	trackPageView: true,
 	notFound: "notFound",
 	layoutTemplate: "userScreen",
 	loadingTemplate: "loadingScreen"
