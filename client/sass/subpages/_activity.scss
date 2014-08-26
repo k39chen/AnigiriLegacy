@@ -95,18 +95,21 @@
 					font-size: 13px !important;
 				}
 			}
-			.star {
+			.stars {
+				float: left;
 				cursor: pointer;
-				font-size: 24px;
-				margin-right: 2px;
+				.star {
+					@include transition;
+					font-size: 24px;
+					margin-right: 2px;
 
-				&.fa-star-o {
-					color: #7a7a7a;
+					&.fa-star-o {
+						color: #7a7a7a;
+					}
+					&.fa-star {
+						color: #DAC31A;
+					}
 				}
-				&.fa-star {
-					color: #DAC31A;
-				}
-
 			}
 		}
 	}

@@ -1,5 +1,4 @@
 .gridItem {
-	@include transition;
 	cursor: pointer;
 	display: inline-block;
 	padding: $gridItemPadding;
@@ -11,12 +10,6 @@
 	text-align: left;
 	font-size: $gridItemFontSize;
 
-	.title {
-		@include transition;
-	}
-	.episodes > span {
-		@include transition;
-	}
 	&.hover {
 		background-color: #F5F5F8;
 		.title {

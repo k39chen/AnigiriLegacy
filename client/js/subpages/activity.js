@@ -128,35 +128,39 @@ Template.activitySubpage.events({
 		SubscriptionForm.isClickHolding = true;
 		SubscriptionForm.clickHoldHandler(SubscriptionForm.decrementEpisodes);
 	},
-	"mouseover .star": function(e){
-		var el = $(e.target),
-			num = el.attr("data-star-num"),
-			stars = $("#activitySubpage .stars");
+	"mouseover .stars": function(e) {
+		var $stars = $(e.currentTarget),
+			$star = $(e.target),
+			num = $star.attr("data-star-num");
 
-		// perform a star preview
-		$(".star",stars).removeClass("fa-star").addClass("fa-star-o");
-		for (var i=1; i<=num; i++) {
-			$(".star[data-star-num='"+i+"']",stars)
-				.removeClass("fa-star-o")
-				.addClass("fa-star");
+		if (num) {
+			$stars.addClass("hover");
+
+			// perform a star preview
+			$(".star",$stars).removeClass("fa-star").addClass("fa-star-o");
+			for (var i=1; i<=num; i++) {
+				$(".star[data-star-num='"+i+"']",$stars)
+					.removeClass("fa-star-o")
+					.addClass("fa-star");
+			}
 		}
 	},
-	"mouseout .star": function(e){
-		var el = $(e.target),
+	"mouseleave .stars": function(e) {
+		var $stars = $(e.currentTarget),
+			$star = $(e.target);
 			annId = Session.get("infoBarAnnId"),
-			subscription = getSubscriptionData(annId),
-			stars = $("#activitySubpage .stars");
+			subscription = getSubscriptionData(annId);
 
 		if (!subscription) return;
 
 		// reset to the default star value
 		for (var i=1; i<=MAX_RATING; i++) {
-			var star = $(".star[data-star-num='"+i+"']",stars);
+			var $star = $(".star[data-star-num='"+i+"']",$stars);
 			
-			star.removeClass("fa-star").removeClass("fa-star-o");
+			$star.removeClass("fa-star").removeClass("fa-star-o");
 			(i <= subscription.rating)
-				? star.addClass("fa-star")
-				: star.addClass("fa-star-o");
+				? $star.addClass("fa-star")
+				: $star.addClass("fa-star-o");
 		}
 	},
 	"click .star": function(e){

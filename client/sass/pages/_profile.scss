@@ -125,7 +125,6 @@ $placeholderColor: #7a7a7a;
 				.content {
 				}
 				.progress-option {
-					@include transition;
 					overflow: hidden;
 					padding-left: 24px;
 					cursor: pointer;
@@ -135,7 +134,6 @@ $placeholderColor: #7a7a7a;
 
 					}
 					.counter {
-						@include transition;
 						float: right;
 						margin-right: 4px;
 						font-size: 10px;
