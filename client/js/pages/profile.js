@@ -50,15 +50,17 @@ Template.profilePage.rendered = function(){
 		}
 	});
 	// initialize the anime grid
-	window.profileGrid = new CastGrid({
-		wrapper: this.find("#profileGrid"),
-		template: this, 
-		data: getFullSubscriptions(null,this.data._id),
-		dim: {w:154,h:270,pw:10,ph:10},
-		render: function(data){
-			return getTemplateHTML("gridItem",data);
-		}
-	});
+	if (this && this.data && this.data._id) {
+		window.profileGrid = new CastGrid({
+			wrapper: this.find("#profileGrid"),
+			template: this, 
+			data: getFullSubscriptions(null,this.data._id),
+			dim: {w:154,h:270,pw:10,ph:10},
+			render: function(data){
+				return getTemplateHTML("gridItem",data);
+			}
+		});
+	}
 
 	// by default select the `all` progress filter option
 	selectProgressFilter("all");
