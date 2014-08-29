@@ -52,12 +52,13 @@ window.InfoBar = {
 
 		$("#page-container").css({right:0}).stop().animate({right:barWidth},dur);
 		$(".page > h1").css({right:0}).stop().animate({right:barWidth},dur);
-		$("#infoBar").css(start).stop().animate(end,dur);
-		$("#infoBar > .body").css(start).stop().animate(end,dur);
-		$("#loadingSubpage").css(start).stop().animate(end,dur,function(){
+		$("#infoBar").css(start).stop().animate(end,dur,function(){
 			if (window.collectionGrid) { collectionGrid.resize(); }
+			if (window.profileGrid) { profileGrid.resize(); }
+			if (window.friendsGrid) { friendsGrid.resize(); }
 		});
-		
+		$("#infoBar > .body").css(start).stop().animate(end,dur);
+		$("#loadingSubpage").css(start).stop().animate(end,dur);
 
 		this.isShown = true;
 	},
@@ -71,11 +72,13 @@ window.InfoBar = {
 			dur = settings.duration;
 		$("#page-container").css({right:barWidth}).stop().animate({right:0},dur);
 		$(".page > h1").css({right:barWidth}).stop().animate({right:0},dur);
-		$("#infoBar").css(start).stop().animate(end,dur);
-		$("#infoBar > .body").css(start).stop().animate(end,dur);
-		$("#loadingSubpage").css(start).stop().animate(end,dur,function(){
+		$("#infoBar").css(start).stop().animate(end,dur,function(){
 			if (window.collectionGrid) { collectionGrid.resize(); }
+			if (window.profileGrid) { profileGrid.resize(); }
+			if (window.friendsGrid) { friendsGrid.resize(); }
 		});
+		$("#infoBar > .body").css(start).stop().animate(end,dur);
+		$("#loadingSubpage").css(start).stop().animate(end,dur);
 		
 		this.isShown = false;
 	},

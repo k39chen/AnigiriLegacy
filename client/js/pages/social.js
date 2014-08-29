@@ -51,15 +51,21 @@ Template.socialPage.rendered = function(){
 	});
 
 	// initialize the friends grid
-	window.friendsGrid = new CastGrid({
-		wrapper: this.find("#friendsGrid"),
-		template: this, 
-		data: getFriends(),
-		dim: {w:128,h:128,pw:12,ph:12},
-		render: function(data){
-			return getTemplateHTML("friend",data);
-		}
-	});
+	if (self && self.find("#friendsGrid")) {
+		window.friendsGrid = new CastGrid({
+			wrapper: self.find("#friendsGrid"),
+			template: self, 
+			dim: {w:128,h:128,pw:12,ph:12},
+			drawType: "dynamic",
+			dataSource: function(){
+				var data = getFriends();
+				this.update(data);
+			},
+			render: function(data){
+				return getTemplateHTML("friend",data);
+			}
+		});
+	}
 };
 Template.socialPage.events({
 	"mouseover .friend": function(e) {

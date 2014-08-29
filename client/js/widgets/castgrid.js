@@ -5,18 +5,20 @@
  * @param settings (A set of mandatory settings to be provided by the caller):
  *     @param wrapper {Object} The DOM object of the wrapper element.
  *     @param template {Object} The target template instance.
- *     @param data {Array} The array of data that we will be using to initialize the grid.
+ *     @param dataSource {Function} Sequence of instructions on how to obtain the data source.
  *     @param dimensions {Object} The object of grid item dimensions.
  *     @param render {Function} The HTML to render for each grid item.
+ *     @param drawType {String|OPTIONAL} One of center|justify|dynamic
  * @return {Object} Reference to the cast grid object.
  */
 window.CastGrid = function(settings) {
 	var self = this;
-	if (!settings.data) return null;
+	if (!settings.dataSource) return null;
 	self.dim = settings.dim;
+	self.drawType = settings.drawType || "center";
 	self.cast = new cast(settings.wrapper);
 	self.cast.draw(settings.render);
-	settings.template.handle = Meteor.autorun(function(){ self.update(settings.data); });
+	settings.template.handle = Meteor.autorun($.proxy(settings.dataSource,self));
 	$(window).bind('resize', function(){ self.resize(); });
 	return self;
 };
@@ -40,7 +42,7 @@ CastGrid.prototype.update = function(data) {
  * @return {Object} Reference to the cast grid object.
  */
 CastGrid.prototype.redraw = function() {
-	this.cast.center(this.dim.w,this.dim.h,this.dim.pw,this.dim.ph);
+	this.cast.sortBy("title")[this.drawType](this.dim.w,this.dim.h,this.dim.pw,this.dim.ph);
 	return this;
 };
 /**

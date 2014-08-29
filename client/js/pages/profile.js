@@ -49,13 +49,18 @@ Template.profilePage.rendered = function(){
 			return $("<li>").append(html).appendTo(ul);
 		}
 	});
+
 	// initialize the anime grid
-	if (this && this.data && this.data._id) {
+	if (self && self.data && self.data._id && self.find("#profileGrid")) {
 		window.profileGrid = new CastGrid({
-			wrapper: this.find("#profileGrid"),
-			template: this, 
-			data: getFullSubscriptions(null,this.data._id),
+			wrapper: self.find("#profileGrid"),
+			template: self,
+			drawType: "dynamic",
 			dim: {w:154,h:270,pw:10,ph:10},
+			dataSource: function() {
+				var data = getFullSubscriptions(null,self.data._id);
+				this.update(data);
+			},
 			render: function(data){
 				return getTemplateHTML("gridItem",data);
 			}

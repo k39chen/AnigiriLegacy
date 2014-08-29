@@ -4,6 +4,9 @@ var HUMMINGBIRD_API	= 'https://hummingbirdv1.p.mashape.com/anime/';
 var HUMMINGBIRD_SEARCH = 'http://hummingbird.me/search?query={{hbAnimeId}}&type=anime';
 var MASHAPE_KEY		= 'pT8ejx9ujTSBpdtA3Dz3BT9KdIZn77VK';
 
+// this should be set to true only for testing purposes.
+var ALWAYS_LOAD_NEWEST_DATA_FROM_ANN = false;
+
 // http://www.rabbitpoets.com/anime-planet-com-a-worthy-replacement-for-myanimelist/
 // http://www.anime-planet.com/anime/one-piece
 // http://anime-pictures.net/pictures/view_posts/0?search_tag=bleach&order_by=rating&ldate=0&lang=en
@@ -26,10 +29,10 @@ Meteor.methods({
 	getAdminData: function(){
 		return {
 			totalAnimes: Animes.find().count(),
-			totalANN:	Animes.find({dataANN:true}).count(),
-			totalHBI:	Animes.find({dataHBI:true}).count(),
+			totalANN: Animes.find({dataANN:true}).count(),
+			totalHBI: Animes.find({dataHBI:true}).count(),
 			totalCovers: Animes.find({$or: [{annPicture: {$exists:true}}, {hbiPicture: {$exists:true}}]}).count(),
-			totalSongs:  Songs.find().count()
+			totalSongs: Songs.find().count()
 		};
 	},
 	/**
@@ -78,7 +81,7 @@ Meteor.methods({
 		// we will only attempt to get updated data if the last time we attempted
 		// to fetch from the API is more than 1 day ago.
 		var result = {};
-		if (true || timeSinceLastUpdate(animeDoc) > 24) {
+		if (ALWAYS_LOAD_NEWEST_DATA_FROM_ANN || timeSinceLastUpdate(animeDoc) > 24) {
 			console.log('-- Fetching fresh data from ANN and HBI');
 			Meteor.call('fetchAnimeData',annId,animeDoc.title);
 			result = Animes.findOne({annId:annId});
@@ -654,18 +657,18 @@ function parseSongString(str) {
 			}
 		}
 		return {
-			num	  : parseInt(matches[1],10),
-			song	 : matches[2].replace(/"/g,''),
-			artist   : matches2 ? matches2[1] : matches[3],
-			episodes : episodes
+			num: parseInt(matches[1],10),
+			song: matches[2].replace(/"/g,''),
+			artist: matches2 ? matches2[1] : matches[3],
+			episodes: episodes
 		};
 	} else {
 		matches = str.match(/^(.*)\sby\s(.*)$/i);
 		return {
-			num	  : 1,
-			song	 : matches[1].replace(/"/g,''),
-			artist   : matches[2],
-			episodes : null
+			num: 1,
+			song: matches[1].replace(/"/g,''),
+			artist: matches[2],
+			episodes: null
 		};
 	}
 	return null;	

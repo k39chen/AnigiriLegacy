@@ -3,15 +3,20 @@ Template.collectionPage.rendered = function(){
 	initPage("collection");
 
 	// initialize the collection grid
-	window.collectionGrid = new CastGrid({
-		wrapper: this.find("#collectionGrid"),
-		template: this, 
-		data: getFullSubscriptions(),
-		dim: {w:154,h:270,pw:10,ph:10},
-		render: function(data){
-			return getTemplateHTML("gridItem",data);
-		}
-	});
+	if (this && this.find("#collectionGrid")) {
+		window.collectionGrid = new CastGrid({
+			wrapper: this.find("#collectionGrid"),
+			template: this, 
+			dim: {w:154,h:270,pw:10,ph:10},
+			dataSource: function() {
+				var data = getFullSubscriptions();
+				this.update(data);
+			},
+			render: function(data){
+				return getTemplateHTML("gridItem",data);
+			}
+		});
+	}
 };
 Template.collectionPage.events({
 	"mouseover .redirect-btn": function(e) {
