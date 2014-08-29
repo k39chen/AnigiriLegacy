@@ -49,15 +49,39 @@ Template.socialPage.rendered = function(){
 			return $("<li>").append(html).appendTo(ul);
 		}
 	});
+
+	// initialize the friends grid
+	window.friendsGrid = new CastGrid({
+		wrapper: this.find("#friendsGrid"),
+		template: this, 
+		data: getFriends(),
+		dim: {w:128,h:128,pw:12,ph:12},
+		render: function(data){
+			return getTemplateHTML("friend",data);
+		}
+	});
 };
 Template.socialPage.events({
-	// ...
+	"mouseover .friend": function(e) {
+		var el = $(e.currentTarget);
+		el.addClass("hover")
+		el.find(".portrait").css({opacity:1});
+	},
+	"mouseout .friend": function(e) {
+		var el = $(e.currentTarget);
+		el.removeClass("hover")
+		el.find(".portrait").css({opacity:0.8});
+	},
+	"click .friend": function(e) {
+		var el = $(e.currentTarget);
+		var friendId = el.attr("data-friendId");
+
+		// show this friend's profile
+		Router.go("/profile/"+friendId);
+	}
 });
 Template.socialPage.helpers({
 	hasFriends: function(){
 		return hasFriends();
-	},
-	getFriends: function() {
-		return getFriends();
 	}
 });

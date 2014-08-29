@@ -6,11 +6,7 @@
 	</h1>
 	{{#if hasFriends}}
 	<div class="pageContent">
-		<div id="friendsGrid">
-		{{#each getFriends}}
-			{{> friend this}}
-		{{/each}}
-		</div>
+		<div id="friendsGrid"></div>
 	</div>
 	{{else}}
 	<div class="emptyMessage">
