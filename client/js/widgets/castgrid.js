@@ -12,6 +12,7 @@
  */
 window.CastGrid = function(settings) {
 	var self = this;
+	if (!settings.data) return null;
 	self.dim = settings.dim;
 	self.cast = new cast(settings.wrapper);
 	self.cast.draw(settings.render);

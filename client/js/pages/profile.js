@@ -49,6 +49,16 @@ Template.profilePage.rendered = function(){
 			return $("<li>").append(html).appendTo(ul);
 		}
 	});
+	// initialize the anime grid
+	window.profileGrid = new CastGrid({
+		wrapper: this.find("#profileGrid"),
+		template: this, 
+		data: getFullSubscriptions(null,this.data._id),
+		dim: {w:154,h:270,pw:10,ph:10},
+		render: function(data){
+			return getTemplateHTML("gridItem",data);
+		}
+	});
 
 	// by default select the `all` progress filter option
 	selectProgressFilter("all");
@@ -126,6 +136,19 @@ Template.profilePage.events({
 	"click .progress-option": function(e) {
 		var el = $(e.currentTarget);
 		selectProgressFilter(el.data("progress"));
+	},
+	"mouseover .gridItem": function(e){
+		var el = $(e.currentTarget);
+		el.addClass("hover");
+	},
+	"mouseout .gridItem": function(e){
+		var el = $(e.currentTarget);
+		el.removeClass("hover");
+	},
+	"click .gridItem": function(e){
+		var el = $(e.currentTarget);
+		var annId = parseInt(el.attr("data-annId"),10);
+		InfoBar.init(annId);
 	}
 });
 Template.profilePage.helpers({
@@ -168,9 +191,6 @@ Template.profilePage.helpers({
 	},
 	hasSubscriptions: function() {
 		return hasSubscriptions(this._id);
-	},
-	getSubscriptions: function() {
-		return getFullSubscriptions(null,this._id);
 	},
 	isFriend: function(e) {
 		return isFriend(this._id);
