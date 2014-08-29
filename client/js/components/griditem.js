@@ -1,57 +1,40 @@
 Template.gridItem.rendered = function() {
 	// ...
 };
-Template.gridItem.events({
-	"mouseover .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
-	"click .gridItem": function(e){
-		var el = $(e.currentTarget);
-		var annId = parseInt(el.attr("data-annId"),10);
-		
-		// get the anime data
-		InfoBar.init(annId);
-	}
-});
 Template.gridItem.helpers({
-	progress: function(item){
-		return item.subscription.progress;
+	progress: function(){
+		return this.subscription.progress;
 	},
-	poster: function(item){
-		if (!item) return null;
-		return item.hbiPicture || item.annPicture || null;
+	poster: function(){
+		if (!this) return null;
+		return this.hbiPicture || this.annPicture || null;
 	},
-	title: function(item){
-		return item.title;
+	title: function(){
+		return this.title;
 	},
-	showEpisodes: function(item) {
-		return item.numEpisodes && hasEpisodes(item.type);
+	showEpisodes: function() {
+		return this.numEpisodes && hasEpisodes(this.type);
 	},
-	unsubbedEpisodes: function(item) {
-		if (isFuture(item.startDate)) {
+	unsubbedEpisodes: function() {
+		if (isFuture(this.startDate)) {
 			return "Upcoming Series";
 		}
-		return item.endDate || item.subscription.progress == "finished"
-			? item.numEpisodes+" Episodes"
-			: "+"+item.numEpisodes+" Episodes (Ongoing)";
+		return this.endDate || this.subscription.progress == "finished"
+			? this.numEpisodes+" Episodes"
+			: "+"+this.numEpisodes+" Episodes (Ongoing)";
 	},
-	subbedEpisodes: function(item) {
-		return isFuture(item.startDate) 
+	subbedEpisodes: function() {
+		return isFuture(this.startDate) 
 			? "Upcoming Series"
-			: "<span>"+item.subscription.episodes+"</span> / "+item.numEpisodes+" Episodes";
+			: "<span>"+this.subscription.episodes+"</span> / "+this.numEpisodes+" Episodes";
 	},
-	rating: function(item){
+	rating: function(){
 		var stars = "";
 		var star_empty = "<i class='star fa fa-star unfilled'></i>";
 		var star_filled = "<i class='star fa fa-star'></i>";
 	
 		for (var i=0; i<MAX_RATING; i++) {
-			stars += (i < item.subscription.rating ? star_filled : star_empty);
+			stars += (i < this.subscription.rating ? star_filled : star_empty);
 		}
 		return "<div class='stars'>"+stars+"</div>";
 	}

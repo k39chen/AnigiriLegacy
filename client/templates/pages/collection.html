@@ -4,11 +4,7 @@
 	<h1><i class="fa fa-th-large"></i> Collection</h1>
 	<div class="pageContent">
 		<div id="collectionFilters"></div>
-		<div id="collectionGrid">
-			{{#each getSubscriptions}}
-				{{> gridItem this}}
-			{{/each}}
-		</div>
+		<div id="collectionGrid"></div>
 	</div>
 	{{else}}
 	<div class="emptyMessage">

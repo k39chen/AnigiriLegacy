@@ -1889,7 +1889,7 @@ Emitter(Cast.prototype);
  * @return {Cast}        
  */
 
-Cast.prototype.data = function(docs, fn) {
+Cast.prototype.setData = function(docs, fn) {
   if (!fn) throw new Error('Unique id required');
 
   var len = this.collection.length();
@@ -2324,7 +2324,10 @@ Block.prototype.position = function(pos){
   fastdom.write(function(){
     style.width = this.pos.width + 'px';
     style.height = this.pos.height + 'px';
-    translate(this.el, this.pos.left, this.pos.top); 
+    style.left = this.pos.left + 'px';
+    style.top = this.pos.top + 'px';
+
+    //translate(this.el, this.pos.left, this.pos.top); 
   }.bind(this));
   return this;
 };
