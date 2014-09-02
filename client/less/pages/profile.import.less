@@ -67,9 +67,7 @@
 				.portrait {
 					text-align: center;
 					img {
-						border-radius: 50%;
-						width: 100px;
-						height: 100px;
+						.circle(100px);
 						background-color: @loadingImageColor;
 					}
 				}
@@ -89,10 +87,8 @@
 					text-align: center;
 					cursor: pointer;
 					display: inline-block;
-					width: 32px;
-					height: 32px;
 					line-height: 32px;
-					border-radius: 50%;
+					.circle(32px);
 					color: #fff;
 
 					&.accept-btn {
@@ -146,7 +142,7 @@
 						line-height: 18px;
 						margin-top: 4px;
 						padding: 0 6px;
-						border-radius: 16px;
+						.rounded(16px);
 					}
 					.pointer {
 						visibility: hidden;

@@ -41,6 +41,13 @@
     -moz-border-radius: @radius;
     border-radius: @radius;
 }
+.circle(@diameter) {
+    width: @diameter;
+    height: @diameter;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
 .border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
     -webkit-border-top-right-radius: @topright;
     -webkit-border-bottom-right-radius: @bottomright;
