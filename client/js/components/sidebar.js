@@ -1,3 +1,37 @@
+window.SideBar = {
+	$el: null,
+	$account: null,
+	$toggle: null,
+	init: function() {
+		var self = this;
+		self.$el = $("#sideBar");
+		self.$toggle = $("#corner .toggle");
+		self.$account = $("#account");
+
+		// show the maximized view
+		self.maximize();
+	},
+	toggle: function() {
+		var self = this;
+		if (self.$el.hasClass("minimized")) {
+			self.maximize();
+		} else {
+			self.minimize();
+		}
+	},
+	maximize: function() {
+		var self = this;
+		self.$el.removeClass("minimized");
+		self.$account.removeClass("minimized");
+		self.$toggle.removeClass("fa-toggle-right").addClass("fa-toggle-left");
+	},
+	minimize: function() {
+		var self = this;
+		self.$el.addClass("minimized");
+		self.$account.addClass("minimized");
+		self.$toggle.removeClass("fa-toggle-left").addClass("fa-toggle-right");
+	}
+};
 Template.sideBar.rendered = function(){
 	var self = this,
 		$searchbox = $(self.find("#animeSearchBox"));
@@ -31,6 +65,8 @@ Template.sideBar.rendered = function(){
 			return $("<li>").append(html).appendTo(ul);
 		}
 	});
+	// initialize the corner controls
+	SideBar.init();
 };
 Template.sideBar.events({
 	"mouseover .option": function(e) {
@@ -43,9 +79,19 @@ Template.sideBar.events({
 	},
 	"click .option": function(e) {
 		var el = $(e.currentTarget);
-
-		// select the page
 		Router.go("/"+el.attr("data-page"));
+	},
+	"mouseover .toggle": function(e) {
+		var el = $(e.target);
+		el.addClass("hover");
+	},
+	"mouseout .toggle": function(e) {
+		var el = $(e.target);
+		el.removeClass("hover");
+	},
+	"click .toggle" : function(e) {
+		var el = $(e.target);
+		SideBar.toggle();
 	}
 });
 Template.sideBar.helpers({

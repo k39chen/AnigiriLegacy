@@ -6,7 +6,47 @@
 	left: 0px;
 	width: @sideBarWidth;
 
-	.scrollable {
+	#corner {
+		.transition;
+		position: relative;
+		overflow: hidden;
+		.box-sizing;
+		width: @sideBarWidth;
+		height: @topBarHeight;
+		background-color: @themeColor;
+		padding: 0px 12px 0px 24px;
+		line-height: 68px;
+
+		h1 {
+			float: left;
+			color: #fff;
+			font-family: ProximaNova, Helvetica, Arial;
+			font-weight: 100;
+			font-size: 2.0em;
+		}
+		img {
+			float: left;
+			width: 32px;
+			height: 32px;
+			margin-top: 16px;
+			margin-right: 8px;
+		}
+		i.toggle {
+			.transition;
+			cursor: pointer;
+			font-size: 16px;
+			color: lighten(@themeColor,10%);
+				position: absolute;
+				top: 4px;
+				right: 4px;
+
+			&.hover {
+				color: lighten(@themeColor,20%);	
+			}
+		}
+	}
+	#navbar {
+		.transition;
 		position: fixed;
 		top: @topBarHeight;
 		bottom: @bottomBarHeight;
@@ -32,6 +72,7 @@
 			cursor: pointer;
 			padding: 6px 24px;
 			color: #A2A4B5;
+			.opacity(1);
 			.user-select;
 		
 			&.hover {
@@ -44,32 +85,51 @@
 			}
 			i {
 				display: inline-block;
+				font-size: 14px;
+				line-height: 1.0em;
 				margin-right: 12px;
 			}
 		}
 	}
-}
-#corner {
-	overflow: hidden;
-	.box-sizing;
-	width: @sideBarWidth;
-	height: @topBarHeight;
-	background-color: @themeColor;
-	padding: 0px 24px;
-	line-height: 68px;
 
-	h1 {
-		float: left;
-		color: #fff;
-		font-family: ProximaNova, Helvetica, Arial;
-		font-weight: 100;
-		font-size: 2.0em;
-	}
-	img {
-		float: left;
-		width: 32px;
-		height: 32px;
-		margin-top: 16px;
-		margin-right: 8px;
+	&.minimized {
+		#corner {
+			text-align: center;
+			padding: 0;
+			width: @sideBarWidthMin;
+			img {
+				float: none;
+				margin-right: 0px;
+			}
+			h1 {
+				display: none;
+			}
+		}
+		#navbar {
+			width: @sideBarWidthMin;
+			h1 {
+				display: none;
+			}
+		}
+		#animeSearchBox {
+			display: none;
+		}
+		.section {
+			padding: 0;
+		}
+		.options {
+			.option {
+				padding: 0;
+				text-align: center;
+				i {
+					padding: 12px 0;
+					margin: 0;
+					font-size: 24px;
+				}
+				span {
+					display: none;
+				}
+			}
+		}
 	}
 }
