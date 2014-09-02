@@ -2,11 +2,13 @@ window.SideBar = {
 	$el: null,
 	$account: null,
 	$toggle: null,
+	$pageContainer: null,
 	init: function() {
 		var self = this;
 		self.$el = $("#sideBar");
 		self.$toggle = $("#corner .toggle");
 		self.$account = $("#account");
+		self.$pageContainer = $("#page-container");
 
 		// show the maximized view
 		self.maximize();
@@ -21,15 +23,17 @@ window.SideBar = {
 	},
 	maximize: function() {
 		var self = this;
+		self.$toggle.removeClass("fa-toggle-right").addClass("fa-toggle-left");
 		self.$el.removeClass("minimized");
 		self.$account.removeClass("minimized");
-		self.$toggle.removeClass("fa-toggle-right").addClass("fa-toggle-left");
+		self.$pageContainer.removeClass("minimized-left");
 	},
 	minimize: function() {
 		var self = this;
+		self.$toggle.removeClass("fa-toggle-left").addClass("fa-toggle-right");
 		self.$el.addClass("minimized");
 		self.$account.addClass("minimized");
-		self.$toggle.removeClass("fa-toggle-left").addClass("fa-toggle-right");
+		self.$pageContainer.addClass("minimized-left");
 	}
 };
 Template.sideBar.rendered = function(){

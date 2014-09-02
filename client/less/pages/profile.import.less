@@ -16,6 +16,7 @@
 		}
 	}
 	#profileBar {
+		.transition;
 		position: fixed;
 		z-index: 100;
 		left: @sideBarWidth;
@@ -193,5 +194,10 @@
 		.box-sizing(border-box);
 		padding-left: @profileBarWidth;
 		height: 80%;
+	}
+}
+#page-container.minimized-left {
+	#profileBar {
+		left: @sideBarWidthMin;
 	}
 }
