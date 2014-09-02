@@ -5,26 +5,24 @@
 		<h1>anigiri</h1>
 		<i class="toggle fa fa-toggle-right"></i>
 	</div>
-	<div id="navbar" class="scrollable">
+	<div id="navbar">
 		<div id="animeSearchBox"></div>
-		<div class="section">
-			<h1>Navigation</h1>
-			<div class="options">
-				<div class="option" data-page="dashboard"><i class="fa fa-user"></i><span>Dashboard</span></div>
-				<div class="option" data-page="collection"><i class="fa fa-th-large"></i><span>Collection</span></div>
-				<div class="option" data-page="discover"><i class="fa fa-globe"></i><span>Discover</span></div>
-				<div class="option" data-page="social"><i class="fa fa-users"></i><span>Social</span></div>
-				<div class="option" data-page="statistics"><i class="fa fa-bar-chart-o"></i><span>Statistics</span></div>
-				{{#if isAdminUser}}
-					<div class="option" data-page="admin"><i class="fa fa-wrench"></i><span>Admin</span></div>
-				{{/if}}
-			</div>
+		<h3>Navigation</h3>
+		<div class="options">
+			<div class="option" data-page="dashboard"><i class="fa fa-user"></i><span>Dashboard</span></div>
+			<div class="option" data-page="collection"><i class="fa fa-th-large"></i><span>Collection</span></div>
+			<div class="option" data-page="discover"><i class="fa fa-globe"></i><span>Discover</span></div>
+			<div class="option" data-page="social"><i class="fa fa-users"></i><span>Social</span></div>
+			<div class="option" data-page="statistics"><i class="fa fa-bar-chart-o"></i><span>Statistics</span></div>
+			{{#if isAdminUser}}
+				<div class="option" data-page="admin"><i class="fa fa-wrench"></i><span>Admin</span></div>
+			{{/if}}
 		</div>
 	</div>
 	<div id="account">
-		<img id="account-portrait" src="{{portrait}}" />
-		<div id="account-text">
-			<div id="account-name">{{name}}</div>
+		<img class="portrait" src="{{portrait}}" />
+		<div class="group">
+			<div class="name">{{name}}</div>
 			<div id="signout"><i class="fa fa-sign-out"></i><span>Sign Out</span></div>
 		</div>
 	</div>

@@ -1,4 +1,5 @@
 #sideBar {
+	.transition;
 	position: fixed;
 	.box-sizing;
 	top: 0px;
@@ -11,7 +12,7 @@
 		position: relative;
 		overflow: hidden;
 		.box-sizing;
-		width: @sideBarWidth;
+		width: 100%;
 		height: @topBarHeight;
 		background-color: @themeColor;
 		padding: 0px 12px 0px 24px;
@@ -33,12 +34,12 @@
 		}
 		i.toggle {
 			.transition;
+			position: absolute;
 			cursor: pointer;
 			font-size: 16px;
 			color: lighten(@themeColor,10%);
-				position: absolute;
-				top: 4px;
-				right: 4px;
+			top: 4px;
+			right: 4px;
 
 			&.hover {
 				color: lighten(@themeColor,20%);	
@@ -47,34 +48,37 @@
 	}
 	#navbar {
 		.transition;
-		position: fixed;
+		position: absolute;
 		top: @topBarHeight;
 		bottom: @bottomBarHeight;
 		left: 0px;
-		width: @sideBarWidth;
+		width: 100%;
 		overflow-y: auto;
 		background-color: #2A2C3C;
-	}
-	.section {
-		padding-top: 16px;
 
-		h1 {
+		#animeSearchBox {
+			margin-bottom: 16px;
+		}
+		h3 {
 			color: #585A70;
 			text-transform: uppercase;
 			font-size: 11px;
 			font-weight: 400;
 			padding: 0px 24px;
 		}
-	}
-	.options {
 		.option {
 			.transition;
 			cursor: pointer;
 			padding: 6px 24px;
 			color: #A2A4B5;
-			.opacity(1);
 			.user-select;
-		
+
+			i.fa {
+				display: inline-block;
+				font-size: 14px;
+				line-height: 1.0em;
+				margin-right: 12px;
+			}
 			&.hover {
 				background-color: #383A4E;
 				color: #fff;
@@ -83,26 +87,20 @@
 				background-color: #212330;
 				color: @themeColor;
 			}
-			i {
-				display: inline-block;
-				font-size: 14px;
-				line-height: 1.0em;
-				margin-right: 12px;
-			}
 		}
 	}
 	#account {
 		.transition;
-		position: fixed;
+		position: absolute;
 		.box-sizing;
 		overflow: hidden;
 		left: 0px;
 		bottom: 0px;
+		width: 100%;
 		height: @bottomBarHeight;
-		width: @sideBarWidth;
 		background-color: #0D1922;
 
-		#account-portrait {
+		.portrait {
 			float: left;
 			line-height: 64px;
 			margin: 13px 12px 0px 24px;
@@ -112,11 +110,11 @@
 			border: solid 3px #5A6377;
 			background-color: @loadingImageColor;
 		}
-		#account-text {
+		.group {
 			float: left;
 			margin-top: 13px;
 
-			#account-name {
+			.name {
 				.truncated-text(100px);
 				color: #fff;
 			}
@@ -127,7 +125,7 @@
 				font-size: 0.9em;
 				line-height: 1.0em;
 
-				i {
+				i.fa {
 					margin-right: 0.4em;
 				}
 				&.hover {
@@ -135,16 +133,14 @@
 				}
 			}
 		}
-
-		
 	}
 
-
 	&.minimized {
+		width: @sideBarWidthMin;
+
 		#corner {
 			text-align: center;
 			padding: 0;
-			width: @sideBarWidthMin;
 			img {
 				float: none;
 				margin-right: 0px;
@@ -154,22 +150,16 @@
 			}
 		}
 		#navbar {
-			width: @sideBarWidthMin;
-			h1 {
+			#animeSearchBox {
 				display: none;
 			}
-		}
-		#animeSearchBox {
-			display: none;
-		}
-		.section {
-			padding: 0;
-		}
-		.options {
+			h3 {
+				display: none;
+			}
 			.option {
 				padding: 0;
 				text-align: center;
-				i {
+				i.fa {
 					padding: 12px 0;
 					margin: 0;
 					font-size: 24px;
@@ -181,16 +171,12 @@
 		}
 		#account {
 			text-align: center;
-			width: @sideBarWidthMin;
-			#account-portrait {
+			.portrait {
 				float: none;
 				margin: 0;
 				margin-top: 13px;
 			}
-			#account-name {
-				display: none;
-			}
-			#signout {
+			.group {
 				display: none;
 			}
 		}
