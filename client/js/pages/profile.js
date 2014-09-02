@@ -159,7 +159,7 @@ Template.profilePage.events({
 	}
 });
 Template.profilePage.helpers({
-	title: function(){
+	name: function(){
 		var self = this,
 			fb = getFacebookUserData(self);
 		return fb ? fb.name : "";

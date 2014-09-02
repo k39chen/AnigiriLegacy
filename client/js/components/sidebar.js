@@ -69,6 +69,18 @@ Template.sideBar.rendered = function(){
 	SideBar.init();
 };
 Template.sideBar.events({
+	"mouseover .toggle": function(e) {
+		var el = $(e.target);
+		el.addClass("hover");
+	},
+	"mouseout .toggle": function(e) {
+		var el = $(e.target);
+		el.removeClass("hover");
+	},
+	"click .toggle" : function(e) {
+		var el = $(e.target);
+		SideBar.toggle();
+	},
 	"mouseover .option": function(e) {
 		var el = $(e.currentTarget);
 		el.addClass("hover");
@@ -81,21 +93,31 @@ Template.sideBar.events({
 		var el = $(e.currentTarget);
 		Router.go("/"+el.attr("data-page"));
 	},
-	"mouseover .toggle": function(e) {
-		var el = $(e.target);
+	"mouseover #signout": function(e) {
+		var el = $(e.currentTarget);
 		el.addClass("hover");
 	},
-	"mouseout .toggle": function(e) {
-		var el = $(e.target);
+	"mouseout #signout": function(e){
+		var el = $(e.currentTarget);
 		el.removeClass("hover");
 	},
-	"click .toggle" : function(e) {
-		var el = $(e.target);
-		SideBar.toggle();
+	"click #signout": function(){
+		Meteor.logout();
+		Router.go("/");
 	}
 });
 Template.sideBar.helpers({
 	"isAdminUser": function() {
 		return isAdminUser();
-	}
+	},
+	name: function(){
+		var user = Meteor.user(),
+			fb = getFacebookUserData(user);
+		return fb ? fb.name : "";
+	},
+	portrait: function() {
+		var user = Meteor.user(),
+			fb = getFacebookUserData(user);
+		return fb ? getUserPortrait(fb.id) : "";
+	},
 });
