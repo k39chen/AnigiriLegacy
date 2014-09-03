@@ -13,8 +13,8 @@ Template.socialSubpage.events({
 	"mouseover .name": addHoverTarget,
 	"mouseout .name": removeHoverTarget,
 	"click .name": function(e) {
-		var el = $(e.target).parent().parent(),
-			friendId = el.attr("data-friendId");
+		var $el = $(e.target).parent().parent(),
+			friendId = $el.attr("data-friendId");
 		Router.go("/profile/"+friendId);
 	}
 });

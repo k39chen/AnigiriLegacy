@@ -71,8 +71,8 @@ Template.socialPage.events({
 	"mouseover .friendItem": addHoverCurrentTarget,
 	"mouseout .friendItem": removeHoverCurrentTarget,
 	"click .friendItem": function(e) {
-		var el = $(e.currentTarget);
-		var friendId = el.attr("data-friendId");
+		var $el = $(e.currentTarget);
+		var friendId = $el.attr("data-friendId");
 
 		// show this friend's profile
 		Router.go("/profile/"+friendId);

@@ -3,29 +3,29 @@ Template.overviewSubpage.created = function(){
 	InfoBar.hideLoad();
 
 	// destroy any previously created plot plugin
-	var plot = $("#overviewSubpage .plot");
-	plot.trigger("destroy");
+	var $plot = $("#overviewSubpage .plot");
+	$plot.trigger("destroy");
 };
 Template.overviewSubpage.rendered = function(){
-	var subpage = $("#overviewSubpage"),
-		poster = $(".poster",subpage),
-		plot = $(".plot",subpage);
+	var $subpage = $("#overviewSubpage"),
+		$poster = $(".poster",$subpage),
+		$plot = $(".plot",$subpage);
 
 	// animate into visibility
-	subpage.css({opacity:0}).stop().animate({opacity:1},500);
+	$subpage.css({opacity:0}).stop().animate({opacity:1},500);
 
 	// truncate the plot paragraph (if available)
-	if (!plot.is(":empty")) {
-		if ($("a.readmore",plot).size() === 0) {
-			plot.append("<a class='readmore'>[Read more]</a>");
+	if (!$plot.is(":empty")) {
+		if ($("a.readmore",$plot).size() === 0) {
+			$plot.append("<a class='readmore'>[Read more]</a>");
 		}
-		plot.dotdotdot({
+		$plot.dotdotdot({
 			height: 96,
 			after: "a.readmore"
 		});
-		$("a.readmore",plot).click(function(){
+		$("a.readmore",$plot).click(function(){
 			$(this).parent().trigger("destroy");
-			$("a.readmore",plot).remove();
+			$("a.readmore",$plot).remove();
 		});
 	}
 };

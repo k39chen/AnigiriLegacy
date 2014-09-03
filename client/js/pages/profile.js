@@ -91,28 +91,28 @@ Template.profilePage.events({
 	"mouseover .accept-btn": addHoverCurrentTarget,
 	"mouseout .accept-btn": removeHoverCurrentTarget,
 	"click .accept-btn": function(e) {
-		var el = $(e.currentTarget),
-			friendId = el.data("friend-id");
+		var $el = $(e.currentTarget),
+			friendId = $el.data("friend-id");
 		Meteor.call("approveFriendRequest",friendId);
 	},
 	"mouseover .decline-btn": addHoverCurrentTarget,
 	"mouseout .decline-btn": removeHoverCurrentTarget,
 	"click .decline-btn": function(e) {
-		var el = $(e.currentTarget),
-			friendId = el.data("friend-id");
+		var $el = $(e.currentTarget),
+			friendId = $el.data("friend-id");
 		Meteor.call("declineFriendRequest",friendId);
 	},
 	"mouseover .progress-option": addHoverCurrentTarget,
 	"mouseout .progress-option": removeHoverCurrentTarget,
 	"click .progress-option": function(e) {
-		var el = $(e.currentTarget);
-		selectProgressFilter(el.data("progress"));
+		var $el = $(e.currentTarget);
+		selectProgressFilter($el.data("progress"));
 	},
 	"mouseover .gridItem": addHoverCurrentTarget,
 	"mouseout .gridItem": removeHoverCurrentTarget,
 	"click .gridItem": function(e){
-		var el = $(e.currentTarget);
-		var annId = parseInt(el.attr("data-annId"),10);
+		var $el = $(e.currentTarget);
+		var annId = parseInt($el.attr("data-annId"),10);
 		InfoBar.init(annId);
 	}
 });
@@ -174,11 +174,11 @@ Template.profilePage.helpers({
 	}
 });
 function selectProgressFilter(progress) {
-	var el = $(".progress-option[data-progress='"+progress+"']");
+	var $el = $(".progress-option[data-progress='"+progress+"']");
 
 	$(".progress-option").removeClass("selected").each(function(){
 		$(".pointer",this).css({visibility:"hidden"});
 	});
-	el.addClass("selected");
-	$(".pointer",el).css({visibility:"visible"});
+	$el.addClass("selected");
+	$(".pointer",$el).css({visibility:"visible"});
 }

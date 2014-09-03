@@ -10,27 +10,22 @@ Template.adminPage.events({
 	"mouseover .button": addHoverTarget,
 	"mouseout .button": removeHoverTarget,
 	"click #fetchAnimesBtn": function(e) {
-		var el = $(e.target);
 		// fetch all animes
 		Meteor.call("fetchAllAnimes");
 	},
 	"click #deleteAnimesBtn": function(e) {
-		var el = $(e.target);
 		// delete all animes
 		Meteor.call("deleteAllAnimes");
 	},
 	"click #deleteSongsBtn": function(e) {
-		var el = $(e.target);
 		// delete all songs
 		Meteor.call("deleteAllSongs");
 	},
 	"click #clearFriendRequestsBtn": function(e) {
-		var el = $(e.target);
 		// clear all friend requests
 		Meteor.call("clearAllFriendRequests");
 	},
 	"click #clearAllFriendshipsBtn": function(e) {
-		var el = $(e.target);
 		// clear all friendships
 		Meteor.call("clearAllFriendships");
 	}

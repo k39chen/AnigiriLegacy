@@ -109,18 +109,15 @@ Template.infoBar.events({
 	"mouseover .close-btn": addHoverCurrentTarget,
 	"mouseout .close-btn": removeHoverCurrentTarget,
 	"click .close-btn": function(e) {
-		var el = $(e.currentTarget);
 		$("#searchInput").val("");
-		
 		InfoBar.hide();
 	},
 	"mouseover .navitem": addHoverCurrentTarget,
 	"mouseout .navitem": removeHoverCurrentTarget,
 	"click .navitem": function(e) {
-		var el = $(e.currentTarget);
-
+		var $el = $(e.currentTarget);
 		// show the subpage
-		InfoBar.selectSubpage(el.attr("data-subpage"));
+		InfoBar.selectSubpage($el.attr("data-subpage"));
 	}
 });
 Template.infoBar.helpers({

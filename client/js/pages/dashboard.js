@@ -6,21 +6,20 @@ Template.dashboardPage.events({
 	"mouseover .redirect-btn": addHoverTarget,
 	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
-		var el = $(e.target);
 		Router.go("/discover");
 	},
 	"mouseover .accept-btn": addHoverTarget,
 	"mouseout .accept-btn": removeHoverTarget,
 	"click .accept-btn": function(e) {
-		var el = $(e.target),
-			friendId = $(el.parent()).data("friend-id");
+		var $el = $(e.target),
+			friendId = $($el.parent()).data("friend-id");
 		Meteor.call("approveFriendRequest", friendId);
 	},
 	"mouseover .decline-btn": addHoverTarget,
 	"mouseout .decline-btn": removeHoverTarget,
 	"click .decline-btn": function(e) {
-		var el = $(e.target),
-			friendId = $(el.parent()).data("friend-id");
+		var $el = $(e.target),
+			friendId = $($el.parent()).data("friend-id");
 		Meteor.call("declineFriendRequest", friendId);
 	}
 });

@@ -22,14 +22,13 @@ Template.collectionPage.events({
 	"mouseover .redirect-btn": addHoverTarget,
 	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
-		var el = $(e.target);
 		Router.go("/discover");
 	},
 	"mouseover .gridItem": addHoverCurrentTarget,
 	"mouseout .gridItem": removeHoverCurrentTarget,
 	"click .gridItem": function(e){
-		var el = $(e.currentTarget);
-		var annId = parseInt(el.attr("data-annId"),10);
+		var $el = $(e.currentTarget);
+		var annId = parseInt($el.attr("data-annId"),10);
 		InfoBar.init(annId);
 	}
 });

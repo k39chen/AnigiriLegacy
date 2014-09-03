@@ -13,14 +13,8 @@ Template.splashScreen.rendered = function() {
 	},1000);
 };
 Template.splashScreen.events({
-	"mouseover #signin": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout #signin": function(e){
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover #signin": addHoverCurrentTarget,
+	"mouseout #signin": removeHoverCurrentTarget,
 	"click #signin": function(e){
 		$(".login-button").trigger("click");
 	}

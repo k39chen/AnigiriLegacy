@@ -6,7 +6,6 @@ Template.statisticsPage.events({
 	"mouseover .redirect-btn": addHoverTarget,
 	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
-		var el = $(e.target);
 		Router.go("/discover");
 	},
 });

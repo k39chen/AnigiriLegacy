@@ -31,18 +31,18 @@ var SubscriptionForm = {
 	},
 	incrementEpisodes: function(){
 		var data = Session.get("infoBarData"),
-			elem = $("#activitySubpage .currEpisode");
-		if (!data || data.numEpisodes === null || !elem) return;
+			$elem = $("#activitySubpage .currEpisode");
+		if (!data || data.numEpisodes === null || !$elem) return;
 
-		var newCount = Math.min(parseInt(elem.text(),10)+1,data.numEpisodes);
-		elem.text(newCount);
+		var newCount = Math.min(parseInt($elem.text(),10)+1,data.numEpisodes);
+		$elem.text(newCount);
 	},
 	decrementEpisodes: function(){
-		var elem = $("#activitySubpage .currEpisode");
-		if (!elem) return;
+		var $elem = $("#activitySubpage .currEpisode");
+		if (!$elem) return;
 
-		var newCount = Math.max(parseInt(elem.text(),10)-1,0);
-		elem.text(newCount);
+		var newCount = Math.max(parseInt($elem.text(),10)-1,0);
+		$elem.text(newCount);
 	},
 	// click hold handlers and states
 	isClickHolding: false,
@@ -80,8 +80,8 @@ Template.activitySubpage.events({
 	"mouseover .progress": addHoverTarget,
 	"mouseout .progress": removeHoverTarget,
 	"click .progress": function(e){
-		var el = $(e.target);
-		SubscriptionForm.setProgress(el.attr("data-progress"));
+		var $el = $(e.target);
+		SubscriptionForm.setProgress($el.attr("data-progress"));
 	},
 	"mouseover .epCountControl": addHoverTarget,
 	"mouseout .epCountControl": removeHoverTarget,
@@ -89,13 +89,12 @@ Template.activitySubpage.events({
 		SubscriptionForm.isClickHolding = false;
 		SubscriptionForm.clickHoldDelay = 400;
 
-		var elem = $("#activitySubpage .currEpisode");
-		if (!elem) return;
+		var $elem = $("#activitySubpage .currEpisode");
+		if (!$elem) return;
 		
-		SubscriptionForm.setEpisodes(parseInt(elem.text(),10));
+		SubscriptionForm.setEpisodes(parseInt($elem.text(),10));
 	},
 	"mousedown .epCountUp": function(e){
-		var el = $(e.target);
 		SubscriptionForm.incrementEpisodes();
 
 		// start a click/hold handler
@@ -103,7 +102,6 @@ Template.activitySubpage.events({
 		SubscriptionForm.clickHoldHandler(SubscriptionForm.incrementEpisodes);
 	},
 	"mousedown .epCountDown": function(e){
-		var el = $(e.target);
 		SubscriptionForm.decrementEpisodes();
 
 		// start a click/hold handler
@@ -146,8 +144,8 @@ Template.activitySubpage.events({
 		}
 	},
 	"click .star": function(e){
-		var el = $(e.target),
-			num = el.attr("data-star-num");
+		var $el = $(e.target),
+			num = $el.attr("data-star-num");
 		SubscriptionForm.setRating(num);
 	},
 	"mouseover .unsubscribe-btn": addHoverTarget,

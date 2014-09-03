@@ -3,31 +3,31 @@ Template.tinyGridItem.rendered = function() {
 };
 Template.tinyGridItem.events({
 	"mouseover .hoverTarget": function(e){
-		var el = $(e.currentTarget),
-			tgi = el.parent(".tinyGridItem");
-			mask = $(".mask",tgi),
-			content = $(".maskcontent",tgi),
-			maskHeight = mask.height();
+		var $el = $(e.currentTarget),
+			$tgi = $el.parent(".tinyGridItem");
+			$mask = $(".mask",$tgi),
+			$content = $(".maskcontent",$tgi),
+			maskHeight = $mask.height();
 
-		content.css({bottom:-maskHeight,opacity:0}).stop().animate({bottom:0,opacity:1},500);
-		mask.css({display:"block",opacity:0}).stop().animate({opacity:0.7},500);
+		$content.css({bottom:-maskHeight,opacity:0}).stop().animate({bottom:0,opacity:1},500);
+		$mask.css({display:"block",opacity:0}).stop().animate({opacity:0.7},500);
 	},
 	"mouseout .hoverTarget": function(e){
-		var el = $(e.currentTarget),
-			tgi = el.parent(".tinyGridItem");
-			mask = $(".mask",tgi),
-			content = $(".maskcontent",tgi),
-			maskHeight = mask.height();
+		var $el = $(e.currentTarget),
+			$tgi = $el.parent(".tinyGridItem");
+			$mask = $(".mask",$tgi),
+			$content = $(".maskcontent",$tgi),
+			maskHeight = $mask.height();
 
-		content.css({display:"block",bottom:0,opacity:1}).stop().animate({bottom:-maskHeight,opacity:0},500);
-		mask.css({display:"block",opacity:0.7}).stop().animate({opacity:0},500,function(){
+		$content.css({display:"block",bottom:0,opacity:1}).stop().animate({bottom:-maskHeight,opacity:0},500);
+		$mask.css({display:"block",opacity:0.7}).stop().animate({opacity:0},500,function(){
 			$(this).css({display:"block"});
 		})
 	},
 	"click .hoverTarget": function(e){
-		var el = $(e.currentTarget),
-			tgi = el.parent(".tinyGridItem");
-		var annId = parseInt(tgi.attr("data-annId"),10);
+		var $el = $(e.currentTarget),
+			$tgi = $el.parent(".tinyGridItem");
+		var annId = parseInt($tgi.attr("data-annId"),10);
 		
 		// get the anime data
 		InfoBar.init(annId);
