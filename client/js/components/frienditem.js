@@ -1,8 +1,8 @@
-Template.friend.rendered = function() {
+Template.friendItem.rendered = function() {
 	var $el = $(this.find(".portrait"));
 	$el.css({opacity:0.8});
 };
-Template.friend.helpers({
+Template.friendItem.helpers({
 	portrait: function() {
 		var self = this,
 			fb = getFacebookUserData(self);

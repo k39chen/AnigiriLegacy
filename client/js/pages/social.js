@@ -62,15 +62,15 @@ Template.socialPage.rendered = function(){
 				this.update(data);
 			},
 			render: function(data){
-				return getTemplateHTML("friend",data);
+				return getTemplateHTML("friendItem",data);
 			}
 		});
 	}
 };
 Template.socialPage.events({
-	"mouseover .friend": addHoverCurrentTarget,
-	"mouseout .friend": removeHoverCurrentTarget,
-	"click .friend": function(e) {
+	"mouseover .friendItem": addHoverCurrentTarget,
+	"mouseout .friendItem": removeHoverCurrentTarget,
+	"click .friendItem": function(e) {
 		var el = $(e.currentTarget);
 		var friendId = el.attr("data-friendId");
 

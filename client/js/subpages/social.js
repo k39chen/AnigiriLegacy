@@ -8,8 +8,8 @@ Template.socialSubpage.events({
 	"click .addfriends-btn": function(e){
 		Router.go("/social");
 	},
-	"mouseover .friendItem": addHoverCurrentTarget,
-	"mouseout .friendItem": removeHoverCurrentTarget,
+	"mouseover .friend": addHoverCurrentTarget,
+	"mouseout .friend": removeHoverCurrentTarget,
 	"mouseover .name": addHoverTarget,
 	"mouseout .name": removeHoverTarget,
 	"click .name": function(e) {
