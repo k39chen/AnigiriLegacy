@@ -2,6 +2,10 @@ Template.musicSubpage.rendered = function(){
 	InfoBar.hideLoad();
 	$("#musicSubpage").css({opacity:0}).stop().animate({opacity:1},500);
 };
+Template.musicSubpage.events({
+	"mouseover .song": addHoverCurrentTarget,
+	"mouseout .song": removeHoverCurrentTarget
+});
 Template.musicSubpage.helpers({
 	hasSongs: function(){
 		return Songs.find({annId: Session.get("infoBarAnnId")}).fetch().length > 0;

@@ -13,10 +13,16 @@
 		margin-bottom: 12px;
 
 		.song {
+			.transition;
+			cursor: pointer;
 			overflow: hidden;
 			padding: 4px 16px;
 			line-height: 1.25em;
 
+
+			.title {
+				.transition;
+			}			
 			&:nth-child(2n+1) {
 				background-color: #313344;
 			}
@@ -52,6 +58,15 @@
 					font-size: 10px;
 					text-transform: uppercase;
 					line-height: 1.0em;
+				}
+			}
+			&.hover {
+				background-color: lighten(#2A2C3C,5%);
+				.title {
+					color: #fff;
+				}
+				&:nth-child(2n+1) {
+					background-color: lighten(#313344,5%);
 				}
 			}
 		}
