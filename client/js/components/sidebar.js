@@ -69,38 +69,19 @@ Template.sideBar.rendered = function(){
 	SideBar.init();
 };
 Template.sideBar.events({
-	"mouseover .toggle": function(e) {
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .toggle": function(e) {
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .toggle": addHoverTarget,
+	"mouseout .toggle": removeHoverTarget,
 	"click .toggle" : function(e) {
-		var el = $(e.target);
 		SideBar.toggle();
 	},
-	"mouseover .option": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .option": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .option": addHoverCurrentTarget,
+	"mouseout .option": removeHoverCurrentTarget,
 	"click .option": function(e) {
-		var el = $(e.currentTarget);
-		Router.go("/"+el.attr("data-page"));
+		var $el = $(e.currentTarget);
+		Router.go("/"+$el.attr("data-page"));
 	},
-	"mouseover #signout": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout #signout": function(e){
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover #signout": addHoverCurrentTarget,
+	"mouseout #signout": removeHoverCurrentTarget,
 	"click #signout": function(){
 		Meteor.logout();
 		Router.go("/");

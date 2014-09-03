@@ -106,28 +106,16 @@ Template.infoBar.created = function(){
 	InfoBar.selectSubpage("overview");
 };
 Template.infoBar.events({
-	"mouseover .close-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .close-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .close-btn": addHoverCurrentTarget,
+	"mouseout .close-btn": removeHoverCurrentTarget,
 	"click .close-btn": function(e) {
 		var el = $(e.currentTarget);
 		$("#searchInput").val("");
 		
 		InfoBar.hide();
 	},
-	"mouseover .navitem": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .navitem": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .navitem": addHoverCurrentTarget,
+	"mouseout .navitem": removeHoverCurrentTarget,
 	"click .navitem": function(e) {
 		var el = $(e.currentTarget);
 

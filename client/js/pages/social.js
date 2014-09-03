@@ -68,16 +68,8 @@ Template.socialPage.rendered = function(){
 	}
 };
 Template.socialPage.events({
-	"mouseover .friend": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover")
-		el.find(".portrait").css({opacity:1});
-	},
-	"mouseout .friend": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover")
-		el.find(".portrait").css({opacity:0.8});
-	},
+	"mouseover .friend": addHoverCurrentTarget,
+	"mouseout .friend": removeHoverCurrentTarget,
 	"click .friend": function(e) {
 		var el = $(e.currentTarget);
 		var friendId = el.attr("data-friendId");

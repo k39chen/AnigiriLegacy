@@ -19,26 +19,14 @@ Template.collectionPage.rendered = function(){
 	}
 };
 Template.collectionPage.events({
-	"mouseover .redirect-btn": function(e) {
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .redirect-btn": function(e) {
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .redirect-btn": addHoverTarget,
+	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
 		var el = $(e.target);
 		Router.go("/discover");
 	},
-	"mouseover .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .gridItem": addHoverCurrentTarget,
+	"mouseout .gridItem": removeHoverCurrentTarget,
 	"click .gridItem": function(e){
 		var el = $(e.currentTarget);
 		var annId = parseInt(el.attr("data-annId"),10);

@@ -3,14 +3,8 @@ Template.statisticsPage.rendered = function(){
 	initPage("statistics");
 };
 Template.statisticsPage.events({
-	"mouseover .redirect-btn": function(e) {
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .redirect-btn": function(e) {
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .redirect-btn": addHoverTarget,
+	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
 		var el = $(e.target);
 		Router.go("/discover");

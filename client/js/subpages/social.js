@@ -3,33 +3,15 @@ Template.socialSubpage.rendered = function(){
 	$("#socialSubpage").css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.socialSubpage.events({
-	"mouseover .addfriends-btn": function(e){
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .addfriends-btn": function(e){
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .addfriends-btn": addHoverTarget,
+	"mouseout .addfriends-btn": removeHoverTarget,
 	"click .addfriends-btn": function(e){
 		Router.go("/social");
 	},
-	"mouseover .friend": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .friend": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
-	"mouseover .name": function(e) {
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .name": function(e) {
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .friendItem": addHoverCurrentTarget,
+	"mouseout .friendItem": removeHoverCurrentTarget,
+	"mouseover .name": addHoverTarget,
+	"mouseout .name": removeHoverTarget,
 	"click .name": function(e) {
 		var el = $(e.target).parent().parent(),
 			friendId = el.attr("data-friendId");

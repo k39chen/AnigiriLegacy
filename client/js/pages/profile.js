@@ -71,87 +71,45 @@ Template.profilePage.rendered = function(){
 	selectProgressFilter("all");
 };
 Template.profilePage.events({
-	"mouseover .back-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .back-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .back-btn": addHoverCurrentTarget,
+	"mouseout .back-btn": removeHoverCurrentTarget,
 	"click .back-btn": function(e) {
 		Router.go("/social");
 	},
-	"mouseover .addFriend-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .addFriend-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .addFriend-btn": addHoverCurrentTarget,
+	"mouseout .addFriend-btn": removeHoverCurrentTarget,
 	"click .addFriend-btn": function(e) {
 		// send the friend request
 		Meteor.call("sendFriendRequest", this._id);
 	},
-	"mouseover .cancel-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .cancel-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .cancel-btn": addHoverCurrentTarget,
+	"mouseout .cancel-btn": removeHoverCurrentTarget,
 	"click .cancel-btn": function(e) {
 		// cancel the friend request
 		Meteor.call("cancelFriendRequest", this._id);
 	},
-	"mouseover .accept-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .accept-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .accept-btn": addHoverCurrentTarget,
+	"mouseout .accept-btn": removeHoverCurrentTarget,
 	"click .accept-btn": function(e) {
 		var el = $(e.currentTarget),
 			friendId = el.data("friend-id");
 		Meteor.call("approveFriendRequest",friendId);
 	},
-	"mouseover .decline-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .decline-btn": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .decline-btn": addHoverCurrentTarget,
+	"mouseout .decline-btn": removeHoverCurrentTarget,
 	"click .decline-btn": function(e) {
 		var el = $(e.currentTarget),
 			friendId = el.data("friend-id");
 		Meteor.call("declineFriendRequest",friendId);
 	},
-	"mouseover .progress-option": function(e) {
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .progress-option": function(e) {
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .progress-option": addHoverCurrentTarget,
+	"mouseout .progress-option": removeHoverCurrentTarget,
 	"click .progress-option": function(e) {
 		var el = $(e.currentTarget);
 		selectProgressFilter(el.data("progress"));
 	},
-	"mouseover .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.addClass("hover");
-	},
-	"mouseout .gridItem": function(e){
-		var el = $(e.currentTarget);
-		el.removeClass("hover");
-	},
+	"mouseover .gridItem": addHoverCurrentTarget,
+	"mouseout .gridItem": removeHoverCurrentTarget,
 	"click .gridItem": function(e){
 		var el = $(e.currentTarget);
 		var annId = parseInt(el.attr("data-annId"),10);

@@ -66,14 +66,8 @@ Template.activitySubpage.rendered = function(){
 	$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 };
 Template.activitySubpage.events({
-	"mouseover .subscribe-btn": function(e){
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .subscribe-btn": function(e){
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .subscribe-btn": addHoverTarget,
+	"mouseout .subscribe-btn": removeHoverTarget,
 	"click .subscribe-btn": function(e){
 		var annId = Session.get("infoBarAnnId");
 		if (!annId) return;
@@ -83,26 +77,14 @@ Template.activitySubpage.events({
 			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 		});
 	},
-	"mouseover .progress": function(e){
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .progress": function(e){
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .progress": addHoverTarget,
+	"mouseout .progress": removeHoverTarget,
 	"click .progress": function(e){
 		var el = $(e.target);
 		SubscriptionForm.setProgress(el.attr("data-progress"));
 	},
-	"mouseover .epCountControl": function(e){
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .epCountControl": function(e){
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .epCountControl": addHoverTarget,
+	"mouseout .epCountControl": removeHoverTarget,
 	"mouseup .epCountControl": function(e){
 		SubscriptionForm.isClickHolding = false;
 		SubscriptionForm.clickHoldDelay = 400;
@@ -168,14 +150,8 @@ Template.activitySubpage.events({
 			num = el.attr("data-star-num");
 		SubscriptionForm.setRating(num);
 	},
-	"mouseover .unsubscribe-btn": function(e){
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .unsubscribe-btn": function(e){
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .unsubscribe-btn": addHoverTarget,
+	"mouseout .unsubscribe-btn": removeHoverTarget,
 	"click .unsubscribe-btn": function(e){
 		var annId = Session.get("infoBarAnnId");
 		if (!annId) return;

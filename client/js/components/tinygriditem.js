@@ -12,7 +12,6 @@ Template.tinyGridItem.events({
 		content.css({bottom:-maskHeight,opacity:0}).stop().animate({bottom:0,opacity:1},500);
 		mask.css({display:"block",opacity:0}).stop().animate({opacity:0.7},500);
 	},
-
 	"mouseout .hoverTarget": function(e){
 		var el = $(e.currentTarget),
 			tgi = el.parent(".tinyGridItem");

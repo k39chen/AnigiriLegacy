@@ -1,28 +1,28 @@
-#socialPage {
-	.friend {
-		float: left;
-		cursor: pointer;
-		margin: 12px;
-		text-align: center;
+.friend {
+	float: left;
+	cursor: pointer;
+	margin: 12px;
+	text-align: center;
+	.opacity(0.8);
 
+	.portrait {
+		.transition;
+		.opacity(1.0);
+		.circle(96px);
+		border: solid 4px #DFE0E2;
+		background-color: @loadingImageColor;
+	}
+	.name {
+		.transition;
+		.truncated-text(128px);
+		line-height: 1.0em;
+	}
+	&.hover {
 		.portrait {
-			.transition;
-			.circle(96px);
-			border: solid 4px #DFE0E2;
-			background-color: @loadingImageColor;
+			border-color: @themeColor;
 		}
 		.name {
-			.transition;
-			.truncated-text(128px);
-			line-height: 1.0em;
-		}
-		&.hover {
-			.portrait {
-				border-color: @themeColor;
-			}
-			.name {
-				color: @themeColor;
-			}
+			color: @themeColor;
 		}
 	}
 }

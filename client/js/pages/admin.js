@@ -7,14 +7,8 @@ Template.adminPage.rendered = function(){
 	});
 };
 Template.adminPage.events({
-	"mouseover .button": function(e) {
-		var el = $(e.target);
-		el.addClass("hover");
-	},
-	"mouseout .button": function(e) {
-		var el = $(e.target);
-		el.removeClass("hover");
-	},
+	"mouseover .button": addHoverTarget,
+	"mouseout .button": removeHoverTarget,
 	"click #fetchAnimesBtn": function(e) {
 		var el = $(e.target);
 		// fetch all animes
