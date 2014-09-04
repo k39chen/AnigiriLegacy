@@ -27,7 +27,7 @@
 - remove redundant organization in sidebar (corner/navbar/account)
 - create mixin for circle-based styles (`border-radius: 50%`)
 - write simple macro for implementing hoverable elements
-- rename friend to friend item
+- rename `friend` to `frienditem`
 - change all `el` to `$el` (and generally for all elements)
 - hover events for music subpage
 - variable for sans serif font replace all older instances of `Helvetica Neue, Helvetica, Arial`
