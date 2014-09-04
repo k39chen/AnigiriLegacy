@@ -1,9 +1,9 @@
-# IN PROGRESS:
+# In Progress
 - fix the info bar footers so that they don’t stay visible when the info bar is hidden (deal with this problem in the info bar rework task)
 - trigger based resizing on info bar load (HARD)
 - user webkit-transition stuff for info bar hiding/showing (like sidebar)
 
-# TODO:
+# Backlog:
 - fix broken cast from sidebar minimization feature
 - do proper subscription loading…
 - only have the friend search source be loaded once during the session! Store it in a session variable or something…
@@ -12,8 +12,7 @@
 - conceptualize a proper filter system and UI
 - create module in admin panel to manage friendship states
 
-# DONE:
-
+# Completed:
 - implement social features in infobar
 - convert all '' to "" without breakages
 - add icon beside all of the h1 page headers
