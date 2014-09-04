@@ -9,6 +9,7 @@ window.InfoBar = {
 	$el: null,
 	$navbar: null,
 	$loading: null,
+	$pageContainer: null,
 	animDuration: 500,
 	subpage: null,
 	init: function() {
@@ -16,7 +17,8 @@ window.InfoBar = {
 		self.$el = $("#infoBar");
 		self.$navbar = $("#navbar");
 		self.$loading = $("#loadingSubpage");
-		
+		self.$pageContainer = $("#page-container");
+
 		// clear any pre-exisitng anime data that was previously here
 		self.clear();
 
@@ -66,10 +68,12 @@ window.InfoBar = {
 	show: function(options) {
 		var self = this;
 		self.$el.addClass("visible");
+		self.$pageContainer.addClass("minimized-right");
 	},
 	hide: function(options) {
 		var self = this;
 		self.$el.removeClass("visible");
+		self.$pageContainer.removeClass("minimized-right");
 
 		setTimeout(function(){
 			self.clear();
