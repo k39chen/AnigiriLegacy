@@ -7,9 +7,10 @@
 window.initPage = function(page) {
 	$("#"+page+"Page").css({opacity:0}).stop().animate({opacity:1},500);
 
-	// ensure the page header is correctly sized
-	$(".page > h1").css({right:$("#page-container").css("right")});
-
+	// ensure the page header is correctly sized based on the visibility of the infobar
+	if (InfoBar.isVisible) {
+		$(".page > h1").addClass("minimized-right");
+	}
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");
 	$("#sideBar .option[data-page='"+page+"']").addClass("selected");

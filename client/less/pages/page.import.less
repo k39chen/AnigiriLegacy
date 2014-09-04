@@ -31,6 +31,13 @@
 				color: @themeColor;
 				margin-right: 4px;
 			}
+
+			&.minimized-left {
+				left: @sideBarWidthMin;
+			}
+			&.minimized-right {
+				right: @infoBarWidth;
+			}
 		}
 		.pageContent {
 			.box-sizing(border-box);
@@ -51,20 +58,8 @@
 
 	&.minimized-left {
 		left: @sideBarWidthMin;
-	
-		.page {
-			h1 {
-				left: @sideBarWidthMin;
-			}
-		}
 	}
 	&.minimized-right {
 		right: @infoBarWidth;
-
-		.page {
-			h1 {
-				right: @infoBarWidth;
-			}
-		}
 	}
 }

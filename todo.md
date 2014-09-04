@@ -2,6 +2,7 @@
 
 ## In Progress
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
+-- fix broken `readmore` plugin in infoBar
 
 ## Backlog
 - do proper subscription loading…

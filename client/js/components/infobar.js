@@ -10,6 +10,7 @@ window.InfoBar = {
 	$navbar: null,
 	$loading: null,
 	$pageContainer: null,
+	isVisible: false,
 	animDuration: 500,
 	subpage: null,
 	init: function() {
@@ -69,6 +70,9 @@ window.InfoBar = {
 		var self = this;
 		self.$el.addClass("visible");
 		self.$pageContainer.addClass("minimized-right");
+		$("h1",self.$pageContainer).addClass("minimized-right");
+
+		self.isVisible = true;
 
 		setTimeout(function(){
 			resizeGrids();
@@ -78,6 +82,9 @@ window.InfoBar = {
 		var self = this;
 		self.$el.removeClass("visible");
 		self.$pageContainer.removeClass("minimized-right");
+		$("h1",self.$pageContainer).removeClass("minimized-right");
+
+		self. isVisible = false;
 
 		setTimeout(function(){
 			self.clear();
