@@ -1,13 +1,12 @@
-# TODO List
+# Todo List
 
 ## In Progress
+- show loading spinner when loading image in collections (or the loading cat)
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
--- fix broken `readmore` plugin in infoBar
 
 ## Backlog
 - do proper subscription loading…
 - create controls for `Social Subpage`
-- show loading spinner when loading image in collections (or the loading cat)
 - conceptualize a proper filter system and UI
 - create module in admin panel to manage friendship states
 
@@ -35,3 +34,4 @@
 - user `webkit-transition` stuff for `infoBar` hiding/showing (like `sidebar`)
 - trigger based resizing on `infoBar` load (HARD)
 - fix broken `cast` from `sidebar` minimization feature
+- fix broken `readmore` plugin in infoBar
