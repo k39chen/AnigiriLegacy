@@ -1,7 +1,6 @@
 # Todo List
 
 ## In Progress
-- show loading spinner when loading image in collections (or the loading cat)
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
@@ -35,3 +34,4 @@
 - trigger based resizing on `infoBar` load (HARD)
 - fix broken `cast` from `sidebar` minimization feature
 - fix broken `readmore` plugin in infoBar
+- show loading spinner when loading image in collections (or the loading cat)
