@@ -1,12 +1,10 @@
 # TODO List
 
 ## In Progress
-- trigger based resizing on `infoBar` load (HARD)
-- fix broken `cast` from `sidebar` minimization feature
+- only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
 - do proper subscription loading…
-- only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 - create controls for `Social Subpage`
 - show loading spinner when loading image in collections (or the loading cat)
 - conceptualize a proper filter system and UI
@@ -34,3 +32,5 @@
 - generalize colors for info bar into variables.less (and all corresponding subpages)
 - fix the `infoBar` footers so that they don’t stay visible when the `infoBar` is hidden (deal with this problem in the `infoBar` rework task)
 - user `webkit-transition` stuff for `infoBar` hiding/showing (like `sidebar`)
+- trigger based resizing on `infoBar` load (HARD)
+- fix broken `cast` from `sidebar` minimization feature

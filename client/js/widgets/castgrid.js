@@ -23,6 +23,16 @@ window.CastGrid = function(settings) {
 	return self;
 };
 /**
+ * Resize all existing Cast grids.
+ *
+ * @method resizeGrids
+ */
+window.resizeGrids = function(e) {
+	if (window.collectionGrid) collectionGrid.resize();
+	if (window.profileGrid) profileGrid.resize();
+	if (window.friendsGrid) friendsGrid.resize();
+};
+/**
  * Updates the items that are in the cast grid.
  *
  * @method update
@@ -42,8 +52,9 @@ CastGrid.prototype.update = function(data) {
  * @return {Object} Reference to the cast grid object.
  */
 CastGrid.prototype.redraw = function() {
-	this.cast.sortBy("title")[this.drawType](this.dim.w,this.dim.h,this.dim.pw,this.dim.ph);
-	return this;
+	var self = this;
+	self.cast.sortBy("title")[self.drawType](self.dim.w,self.dim.h,self.dim.pw,self.dim.ph);
+	return self;
 };
 /**
  * Changes the dimensions of each grid item and forces a redraw.

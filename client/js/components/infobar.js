@@ -69,6 +69,10 @@ window.InfoBar = {
 		var self = this;
 		self.$el.addClass("visible");
 		self.$pageContainer.addClass("minimized-right");
+
+		setTimeout(function(){
+			resizeGrids();
+		},self.animDuration);
 	},
 	hide: function(options) {
 		var self = this;
@@ -77,6 +81,7 @@ window.InfoBar = {
 
 		setTimeout(function(){
 			self.clear();
+			resizeGrids();
 		},self.animDuration);
 	},
 	clear: function() {

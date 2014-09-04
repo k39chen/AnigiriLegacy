@@ -2,6 +2,7 @@ window.SideBar = {
 	$el: null,
 	$toggle: null,
 	$pageContainer: null,
+	animDuration: 200,
 	init: function() {
 		var self = this;
 		self.$el = $("#sideBar");
@@ -24,12 +25,20 @@ window.SideBar = {
 		self.$toggle.removeClass("fa-toggle-right").addClass("fa-toggle-left");
 		self.$el.removeClass("minimized");
 		self.$pageContainer.removeClass("minimized-left");
+
+		setTimeout(function(){
+			resizeGrids();
+		}, self.animDuration);
 	},
 	minimize: function() {
 		var self = this;
 		self.$toggle.removeClass("fa-toggle-left").addClass("fa-toggle-right");
 		self.$el.addClass("minimized");
 		self.$pageContainer.addClass("minimized-left");
+
+		setTimeout(function(){
+			resizeGrids();
+		}, self.animDuration);
 	}
 };
 Template.sideBar.rendered = function(){
