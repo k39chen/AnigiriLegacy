@@ -55,7 +55,7 @@ Template.sideBar.rendered = function(){
 			else { return 2; }
 		},
 		select: function(event,ui){
-			InfoBar.init(ui.item.data.annId);
+			InfoBar.load(ui.item.data.annId);
 		},
 		renderItem: function(ul,item){
 			var html = getTemplateHTML("animeMenuItem", {

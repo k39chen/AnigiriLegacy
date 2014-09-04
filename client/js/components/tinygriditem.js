@@ -30,7 +30,7 @@ Template.tinyGridItem.events({
 		var annId = parseInt($tgi.attr("data-annId"),10);
 		
 		// get the anime data
-		InfoBar.init(annId);
+		InfoBar.load(annId);
 	}
 });
 Template.tinyGridItem.helpers({

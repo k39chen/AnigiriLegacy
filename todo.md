@@ -1,12 +1,10 @@
 # TODO List
 
 ## In Progress
-- fix the `infoBar` footers so that they don’t stay visible when the `infoBar` is hidden (deal with this problem in the `infoBar` rework task)
 - trigger based resizing on `infoBar` load (HARD)
-- user `webkit-transition` stuff for `infoBar` hiding/showing (like `sidebar`)
+- fix broken `cast` from `sidebar` minimization feature
 
 ## Backlog
-- fix broken `cast` from `sidebar` minimization feature
 - do proper subscription loading…
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 - create controls for `Social Subpage`
@@ -34,3 +32,5 @@
 - hover events for music subpage
 - variable for sans serif font replace all older instances of `Helvetica Neue, Helvetica, Arial`
 - generalize colors for info bar into variables.less (and all corresponding subpages)
+- fix the `infoBar` footers so that they don’t stay visible when the `infoBar` is hidden (deal with this problem in the `infoBar` rework task)
+- user `webkit-transition` stuff for `infoBar` hiding/showing (like `sidebar`)

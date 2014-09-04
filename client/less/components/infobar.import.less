@@ -1,4 +1,6 @@
 #infoBar {
+	.transition(0.5s);
+	z-index: 100;
 	position: fixed;
 	top: 0px;
 	right: -@infoBarWidth;
@@ -10,17 +12,11 @@
 		.box-sizing;
 		padding: 12px 24px;
 		overflow: hidden;
+		width: @infoBarWidth;
 		height: @topBarHeight;
 		background-color: darken(@altPaneBgColor,5%);
-	}
-	.left {
-		float: left;
-	}
-	.right {
-		float: right;
-	}
-	.header {
 		color: darken(@altPaneTextColor,30%);
+
 		.title {
 			.truncated-text(256px);
 			color: @altPaneTextColor;
@@ -72,13 +68,17 @@
 		}
 	}
 	.body {
-		position: fixed;
+		position: absolute;
 		overflow-x: hidden;
 		overflow-y: auto;
 		.box-sizing;
 		top: 115px;
-		right: -@infoBarWidth;
+		right: 0;
 		bottom: 0px;
 		width: @infoBarWidth;
+	}
+
+	&.visible {
+		right: 0;
 	}
 }

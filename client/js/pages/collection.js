@@ -29,7 +29,7 @@ Template.collectionPage.events({
 	"click .gridItem": function(e){
 		var $el = $(e.currentTarget);
 		var annId = parseInt($el.attr("data-annId"),10);
-		InfoBar.init(annId);
+		InfoBar.load(annId);
 	}
 });
 Template.collectionPage.helpers({

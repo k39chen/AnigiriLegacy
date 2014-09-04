@@ -1,23 +1,4 @@
 #activitySubpage {
-	.unsubscribe-btn {
-		.transition;
-		cursor: pointer;
-		position: fixed;
-		bottom: 0px;
-		width: @infoBarWidth;
-		right: 0px;
-		text-align: center;
-		display: inline-block;
-		height: 32px;
-		line-height: 32px;
-		background-color: @altPaneFooterBgColor;
-		color: @altPaneFooterTextColor;
-
-		&.hover {
-			background-color: #E21D3F;
-			color: #fff;
-		}
-	}
 	.section {
 		margin-bottom: 24px;
 
@@ -111,6 +92,25 @@
 					}
 				}
 			}
+		}
+	}
+	.unsubscribe-btn {
+		.transition;
+		cursor: pointer;
+		position: absolute;
+		bottom: 0px;
+		width: @infoBarWidth;
+		right: 0px;
+		text-align: center;
+		display: inline-block;
+		height: 32px;
+		line-height: 32px;
+		background-color: @altPaneFooterBgColor;
+		color: @altPaneFooterTextColor;
+
+		&.hover {
+			background-color: #E21D3F;
+			color: #fff;
 		}
 	}
 }

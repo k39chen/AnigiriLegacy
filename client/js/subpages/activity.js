@@ -62,8 +62,8 @@ var SubscriptionForm = {
 	}
 };
 Template.activitySubpage.rendered = function(){
-	InfoBar.hideLoad();
-	$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
+	// initialize the subpage
+	initSubpage("activity");
 };
 Template.activitySubpage.events({
 	"mouseover .subscribe-btn": addHoverTarget,

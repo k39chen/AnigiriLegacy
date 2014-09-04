@@ -1,6 +1,6 @@
 Template.musicSubpage.rendered = function(){
-	InfoBar.hideLoad();
-	$("#musicSubpage").css({opacity:0}).stop().animate({opacity:1},500);
+	// initialize the subpage
+	initSubpage("music");
 };
 Template.musicSubpage.events({
 	"mouseover .song": addHoverCurrentTarget,

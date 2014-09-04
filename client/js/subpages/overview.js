@@ -1,7 +1,4 @@
 Template.overviewSubpage.created = function(){
-	// hide the loading gif
-	InfoBar.hideLoad();
-
 	// destroy any previously created plot plugin
 	var $plot = $("#overviewSubpage .plot");
 	$plot.trigger("destroy");
@@ -11,8 +8,8 @@ Template.overviewSubpage.rendered = function(){
 		$poster = $(".poster",$subpage),
 		$plot = $(".plot",$subpage);
 
-	// animate into visibility
-	$subpage.css({opacity:0}).stop().animate({opacity:1},500);
+	// initialize the subpage
+	initSubpage("overview");
 
 	// truncate the plot paragraph (if available)
 	if (!$plot.is(":empty")) {

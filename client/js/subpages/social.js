@@ -1,6 +1,6 @@
 Template.socialSubpage.rendered = function(){
-	InfoBar.hideLoad();
-	$("#socialSubpage").css({opacity:0}).stop().animate({opacity:1},500);
+	// initialize the subpage
+	initSubpage("social");
 };
 Template.socialSubpage.events({
 	"mouseover .addfriends-btn": addHoverTarget,
