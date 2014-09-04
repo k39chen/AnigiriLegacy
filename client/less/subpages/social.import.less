@@ -10,6 +10,9 @@
 		padding: 12px 16px;
 		overflow: hidden;
 
+		&:nth-child(2n) {
+			background-color: lighten(@altPaneBgColor,3%);
+		}
 		.portrait {
 			float: left;
 			margin-right: 8px;
@@ -23,16 +26,19 @@
 			display: inline-block;
 		}
 		.email {
-			color: #5A6088;
+			color: @altPaneWellTextColor;
 			line-height: 1.0em;
 		}
 		&.hover {
-			background-color: #383a4e;
+			background-color: lighten(@altPaneBgColor,5%);
 			.name {
 				color: #fff;
 				&.hover {
 					color: @themeColor;
 				}
+			}
+			&:nth-child(2n) {
+				background-color: lighten(@altPaneBgColor,8%);
 			}
 		}
 	}
@@ -46,7 +52,7 @@
 		display: inline-block;
 		height: 32px;
 		line-height: 32px;
-		background-color: #3B3E50;
-		color: #97A5BE;
+		background-color: @altPaneFooterBgColor;
+		color: @altPaneFooterTextColor;
 	}
 }

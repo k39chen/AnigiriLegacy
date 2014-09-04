@@ -4,14 +4,14 @@
 	right: -@infoBarWidth;
 	bottom: 0px;
 	width: @infoBarWidth;
-	background-color: #2A2C3C;
+	background-color: @altPaneBgColor;
 
 	.header {
 		.box-sizing;
 		padding: 12px 24px;
 		overflow: hidden;
 		height: @topBarHeight;
-		background-color: #212330;
+		background-color: darken(@altPaneBgColor,5%);
 	}
 	.left {
 		float: left;
@@ -20,29 +20,28 @@
 		float: right;
 	}
 	.header {
+		color: darken(@altPaneTextColor,30%);
 		.title {
 			.truncated-text(256px);
-			color: #A2A4B5;
+			color: @altPaneTextColor;
 			font-size: 1.2em;
 			line-height: 1.6em;
 		}
 		.type {
-			color: #585A70;
 			text-transform: uppercase;
 			font-size: 11px;
 			line-height: 1.4em;
 			font-weight: 400;
 		}
-	}
-	.close-btn {
-		.transition;
-		cursor: pointer;
-		font-size: 2.0em;
-		color: #454653;
-		line-height: 40px;
+		.close-btn {
+			.transition;
+			cursor: pointer;
+			font-size: 2.0em;
+			line-height: 40px;
 
-		&.hover {
-			color: #5C5F6F;
+			&.hover {
+				color: darken(@altPaneTextColor,20%);
+			}
 		}
 	}
 	#navbar {
@@ -50,20 +49,20 @@
 		.box-sizing;
 		height: 51px;
 		padding: 12px 0px;
-		border-bottom: solid 1px #414346;
+		border-bottom: solid 1px lighten(@altPaneBgColor,10%);
 
 		.navitem {
 			.transition;
 			cursor: pointer;
 			display: inline-block;
-			color: #A2A4B5;
+			color: @altPaneTextColor;
 			width: 72px;
 			height: 24px;
 			line-height: 24px;
 			.rounded(16px);
 			
 			&.hover {
-				background-color: #383A4E;
+				background-color: lighten(@altPaneBgColor,10%);
 				color: #fff;
 			}
 			&.selected {

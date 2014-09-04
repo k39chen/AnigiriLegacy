@@ -4,19 +4,19 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	color: #A2A4B5;
+	color: @altPaneTextColor;
 	padding: 12px 24px;
 
 	.emptyMessage {
 		line-height: 1.5em;
-		color: #6F6F86;
+		color: @altPaneTextColor;
 
 		p {
 			margin-bottom: 1.5em;
 			font-size: 14px;
 		}
 		.accent {
-			color: #C6C6E7;
+			color: lighten(@altPaneTextColor,10%);
 			font-size: 14px;
 		}
 	}

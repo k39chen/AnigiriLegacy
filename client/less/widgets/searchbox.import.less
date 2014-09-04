@@ -1,9 +1,6 @@
-@placeholderColor: #7a7a7a;
-
-
 .searchbox {
 	.box-sizing;
-	border: solid 1px #4A4C5C;
+	border: solid 1px darken(@altPaneTextColor,35%);
 	margin: 0 auto;
 	margin-top: 16px;
 	width: 184px;
@@ -14,7 +11,7 @@
 	i.fa.fa-search {
 		font-size: 14px;
 		margin-right: 4px !important;
-		color: #7E9094 !important;
+		color: @altPaneTextColor !important;
 	}
 	input[type=text] {
 		width: 132px;
@@ -24,12 +21,12 @@
 		outline: none;
 		background-color: transparent;
 		color: #fff;
-		font-family: HelveticaNeue, Helvetica, Arial;
+		font-family: @sansSerifFont;
 		font-weight: 300;
 		font-size: @fontSize;
-		&::-webkit-input-placeholder { color: @placeholderColor; }
-		&:-moz-placeholder { color: @placeholderColor; }
-		&:-ms-input-placeholder { color: @placeholderColor; }
+		&::-webkit-input-placeholder { color: @placeholderTextColor; }
+		&:-moz-placeholder { color: @placeholderTextColor; }
+		&:-ms-input-placeholder { color: @placeholderTextColor; }
 	}
 }
 // autocomplete
@@ -43,24 +40,24 @@
 	padding: 0;
 }
 .ui-menu-item {
-	background-color: #2A2C3C;
+	background-color: @altPaneBgColor;
 	color: #fff;
-	border-top: solid 1px #343646;
-	border-bottom: solid 1px #1A232E;
+	border-top: solid 1px lighten(@altPaneBgColor,5%);
+	border-bottom: solid 1px darken(@altPaneBgColor,5%);
 }
 .ui-menu-item > a {
-	font-family: HelveticaNeue, Helvetica,Arial;
+	font-family: @sansSerifFont;
 	font-weight: 300 !important;
 	cursor: pointer;
 	.rounded(0);
-	color: #A2A4B5;
+	color: @altPaneTextColor;
 	padding: 8px 16px !important;
 }
 .ui-menu-item > a.ui-state-active,
 .ui-menu-item > a.ui-state-focus,
 .ui-menu-item > a.ui-state-hover {
 	border: solid 1px transparent;
-	background-color: #383A4E;
+	background-color: lighten(@altPaneBgColor,5%);
 	color: #fff;
 }
 .ui-menu-item a {

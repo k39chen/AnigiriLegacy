@@ -10,8 +10,8 @@
 		display: inline-block;
 		height: 32px;
 		line-height: 32px;
-		background-color: #3B3E50;
-		color: #97A5BE;   
+		background-color: @altPaneFooterBgColor;
+		color: @altPaneFooterTextColor;
 
 		&.hover {
 			background-color: #E21D3F;
@@ -22,7 +22,7 @@
 		margin-bottom: 24px;
 
 		h1 {
-			color: #585A70;
+			color: darken(@altPaneTextColor,30%);
 			text-transform: uppercase;
 			font-size: 11px;
 			font-weight: 400;
@@ -71,11 +71,11 @@
 					.transition;
 					cursor: pointer;
 					font-size: 28px;
-					color: #454653;
+					color: darken(@altPaneTextColor,30%);
 					.user-select;
 
 					&.hover {
-						color: #5C5F6F;
+						color: darken(@altPaneTextColor,20%);
 					}
 				}
 			}
@@ -85,11 +85,11 @@
 				height: 32px;
 				line-height: 32px;
 				font-size: 12px;
-				color: #5A6088;
+				color: darken(@altPaneTextColor,20%);
 
 				.currEpisode {
 					font-weight: 200;
-					color: #C6C6E7;
+					color: @altPaneTextColor;
 				}
 				.maxEpisodes {
 					font-size: 13px !important;
@@ -104,10 +104,10 @@
 					margin-right: 2px;
 
 					&.fa-star-o {
-						color: #7a7a7a;
+						color: @unstarColor;
 					}
 					&.fa-star {
-						color: #DAC31A;
+						color: @starColor;
 					}
 				}
 			}

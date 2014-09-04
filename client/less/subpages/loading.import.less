@@ -1,7 +1,7 @@
 #loadingSubpage {
 	display: none;
 	position: fixed;
-	background-color: #2A2C3C;
+	background-color: @altPaneBgColor;
 	top: @topBarHeight;
 	right: 0px;
 	bottom: 0px;
@@ -11,7 +11,7 @@
 
 	img {
 		.circle(132px);
-		border: solid 12px #414857;
+		border: solid 12px lighten(@altPaneBgColor,10%);
 		margin: 25% auto;
 	}
 }

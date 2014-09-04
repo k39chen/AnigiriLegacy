@@ -2,12 +2,12 @@
 	padding: 12px 0 !important;
 
 	h1 {
-		color: #585A70;
+		color: darken(@altPaneTextColor,30%);
 		text-transform: uppercase;
 		font-size: 11px;
 		font-weight: 400;
 		padding: 0 24px;
-		border-bottom: solid 2px #962B6B;
+		border-bottom: solid 2px @musicAccent;
 	}
 	.song-list {
 		margin-bottom: 12px;
@@ -22,9 +22,9 @@
 
 			.title {
 				.transition;
-			}			
+			}
 			&:nth-child(2n+1) {
-				background-color: #313344;
+				background-color: lighten(@altPaneBgColor,3%);
 			}
 			.num {
 				float: left;
@@ -44,7 +44,7 @@
 				text-overflow: ellipsis;
 			}
 			.artist {
-				color: #5A6088;
+				color: @altPaneWellTextColor;
 				font-size: 1.0em;
 				line-height: 1.25em;
 			}
@@ -53,7 +53,7 @@
 				text-align: right;
 
 				.label {
-					color: #5A6088;
+					color: @altPaneWellTextColor;
 					margin-top: 4px;
 					font-size: 10px;
 					text-transform: uppercase;
@@ -61,12 +61,12 @@
 				}
 			}
 			&.hover {
-				background-color: lighten(#2A2C3C,5%);
+				background-color: lighten(@altPaneBgColor,5%);
 				.title {
 					color: #fff;
 				}
 				&:nth-child(2n+1) {
-					background-color: lighten(#313344,5%);
+					background-color: lighten(@altPaneBgColor,8%);
 				}
 			}
 		}

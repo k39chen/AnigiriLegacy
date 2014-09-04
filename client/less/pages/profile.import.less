@@ -9,7 +9,7 @@
 		}
 		#friendSearchBox {
 			float: right;
-			border: solid 1px #D8DEE5;
+			border: solid 1px lighten(@mainTextColor,35%);
 			input {
 				color: #000;
 			}
@@ -23,14 +23,14 @@
 		top: 0;
 		bottom: 0px;
 		width: @profileBarWidth;
-		background: #ECF1FF;
-		color: #787C8D;
+		background: @subPaneBgColor;
+		color: @subPaneTextColor;
 		text-align: center;
 
 		.header {
 			.box-sizing;
 			text-align: center;
-			border-bottom: solid 1px #D8DEE5;
+			border-bottom: solid 1px darken(@subPaneBgColor,5%);
 			height: @topBarHeight;
 			line-height: @topBarHeight + 5px;
 			.truncated-text(@profileBarWidth);
@@ -39,7 +39,7 @@
 				.transition;
 				cursor: pointer;
 				font-size: 16px;
-				color: #D6DCF3;
+				color: darken(@subPaneBgColor,5%);
 				margin-right: 8px;
 
 				&.hover {
@@ -62,7 +62,7 @@
 			.expo {
 				padding-top: 24px;
 				padding-bottom: 18px;
-				background-color: #D7DCEB;
+				background-color: @subPaneWellBgColor;
 
 				.portrait {
 					text-align: center;
@@ -81,7 +81,7 @@
 					line-height: 1.0em;
 				}
 				.email, .pendingRequest {
-					color: #9C9EB4;
+					color: lighten(@subPaneTextColor,5%);
 				}
 				.icon-btn {
 					text-align: center;
@@ -93,16 +93,16 @@
 
 					&.accept-btn {
 						.transition;
-						background: #3ECF3E;
+						background: @acceptBtnColor;
 						&.hover {
-							background: darken(#3ECF3E,10%);
+							background: darken(@acceptBtnColor,10%);
 						}
 					}
 					&.decline-btn {
 						.transition;
-						background: #E94545;
+						background: @declineBtnColor;
 						&.hover {
-							background: darken(#E94545,10%);
+							background: darken(@declineBtnColor,10%);
 						}
 					}
 				}
@@ -114,7 +114,7 @@
 				text-align: left;
 
 				h3 {
-					color: #AAA8B4;
+					color: lighten(@subPaneTextColor,20%);
 					font-size: 10px;
 					text-transform: uppercase;
 					font-weight: 400;
@@ -136,7 +136,7 @@
 						margin-right: 4px;
 						font-size: 10px;
 						color: #fff;
-						background: #D9D9FA;
+						background: darken(@subPaneBgColor,10%);
 						display: inline-block;
 						height: 18px;
 						line-height: 18px;
@@ -155,7 +155,7 @@
 						margin-top: -10px;
 					}
 					.fa-star {
-						color: #FFCB7E;
+						color: saturate(@starColor,50%);
 					}
 					.fa-circle {
 						&.finished { color: @colorFinished; }
@@ -165,13 +165,13 @@
 						&.abandoned { color: @colorAbandoned; }
 					}
 					&.hover {
-						background-color: #dae0f1;
+						background-color: darken(@subPaneBgColor,5%);
 						.counter {
 							background: @themeColor;
 						}
 					}
 					&.selected {
-						background-color: #82BAFF;
+						background-color: @filterSelectedColor;
 						color: #fff;
 						.counter {
 							background: @themeColor;

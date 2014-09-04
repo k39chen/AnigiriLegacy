@@ -17,15 +17,15 @@
 			top: 0px;
 			left: @sideBarWidth;
 			right: 0px;
-			background-color: #fff;
+			background-color: @mainBgColor;
 			font-weight: 200;
 			font-size: 2.0em;
-			color: #7E9094;
+			color: @mainTextColor;
 			padding: 0px 32px;
 			height: @topBarHeight;
 			line-height: @topBarHeight;
 			.box-sizing;
-			border-bottom: solid 1px #D8DEE5;
+			border-bottom: solid 1px lighten(@mainTextColor,40%);
 		
 			.fa {
 				color: @themeColor;
@@ -37,7 +37,7 @@
 			padding-top: @topBarHeight;
 			h2 {
 				margin: 24px 32px 4px 32px;
-				color: #AAA8B4;
+				color: lighten(@mainTextColor,10%);
 				font-size: 12px;
 				text-transform: uppercase;
 				font-weight: 400;
