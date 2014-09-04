@@ -84,7 +84,7 @@ window.InfoBar = {
 		self.$pageContainer.removeClass("minimized-right");
 		$("h1",self.$pageContainer).removeClass("minimized-right");
 
-		self. isVisible = false;
+		self.isVisible = false;
 
 		setTimeout(function(){
 			self.clear();

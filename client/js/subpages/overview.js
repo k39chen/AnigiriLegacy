@@ -1,30 +1,32 @@
-Template.overviewSubpage.created = function(){
-	// destroy any previously created plot plugin
-	var $plot = $("#overviewSubpage .plot");
-	$plot.trigger("destroy");
-};
 Template.overviewSubpage.rendered = function(){
 	var $subpage = $("#overviewSubpage"),
-		$poster = $(".poster",$subpage),
-		$plot = $(".plot",$subpage);
+		$poster = $(".poster",$subpage);
 
 	// initialize the subpage
 	initSubpage("overview");
 
-	// truncate the plot paragraph (if available)
-	if (!$plot.is(":empty")) {
-		if ($("a.readmore",$plot).size() === 0) {
-			$plot.append("<a class='readmore'>[Read more]</a>");
+	// truncate the plot paragraph once the data becomes available
+	this.handle = Meteor.autorun($.proxy(function($subpage){
+		var animeData = Session.get("infoBarData");
+		if (animeData && animeData.plot) {
+			// only apply this plugin the first time
+			var $plot = $(".plot",$subpage);
+			if ($plot.is(":empty")) {
+				$plot.text(animeData.plot)
+				if ($("a.readmore",$plot).size() === 0) {
+					$plot.append("<a class='readmore'>[Read more]</a>");
+				}
+				$plot.dotdotdot({
+					height: 96,
+					after: "a.readmore"
+				});
+				$("a.readmore",$plot).click(function(){
+					$(this).parent().trigger("destroy");
+					$("a.readmore",$plot).remove();
+				});
+			}
 		}
-		$plot.dotdotdot({
-			height: 96,
-			after: "a.readmore"
-		});
-		$("a.readmore",$plot).click(function(){
-			$(this).parent().trigger("destroy");
-			$("a.readmore",$plot).remove();
-		});
-	}
+	}, this, $subpage));
 };
 Template.overviewSubpage.helpers({
 	getAnimeData: function(){
