@@ -7,7 +7,10 @@
 window.initPage = function(page) {
 	$("#"+page+"Page").css({opacity:0}).stop().animate({opacity:1},500);
 
-	// ensure the page header is correctly sized based on the visibility of the infobar
+	// ensure the page header is correctly sized based on the visibility of the sidebar and infobar
+	if (SideBar.isMinimized) {
+		$(".page > h1").addClass("minimized-left");
+	}
 	if (InfoBar.isVisible) {
 		$(".page > h1").addClass("minimized-right");
 	}

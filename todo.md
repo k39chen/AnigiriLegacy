@@ -1,6 +1,8 @@
 # Todo List
 
 ## In Progress
+- fix images that get blurry because of webkit animations
+
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
@@ -35,3 +37,4 @@
 - fix broken `cast` from `sidebar` minimization feature
 - fix broken `readmore` plugin in infoBar
 - show loading spinner when loading image in collections (or the loading cat)
+- fix page header offset when minimized-left

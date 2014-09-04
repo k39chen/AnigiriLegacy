@@ -2,6 +2,7 @@ window.SideBar = {
 	$el: null,
 	$toggle: null,
 	$pageContainer: null,
+	isMinimized: false,
 	animDuration: 200,
 	init: function() {
 		var self = this;
@@ -25,6 +26,9 @@ window.SideBar = {
 		self.$toggle.removeClass("fa-toggle-right").addClass("fa-toggle-left");
 		self.$el.removeClass("minimized");
 		self.$pageContainer.removeClass("minimized-left");
+		$("h1",self.$pageContainer).removeClass("minimized-left");
+
+		self.isMinimized = false;
 
 		setTimeout(function(){
 			resizeGrids();
@@ -35,6 +39,9 @@ window.SideBar = {
 		self.$toggle.removeClass("fa-toggle-left").addClass("fa-toggle-right");
 		self.$el.addClass("minimized");
 		self.$pageContainer.addClass("minimized-left");
+		$("h1",self.$pageContainer).addClass("minimized-left");
+
+		self.isMinimized = true;
 
 		setTimeout(function(){
 			resizeGrids();
