@@ -13,17 +13,17 @@
 - create module in admin panel to manage friendship states
 
 # Completed
-- implement social features in infobar
+- implement social features in `infoBar`
 - convert all `''` to `""` without breakages
-- add icon beside all of the h1 page headers
-- change `empty-message` to emptyMessage
+- add icon beside all of the `h1` page headers
+- change `empty-message` to `emptyMessage`
 - fix the `empty-message` centering (see profile page)
 - we need to `position:fix` the top bar
 - abstract all search bars!!!!
 - remove all prefixing `_` from `_{}.import.less`
-- castify all grid layouts
-- incorporate account component into sidebar component
-- fix broken offsets for when hiding the sidebar
+- `cast`ify all grid layouts
+- incorporate `account` component into `sidebar` component
+- fix broken offsets for when hiding the `sidebar`
 - remove redundant organization in sidebar (corner/navbar/account)
 - create mixin for circle-based styles (`border-radius: 50%`)
 - write simple macro for implementing hoverable elements
