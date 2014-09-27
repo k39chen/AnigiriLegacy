@@ -6,10 +6,18 @@
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
+- Too much vertical spacing on profile page for animes
+- Disable starring for backlogged animes
+- Fix unable to unsubscribe button
+- Add subscribe button to overview page
+
+- fix bug where if you view one person's profile from the searchbox and then view another, the info doesn't update
 - do proper subscription loading…
 - create controls for `Social Subpage`
 - conceptualize a proper filter system and UI
 - create module in admin panel to manage friendship states
+
+- look into a similar style as Myspace!!! https://myspace.com/ryanjamesmusic
 
 ## Completed
 - implement social features in `infoBar`

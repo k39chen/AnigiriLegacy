@@ -34,6 +34,13 @@ Template.profilePage.rendered = function(){
 		},
 		select: function(event,ui){
 			Router.go("/profile/"+ui.item._id);
+
+			// remove the current one....
+
+			UI.insert(UI.renderWithData(
+				Template.profilePage, 
+				Meteor.users.findOne({_id:ui.item._id})), 
+			$("#page-container"));
 		},
 		renderItem: function(ul,item){
 			// don't show the current user as an option to view
@@ -49,16 +56,17 @@ Template.profilePage.rendered = function(){
 			return $("<li>").append(html).appendTo(ul);
 		}
 	});
-
+	
 	// initialize the anime grid
-	if (self && self.data && self.data._id && self.find("#profileGrid")) {
+	if (self && self.data && self.data._id && $("#profileGrid") && $("#profileGrid").length > 0) {
 		window.profileGrid = new CastGrid({
-			wrapper: self.find("#profileGrid"),
+			wrapper: $("#profileGrid").get(0),
 			template: self,
 			drawType: "dynamic",
 			dim: {w:154,h:270,pw:10,ph:10},
 			dataSource: function() {
 				var data = getFullSubscriptions(null,self.data._id);
+				if (!data) return;
 				this.update(data);
 			},
 			render: function(data){

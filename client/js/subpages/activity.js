@@ -155,9 +155,7 @@ Template.activitySubpage.events({
 		if (!annId) return;
 
 		// unsubscribe from this anime
-		InfoBar.showLoad();
 		Meteor.call("unsubscribeFromAnime",annId,function(err,data){
-			InfoBar.hideLoad();
 			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 		});
 	}
