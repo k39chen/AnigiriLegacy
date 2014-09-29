@@ -22,6 +22,34 @@
 			color: lighten(@mainTextColor,10%);
 		}
 	}
+	@expoHeight: 240px;
+	.expo {
+		position: absolute;
+		height: @expoHeight;
+		top: @topBarHeight;
+		left: 0px;
+		right: 0px;
+	}
+	#activity-feed {
+		position: absolute;
+		top: @topBarHeight + @expoHeight;
+		left: 0px;
+		bottom: 0px;
+		width: 60%;
+	}
+	#notifications {
+		position: absolute;
+		top: @topBarHeight + @expoHeight;
+		right: 0px;
+		bottom: 0px;
+		width: 40%;
+		background: @wellLight;
+		.inner-shadow(5px,0px,5px,0.1);
+	}
+
+
+
+
 	.section {
 		margin-bottom: 36px;
 
