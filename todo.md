@@ -1,17 +1,19 @@
 # Todo List
 
 ## In Progress
+- Import/Export collection
+- Add subscribe button to overview page
+- Fix unable to unsubscribe button
+- Too much vertical spacing on profile page for animes
 - fix images that get blurry because of webkit animations
-
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
-- Too much vertical spacing on profile page for animes
+- Create a search page (similar to myspace!)
+- Resolve duplicate named entries and add year to name to clarify (do this at the server level)
+- Add episode link generation in activity subpage
 - Disable starring for backlogged animes
-- Fix unable to unsubscribe button
-- Add subscribe button to overview page
 
-- fix bug where if you view one person's profile from the searchbox and then view another, the info doesn't update
 - do proper subscription loading…
 - create controls for `Social Subpage`
 - conceptualize a proper filter system and UI
@@ -46,3 +48,30 @@
 - fix broken `readmore` plugin in infoBar
 - show loading spinner when loading image in collections (or the loading cat)
 - fix page header offset when minimized-left
+- fix bug where if you view one person's profile from the searchbox and then view another, the info doesn't update
+
+## Planned
+- Dashboard
+	- Recommended by Friends
+	- Friend Requests
+	- Episode Releases
+	- Statistics
+- Statistics
+	- Genres (pie chart)
+	- Themes (Collage)
+	- Recommendations
+	- Num episodes watched this month (bar chart)
+- Discover
+	- match against genres/themes and release years 
+- Search page
+	- Large overlay 
+	- Searches against anime names, genres, themes, users, etc.
+	- Still able to autocomplete results?
+- Filters
+	- Status
+	- Progress
+	- Year (Date Range widget)
+	- Genre
+	- Theme
+	- Alphabetical
+	- Length (Episodes)

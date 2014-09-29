@@ -16,5 +16,13 @@ window.initPage = function(page) {
 	}
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");
-	$("#sideBar .option[data-page='"+page+"']").addClass("selected");
+	if (page == "profile") {
+		$("#sideBar .option[data-page='social']").addClass("selected");
+	} else {
+		$("#sideBar .option[data-page='"+page+"']").addClass("selected");
+	}
+	// profile page is a very special case, we always need to ensure that this special case is handled properly
+	if (page != "profile") {
+		$("#profilePage").remove();
+	}
 };

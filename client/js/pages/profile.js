@@ -35,12 +35,13 @@ Template.profilePage.rendered = function(){
 		select: function(event,ui){
 			Router.go("/profile/"+ui.item._id);
 
-			// remove the current one....
-
-			UI.insert(UI.renderWithData(
-				Template.profilePage, 
-				Meteor.users.findOne({_id:ui.item._id})), 
-			$("#page-container"));
+			// render the new one on top of the old one
+			$("#profilePage").remove();
+			var template = UI.renderWithData(
+				Template.profilePage,
+				Meteor.users.findOne({_id:ui.item._id})
+			);
+			UI.insert(template, $("#page-container").get(0));
 		},
 		renderItem: function(ul,item){
 			// don't show the current user as an option to view
@@ -62,7 +63,7 @@ Template.profilePage.rendered = function(){
 		window.profileGrid = new CastGrid({
 			wrapper: $("#profileGrid").get(0),
 			template: self,
-			drawType: "dynamic",
+			drawType: "center",
 			dim: {w:154,h:270,pw:10,ph:10},
 			dataSource: function() {
 				var data = getFullSubscriptions(null,self.data._id);

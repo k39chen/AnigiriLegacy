@@ -111,7 +111,11 @@ Template.activitySubpage.events({
 	"mouseover .stars": function(e) {
 		var $stars = $(e.currentTarget),
 			$star = $(e.target),
-			num = $star.attr("data-star-num");
+			num = $star.attr("data-star-num"),
+			annId = Session.get("infoBarAnnId"),
+			subscription = getSubscriptionData(annId);
+
+		if (!subscription || subscription.status == "backlogged") return;
 
 		if (num) {
 			$stars.addClass("hover");
@@ -127,11 +131,11 @@ Template.activitySubpage.events({
 	},
 	"mouseleave .stars": function(e) {
 		var $stars = $(e.currentTarget),
-			$star = $(e.target);
+			$star = $(e.target),
 			annId = Session.get("infoBarAnnId"),
 			subscription = getSubscriptionData(annId);
 
-		if (!subscription) return;
+		if (!subscription || subscription.status == "backlogged") return;
 
 		// reset to the default star value
 		for (var i=1; i<=MAX_RATING; i++) {
@@ -156,6 +160,7 @@ Template.activitySubpage.events({
 
 		// unsubscribe from this anime
 		Meteor.call("unsubscribeFromAnime",annId,function(err,data){
+			SubscriptionForm.setRating(0);
 			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 		});
 	}

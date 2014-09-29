@@ -17,4 +17,5 @@ cmather:iron-router@0.8.2
 d3
 less
 mrt:iron-router-ga
+mrt:chosen-package
 
