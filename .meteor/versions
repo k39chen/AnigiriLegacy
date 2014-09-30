@@ -41,6 +41,7 @@ minimongo@1.0.1
 mongo-livedata@1.0.3
 mrt:chosen-package@0.11.1
 mrt:iron-router-ga@0.3.4
+mrt:momentjs@2.1.0
 oauth2@1.0.0
 oauth@1.0.0
 observe-sequence@1.0.1

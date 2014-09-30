@@ -1,7 +1,12 @@
 <template name="collectionPage">
 <div id="collectionPage" class="page">
 	{{#if hasSubscriptions}}
-	<h1><i class="fa fa-th-large"></i> Collection</h1>
+	<h1 class="wrapper">
+		<div class="pull-left"><i class="fa fa-th-large"></i> Collection</div>
+		<div class="pull-right">
+			<i class="exportCollectionBtn fa fa-download"></i>
+		</div>
+	</h1>
 	<div class="pageContent">
 		<div id="collectionFilters"></div>
 		<div id="collectionGrid"></div>

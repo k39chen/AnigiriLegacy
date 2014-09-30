@@ -1,17 +1,12 @@
 # Todo List
 
 ## In Progress
-- Import/Export collection
-- Add episode link generation in activity subpage
+- Resolve duplicate named entries and add year to name to clarify (do this at the server level)
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
 - Create a search page (similar to myspace!)
-- Resolve duplicate named entries and add year to name to clarify (do this at the server level)
-
-- Disable starring for backlogged animes
-
 - do proper subscription loading…
 - create controls for `Social Subpage`
 - conceptualize a proper filter system and UI
@@ -50,6 +45,9 @@
 - Add subscribe button to overview page
 - Fix unable to unsubscribe button
 - Too much vertical spacing on profile page for animes
+- Add episode link generation in activity subpage
+- Import/Export collection
+- Disable starring for backlogged animes
 
 ## Planned
 - Dashboard

@@ -19,6 +19,18 @@ Template.collectionPage.rendered = function(){
 	}
 };
 Template.collectionPage.events({
+	"mouseover .exportCollectionBtn": addHoverTarget,
+	"mouseout .exportCollectionBtn": removeHoverTarget,
+	"click .exportCollectionBtn": function(e){
+		var subscriptions = getFullSubscriptions();
+		var result = exportAsCsv(subscriptions);
+		var blob = new Blob([result], {type: 'text/plain'});
+		var now = new Date();
+		var filename = Meteor.user().profile.name.replace(/ /g,"") + "_" + moment().format("YYYY-MM-DD") + ".csv";
+
+		// save the file
+		saveAs(blob,filename);
+	},
 	"mouseover .redirect-btn": addHoverTarget,
 	"mouseout .redirect-btn": removeHoverTarget,
 	"click .redirect-btn": function(e){
@@ -37,3 +49,88 @@ Template.collectionPage.helpers({
 		return hasSubscriptions();
 	}
 });
+/**
+ * Exports the provided subscriptions as a CSV.
+ *
+ * @method exportAsCsv
+ * @param subscriptions {Array} The array of subscriptions.
+ * @return {String} The subscriptions formatted as a CSV.
+ */
+function exportAsCsv(subscriptions) {
+	var fields = [
+		"annId",
+		"type",
+		"title",
+		"subscription.episodes",
+		"subscription.progress",
+		"subscription.rating",
+		"subscription.subscriptionDate",
+		"subscription.linkGenerationRule"
+	];
+	var result = "";
+	for (var i=0; subscriptions && i<subscriptions.length; i++) {
+		var subscription = subscriptions[i];
+		var entry = "";
+		for (var j=0; j<fields.length; j++) {
+			var name = fields[j];
+			var split = name.split(".");
+			if (split.length === 2) {
+				entry = entry + "\""+(subscription.subscription[split[1]] || "") +"\"";
+				if (j < fields.length - 1) entry += ",";
+			} else {
+				entry = entry + "\""+(subscription[name] || "")+"\"";
+				if (j < fields.length - 1) entry += ",";
+			}
+		}
+		result = result + entry + "\n";
+	}
+	var header = "";
+	for (var i=0; i<fields.length; i++) {
+		var name = fields[i];
+		var split = name.split(".");
+		if (split.length === 2) {
+			header = header + "\""+split[1]+"\"";
+		} else {
+			header = header + "\""+fields[i]+"\"";
+		}
+		if (i < fields.length - 1) header += ",";
+	}
+	result = header+"\n"+result;
+		
+	return result;
+}
+/**
+ * Exports the provided subscriptions as a XML.
+ *
+ * @method exportAsXml
+ * @param subscriptions {Array} The array of subscriptions.
+ * @return {String} The subscriptions formatted as a XML.
+ */
+function exportAsXml(subscriptions) {
+	var fields = [
+		"annId",
+		"type",
+		"title",
+		"subscription.episodes",
+		"subscription.progress",
+		"subscription.rating",
+		"subscription.subscriptionDate",
+		"subscription.linkGenerationRule"
+	];
+	var result = "";
+	for (var i=0; subscriptions && i<subscriptions.length; i++) {
+		var subscription = subscriptions[i];
+		var entry = "";
+		for (var j=0; j<fields.length; j++) {
+			var name = fields[j];
+			var split = name.split(".");
+			if (split.length === 2) {
+				entry = entry + "\t<"+split[1]+">"+(subscription.subscription[split[1]] || "")+"</"+split[1]+">\n";
+			} else {
+				entry = entry + "\t<"+name+">"+(subscription[name] || "")+"</"+name+">\n";
+			}
+		}
+		result = result + "<subscription>\n" + entry + "</subscription>\n";
+	}
+	return result;
+}
