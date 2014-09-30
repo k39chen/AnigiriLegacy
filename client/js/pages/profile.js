@@ -63,7 +63,6 @@ Template.profilePage.rendered = function(){
 		window.profileGrid = new CastGrid({
 			wrapper: $("#profileGrid").get(0),
 			template: self,
-			drawType: "center",
 			dim: {w:154,h:270,pw:10,ph:10},
 			dataSource: function() {
 				var data = getFullSubscriptions(null,self.data._id);
