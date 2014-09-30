@@ -1,9 +1,8 @@
 # Todo List
 
 ## In Progress
+- Add episode link generation in activity subpage
 - Import/Export collection
-- Add subscribe button to overview page
-- Fix unable to unsubscribe button
 - Too much vertical spacing on profile page for animes
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
@@ -11,7 +10,7 @@
 ## Backlog
 - Create a search page (similar to myspace!)
 - Resolve duplicate named entries and add year to name to clarify (do this at the server level)
-- Add episode link generation in activity subpage
+
 - Disable starring for backlogged animes
 
 - do proper subscription loading…
@@ -22,6 +21,8 @@
 - look into a similar style as Myspace!!! https://myspace.com/ryanjamesmusic
 
 ## Completed
+- Add subscribe button to overview page
+- Fix unable to unsubscribe button
 - implement social features in `infoBar`
 - convert all `''` to `""` without breakages
 - add icon beside all of the `h1` page headers
