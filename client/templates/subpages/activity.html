@@ -30,7 +30,15 @@
 			{{{rating}}}
 		</div>
 	</div>
-
+	<div class="section">
+		<h1>Link Generation Rule</h1>
+		<div class="content">
+			<input type="text" class="linkGenerationRule" placeholder="Input link generation rule here." value="{{lgr}}" />
+			<p class="lgrInstr">
+				http://www.animeseason.com/<span>{title|-}</span>-episode-<span>{ep}</span>/<br/>
+			</p>
+		</div>
+	</div>
 	<div class="unsubscribe-btn">Unsubscribe</div>
 {{/with}}
 {{else}}

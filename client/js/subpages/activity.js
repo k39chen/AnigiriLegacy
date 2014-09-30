@@ -11,6 +11,7 @@ var SubscriptionForm = {
 				Meteor.call("changeSubscriptionEpisodes",data.annId,data.numEpisodes);
 				break;
 			case "backlogged":
+				SubscriptionForm.setEpisodes(0);
 				SubscriptionForm.setRating(-1);
 				break;
 			default:
@@ -50,6 +51,13 @@ var SubscriptionForm = {
 
 		var newCount = Math.max(parseInt($elem.text(),10)-1,0);
 		$elem.text(newCount);
+	},
+	setLinkGenerationRule: function(linkGenerationRule) {
+		// update the link generation rule on the server
+		var annId = Session.get("infoBarAnnId");
+		if (!annId) return;
+
+		Meteor.call("changeSubscriptionLinkGenerationRule",annId,linkGenerationRule);
 	},
 	// click hold handlers and states
 	isClickHolding: false,
@@ -175,6 +183,15 @@ Template.activitySubpage.events({
 			SubscriptionForm.setRating(-1);
 			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 		});
+	},
+	"change .linkGenerationRule": function(e){
+		var $el = $(e.target),
+			lgr = $el.val(),
+			annId = Session.get("infoBarAnnId");
+		
+		if (!annId) return;
+
+		SubscriptionForm.setLinkGenerationRule(lgr);
 	}
 });
 Template.activitySubpage.helpers({
@@ -211,7 +228,7 @@ Template.activitySubpage.helpers({
 		var subscription = getSubscriptionData(Session.get("infoBarAnnId"));
 		if (!subscription) return null;
 
-		return subscription.progress != "finished";
+		return subscription.progress != "finished" && subscription.progress != "backlogged";
 	},
 	episodes: function(){
 		var data = Session.get("infoBarData"),
@@ -236,5 +253,11 @@ Template.activitySubpage.helpers({
 			stars += star;
 		}
 		return "<div class='stars'>"+stars+"</div>";
+	},
+	lgr: function() {
+		var subscription = getSubscriptionData(Session.get("infoBarAnnId"));
+		if (!subscription || !subscription.linkGenerationRule) return null;
+
+		return subscription.linkGenerationRule || "";
 	}
 });

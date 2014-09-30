@@ -92,6 +92,29 @@
 					}
 				}
 			}
+			.linkGenerationRule {
+				.box-sizing;
+				width: 100%;
+				padding: 4px 2px;
+				border: solid 1px darken(@altPaneTextColor,35%);
+				outline: none;
+				background-color: transparent;
+				color: #fff;
+				font-family: @sansSerifFont;
+				font-weight: 300;
+				font-size: @fontSize;
+				&::-webkit-input-placeholder { color: @placeholderTextColor; }
+				&:-moz-placeholder { color: @placeholderTextColor; }
+				&:-ms-input-placeholder { color: @placeholderTextColor; }
+			}
+			.lgrInstr {
+				line-height: 1.2em;
+				font-family: Courier;
+				font-size: 9px;
+				span {
+					color: #f00;
+				}
+			}
 		}
 	}
 	.unsubscribe-btn {

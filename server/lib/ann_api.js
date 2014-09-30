@@ -412,6 +412,7 @@ Meteor.methods({
 				progress: 'backlogged', // backlogged,watching,finished,abandoned,onhold
 				rating: -1,
 				episodes: 0,
+				linkGenerationRule: null,
 				subscriptionDate: new Date().valueOf()
 			});
 			return Subscriptions.findOne({_id:sub_id});
@@ -479,6 +480,20 @@ Meteor.methods({
 		// update the episodes field
 		Subscriptions.update({userId:userId,annId:animeId},{$set:{episodes:episodes}});
 		return episodes;
+	},
+
+	/**
+	 * Changes the link generation rule field in the subscription.
+	 *
+	 * @method changeSubscriptionLinkGenerationRule
+	 * @param animeId {Number} The ANN anime ID.
+	 * @param linkGenerationRule {String} The link generation rule.
+	 */
+	changeSubscriptionLinkGenerationRule: function(animeId,linkGenerationRule) {
+		var userId = Meteor.userId();
+		// update the link generation rule field
+		Subscriptions.update({userId:userId,annId:animeId},{$set:{linkGenerationRule:linkGenerationRule}});
+		return linkGenerationRule;
 	},
 	/**
 	 * @DANGEROUS!!
