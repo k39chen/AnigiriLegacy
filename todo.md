@@ -1,7 +1,6 @@
 # Todo List
 
 ## In Progress
-- Resolve duplicate named entries and add year to name to clarify (do this at the server level)
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
@@ -48,6 +47,7 @@
 - Add episode link generation in activity subpage
 - Import/Export collection
 - Disable starring for backlogged animes
+- Resolve duplicate named entries and add year to name to clarify (do this at the server level)
 
 ## Planned
 - Dashboard
