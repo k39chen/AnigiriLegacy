@@ -6,8 +6,15 @@ var SubscriptionForm = {
 		if (!annId) return;
 
 		Meteor.call("changeSubscriptionProgress",data.annId,progress);
-		if (progress == "finished") {
-			Meteor.call("changeSubscriptionEpisodes",data.annId,data.numEpisodes);
+		switch (progress) {
+			case "finished":
+				Meteor.call("changeSubscriptionEpisodes",data.annId,data.numEpisodes);
+				break;
+			case "backlogged":
+				SubscriptionForm.setRating(-1);
+				break;
+			default:
+				break;
 		}
 	},
 	setRating: function(rating) {
@@ -115,7 +122,7 @@ Template.activitySubpage.events({
 			annId = Session.get("infoBarAnnId"),
 			subscription = getSubscriptionData(annId);
 
-		if (!subscription || subscription.status == "backlogged") return;
+		if (!subscription || subscription.progress == "backlogged") return;
 
 		if (num) {
 			$stars.addClass("hover");
@@ -135,7 +142,7 @@ Template.activitySubpage.events({
 			annId = Session.get("infoBarAnnId"),
 			subscription = getSubscriptionData(annId);
 
-		if (!subscription || subscription.status == "backlogged") return;
+		if (!subscription || subscription.progress == "backlogged") return;
 
 		// reset to the default star value
 		for (var i=1; i<=MAX_RATING; i++) {
@@ -149,7 +156,12 @@ Template.activitySubpage.events({
 	},
 	"click .star": function(e){
 		var $el = $(e.target),
-			num = $el.attr("data-star-num");
+			num = $el.attr("data-star-num"),
+			annId = Session.get("infoBarAnnId"),
+			subscription = getSubscriptionData(annId);
+
+		if (!subscription || subscription.progress == "backlogged") return;
+
 		SubscriptionForm.setRating(num);
 	},
 	"mouseover .unsubscribe-btn": addHoverTarget,
@@ -160,7 +172,7 @@ Template.activitySubpage.events({
 
 		// unsubscribe from this anime
 		Meteor.call("unsubscribeFromAnime",annId,function(err,data){
-			SubscriptionForm.setRating(0);
+			SubscriptionForm.setRating(-1);
 			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
 		});
 	}

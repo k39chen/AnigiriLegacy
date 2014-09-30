@@ -28,6 +28,19 @@ Template.overviewSubpage.rendered = function(){
 		}
 	}, this, $subpage));
 };
+Template.overviewSubpage.events({
+	"mouseover .subscribe-btn": addHoverTarget,
+	"mouseout .subscribe-btn": removeHoverTarget,
+	"click .subscribe-btn": function(e){
+		var annId = Session.get("infoBarAnnId");
+		if (!annId) return;
+
+		// subscribe to this anime
+		Meteor.call("subscribeToAnime",annId,function(err,data){
+			$("#activitySubpage").css({opacity:0}).stop().animate({opacity:1},500);
+		});
+	}
+});
 Template.overviewSubpage.helpers({
 	getAnimeData: function(){
 		return Session.get("infoBarData");

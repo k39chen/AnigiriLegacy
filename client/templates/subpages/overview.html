@@ -2,9 +2,6 @@
 <div id="overviewSubpage" class="subpage">
 {{#with getAnimeData}}
 	<div class="top">
-		{{#if isSubscribed}}
-		<i class="subscribed fa fa-bookmark"></i>
-		{{/if}}
 		{{#if poster}}
 		<img class="poster" src="{{poster}}" />
 		{{/if}}
@@ -63,6 +60,10 @@
 		<div class="title">Themes</div>
 		<div class="list">{{themes}}</div>
 	</div>
+	{{/if}}
+	{{#if isSubscribed}}
+	{{else}}
+	<div class="subscribe-btn">Subscribe</div>
 	{{/if}}
 {{/with}}
 </div>
