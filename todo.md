@@ -1,6 +1,9 @@
 # Todo List
 
 ## In Progress
+- change `social` to `friends`
+
+
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 

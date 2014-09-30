@@ -1,12 +1,12 @@
-Template.socialSubpage.rendered = function(){
+Template.friendsSubpage.rendered = function(){
 	// initialize the subpage
-	initSubpage("social");
+	initSubpage("friends");
 };
-Template.socialSubpage.events({
+Template.friendsSubpage.events({
 	"mouseover .addfriends-btn": addHoverTarget,
 	"mouseout .addfriends-btn": removeHoverTarget,
 	"click .addfriends-btn": function(e){
-		Router.go("/social");
+		Router.go("/friends");
 	},
 	"mouseover .friend": addHoverCurrentTarget,
 	"mouseout .friend": removeHoverCurrentTarget,
@@ -18,7 +18,7 @@ Template.socialSubpage.events({
 		Router.go("/profile/"+friendId);
 	}
 });
-Template.socialSubpage.helpers({
+Template.friendsSubpage.helpers({
 	hasFriends: function() {
 		return hasFriends();
 	},

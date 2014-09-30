@@ -145,7 +145,7 @@ Template.infoBar.helpers({
 	showMusicSubpage: function(){
 		return Session.equals("subpage","music");
 	},
-	showSocialSubpage: function(){
-		return Session.equals("subpage","social");
+	showFriendsSubpage: function(){
+		return Session.equals("subpage","friends");
 	}
 });

@@ -49,12 +49,12 @@ Router.map(function(){
 			"discoverPage": {to: "page-container"}
 		}
 	});
-	// set up social router
-	this.route("socialPage", {
-		path: "/social",
-		template: "socialPage",
+	// set up friends router
+	this.route("friendsPage", {
+		path: "/friends",
+		template: "friendsPage",
 		yieldTemplates: {
-			"socialPage": {to: "page-container"}
+			"friendsPage": {to: "page-container"}
 		}
 	});
 	// set up statistics router

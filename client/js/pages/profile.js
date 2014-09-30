@@ -82,7 +82,7 @@ Template.profilePage.events({
 	"mouseover .back-btn": addHoverCurrentTarget,
 	"mouseout .back-btn": removeHoverCurrentTarget,
 	"click .back-btn": function(e) {
-		Router.go("/social");
+		Router.go("/friends");
 	},
 	"mouseover .addFriend-btn": addHoverCurrentTarget,
 	"mouseout .addFriend-btn": removeHoverCurrentTarget,

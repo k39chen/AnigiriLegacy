@@ -17,7 +17,7 @@ window.initPage = function(page) {
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");
 	if (page == "profile") {
-		$("#sideBar .option[data-page='social']").addClass("selected");
+		$("#sideBar .option[data-page='friends']").addClass("selected");
 	} else {
 		$("#sideBar .option[data-page='"+page+"']").addClass("selected");
 	}

@@ -1,6 +1,6 @@
-Template.socialPage.rendered = function(){
+Template.friendsPage.rendered = function(){
 	// initialize the page
-	initPage("social");
+	initPage("friends");
 
 	var self = this,
 		$searchbox = $(self.find("#friendSearchBox"));
@@ -67,7 +67,7 @@ Template.socialPage.rendered = function(){
 		});
 	}
 };
-Template.socialPage.events({
+Template.friendsPage.events({
 	"mouseover .friendItem": addHoverCurrentTarget,
 	"mouseout .friendItem": removeHoverCurrentTarget,
 	"click .friendItem": function(e) {
@@ -78,7 +78,7 @@ Template.socialPage.events({
 		Router.go("/profile/"+friendId);
 	}
 });
-Template.socialPage.helpers({
+Template.friendsPage.helpers({
 	hasFriends: function(){
 		return hasFriends();
 	}
