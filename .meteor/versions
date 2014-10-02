@@ -42,6 +42,7 @@ mongo-livedata@1.0.3
 mrt:chosen-package@0.11.1
 mrt:filesaver@0.0.3
 mrt:iron-router-ga@0.3.4
+mrt:jquery-csv@0.7.1
 mrt:momentjs@2.1.0
 oauth2@1.0.0
 oauth@1.0.0

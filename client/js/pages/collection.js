@@ -42,6 +42,13 @@ Template.collectionPage.events({
 		var $el = $(e.currentTarget);
 		var annId = parseInt($el.attr("data-annId"),10);
 		InfoBar.load(annId);
+	},
+	"change #importCollectionInput": function(e) {
+		// get the contents of this file and then run some diagnostics
+		// to present to the user before we actually permit the import
+		readSingleFile(e,function(file,contents){
+			importCsv(contents);
+		});
 	}
 });
 Template.collectionPage.helpers({
@@ -49,6 +56,35 @@ Template.collectionPage.helpers({
 		return hasSubscriptions();
 	}
 });
+/**
+ * Imports a CSV.
+ *
+ * @method importCsv
+ * @param contents {String} The file contents that we are going to interpret as a CSV.
+ */
+function importCsv(contents) {
+	var result = $.csv.toArrays(contents);
+	if (!result || result.length === 0) {
+		return {error: "Invalid CSV"};
+	}
+	var ret = [];
+	var expectedHeader = [
+		"annId",
+		"type",
+		"title",
+		"episodes",
+		"progress",
+		"rating",
+		"linkGenerationRule"
+	];
+	// validate the header
+	if (expectedHeader.join("@") !== result[0].join("@")) {
+		return {error: "Invalid header"};
+	}
+	
+
+	return ret;
+}
 /**
  * Exports the provided subscriptions as a CSV.
  *
@@ -64,7 +100,6 @@ function exportAsCsv(subscriptions) {
 		"subscription.episodes",
 		"subscription.progress",
 		"subscription.rating",
-		"subscription.subscriptionDate",
 		"subscription.linkGenerationRule"
 	];
 	var result = "";

@@ -1,9 +1,9 @@
 # Todo List
 
 ## In Progress
-- change `social` to `friends`
+- change font to Gotham Rounded A
 
-
+- import collection (UI work + fileupload)
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
@@ -29,8 +29,8 @@
 - incorporate `account` component into `sidebar` component
 - fix broken offsets for when hiding the `sidebar`
 - remove redundant organization in sidebar (corner/navbar/account)
-- create mixin for circle-based styles (`border-radius: 50%`)
-- write simple macro for implementing hoverable elements
+- create mixin for circle-based styles (`border-radiunts: 50%`)
+- write simple macro for implementing hoverable elemes
 - rename `friend` to `frienditem`
 - change all `el` to `$el` (and generally for all elements)
 - hover events for music subpage
@@ -48,9 +48,10 @@
 - Fix unable to unsubscribe button
 - Too much vertical spacing on profile page for animes
 - Add episode link generation in activity subpage
-- Import/Export collection
+- export collection
 - Disable starring for backlogged animes
 - Resolve duplicate named entries and add year to name to clarify (do this at the server level)
+- change `social` to `friends`
 
 ## Planned
 - Dashboard
