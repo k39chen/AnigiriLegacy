@@ -1,9 +1,7 @@
 <template name="gridItem">
 {{#if this}}
 <span class="gridItem {{progress}}" data-annId="{{annId}}">
-	<div class="cover">
-		<img src="{{poster}}" />
-	</div>
+	<div class="cover" style="background-image:url('{{poster}}')"></div>
 	<div class="title">{{{title}}}</div>
 	{{#if showEpisodes}}
 	<div class="episodes">{{{subbedEpisodes}}}</div>

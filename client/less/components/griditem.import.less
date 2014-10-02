@@ -18,14 +18,13 @@
 		border-top: solid 5px transparent;
 		overflow: hidden;
 		width: @gridItemCoverWidth;
+		max-width: @gridItemCoverWidth;
 		height: @gridItemCoverHeight;
+		max-height: @gridItemCoverHeight;
 		margin-bottom: 4px;
-
-		img {
-			width: 100%;
-			height: 100%;
-			.image-load;
-		}
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 	&.finished .cover { border-color: @colorFinished; }
 	&.watching .cover { border-color: @colorWatching; }
