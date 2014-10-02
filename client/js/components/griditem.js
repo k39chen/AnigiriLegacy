@@ -26,7 +26,7 @@ Template.gridItem.helpers({
 	subbedEpisodes: function() {
 		return isFuture(this.startDate) 
 			? "Upcoming Series"
-			: "<span>"+this.subscription.episodes+"</span> / "+this.numEpisodes+" Episodes";
+			: "<span>"+this.subscription.episodes+"</span>/"+this.numEpisodes+" Episodes";
 	},
 	rating: function(){
 		var stars = "";
@@ -37,5 +37,8 @@ Template.gridItem.helpers({
 			stars += (i < this.subscription.rating ? star_filled : star_empty);
 		}
 		return "<div class='stars'>"+stars+"</div>";
+	},
+	showRating: function() {
+		return this.subscription.progress != "backlogged";
 	}
 });

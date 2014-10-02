@@ -1,8 +1,7 @@
 # Todo List
 
 ## In Progress
-- change all buttons to be less ugly! (more like Treehouse)
-- change font to Gotham Rounded A
+- do a cool slide in thing for all page switches (like when we have the sidebar minified)
 
 - import collection (UI work + fileupload)
 - fix images that get blurry because of webkit animations
@@ -53,6 +52,8 @@
 - Disable starring for backlogged animes
 - Resolve duplicate named entries and add year to name to clarify (do this at the server level)
 - change `social` to `friends`
+- change all buttons to be less ugly! (more like Treehouse)
+- change font to Gotham Rounded A
 
 ## Planned
 - Dashboard

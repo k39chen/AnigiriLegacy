@@ -7,8 +7,8 @@ Template.adminPage.rendered = function(){
 	});
 };
 Template.adminPage.events({
-	"mouseover .button": addHoverTarget,
-	"mouseout .button": removeHoverTarget,
+	"mouseover .anigiri-btn": addHoverTarget,
+	"mouseout .anigiri-btn": removeHoverTarget,
 	"click #fetchAnimesBtn": function(e) {
 		// fetch all animes
 		Meteor.call("fetchAllAnimes");

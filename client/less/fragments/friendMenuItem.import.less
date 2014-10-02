@@ -1,25 +1,28 @@
-.friendMenuItem .portrait {
-	.circle(32px);
-	vertical-align: bottom;
-	margin-right: 12px;
-	background-color: @loadingImageColor;
-}
-.friendMenuItem .name {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.friendMenuItem .email {
-	color: darken(@altPaneTextColor,30%);
-	text-transform: uppercase;
-	font-size: 11px;
-	font-weight: 400;
-}
-.friendMenuItem .email {
-	text-transform: none;
-}
-.friendMenuItem .fa-check-circle {
-	color: @checkColor;
-	font-size: 18px;
-	margin-top: 12px;
+.friendMenuItem {
+	.portrait {
+		.circle(32px);
+		vertical-align: bottom;
+		margin-right: 12px;
+		background-color: @loadingImageColor;
+	}
+	.name {
+		font-weight: 400;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.email {
+		color: darken(@altPaneTextColor,30%);
+		text-transform: uppercase;
+		font-size: 10px;
+		font-weight: 500;
+	}
+	.email {
+		text-transform: none;
+	}
+	.fa-check-circle {
+		color: @checkColor;
+		font-size: 18px;
+		margin-top: 12px;
+	}
 }

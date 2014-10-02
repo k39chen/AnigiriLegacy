@@ -3,14 +3,14 @@
 {{#if isSubscribed}}
 {{#with getSubscription}}
 	<div class="section">
-		<h1>Progress</h1>
+		<h4>Progress</h4>
 		<div class="content">
 			{{{progress}}}
 		</div>
 	</div>
 	{{#if showEpisodes}}
 	<div class="section">
-		<h1>Episodes</h1>
+		<h4>Episodes</h4>
 		<div class="content">
 			{{#if showEpisodeControls}}
 			<div class="episodeControls">
@@ -25,13 +25,13 @@
 	</div>
 	{{/if}}
 	<div class="section">
-		<h1>Rating</h1>
+		<h4>Rating</h4>
 		<div class="content">
 			{{{rating}}}
 		</div>
 	</div>
 	<div class="section">
-		<h1>Link Generation Rule</h1>
+		<h4>Link Generation Rule</h4>
 		<div class="content">
 			<input type="text" class="linkGenerationRule" placeholder="Input link generation rule here." value="{{lgr}}" />
 			<p class="lgrInstr">

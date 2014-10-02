@@ -1,7 +1,7 @@
 html, body {
 	font-family: @sansSerifFont;
 	font-size: @fontSize;
-	font-weight: 300;
+	font-weight: 400;
 	color: @mainTextColor;
 	line-height: 2.0em;
 	width: 100%;
@@ -27,29 +27,33 @@ html, body {
 	p {
 		margin-bottom: 24px;
 		line-height: 1.75em;
-		font-size: 19px;
-		font-weight: 200;
-		color: lighten(@mainTextColor,10%);
+		font-size: 18px;
+		font-weight: 400;
+		color: @mainTextColor;
 	}
 	.accent {
-		font-size: 32px;
-		color: darken(@mainTextColor,15%);
+		font-size: 24px;
+		font-weight: 500;
+		color: @mainHeaderColor;
 	}
 }
 .angiri-bigbtn {
-	.transition;
+	.transition(0.2s);
 	cursor: pointer;
 	display: inline-block;
 	background-color: @themeAlt;
 	color: #fff;
-	.rounded(24px);
-	font-size: 24px;
-	font-weight: 200;
+	border-bottom: solid 2px darken(@themeAlt,20%);
+	.rounded(4px);
+	font-family: GothamRounded;
+	font-size: 18px;
+	font-weight: 500;
 	margin: 0;
 	padding: 12px 24px;
 
 	&.hover {
 		background-color: @themeColor;
+		border-bottom: solid 2px darken(@themeColor,20%);
 	}
 }
 .anigiri-btn {
@@ -58,11 +62,13 @@ html, body {
 	display: inline-block;
 	padding: 8px 16px;
 	background-color: @themeAlt;
+	border-bottom: solid 2px darken(@themeAlt,20%);
 	color: #fff;
-	.rounded(24px);
+	.rounded(4px);
 	
 	&.hover {
 		background-color: @themeColor;
+		border-bottom: solid 2px darken(@themeColor,20%);
 	}
 }
 .well-dark, .well-light {
