@@ -56,14 +56,17 @@
 			width: 72px;
 			height: 24px;
 			line-height: 24px;
+			border-bottom: solid 2px @altPaneBgColor;
 			.rounded(4px);
 			
 			&.hover {
 				background-color: lighten(@altPaneBgColor,10%);
+				border-bottom: solid 2px darken(@altPaneBgColor,5%);
 				color: #fff;
 			}
 			&.selected {
 				background-color: @themeAlt;
+				border-bottom: solid 2px darken(@themeAlt,20%);
 				color: #fff;
 			}
 		}

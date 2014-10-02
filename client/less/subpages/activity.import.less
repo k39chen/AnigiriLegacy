@@ -19,6 +19,9 @@
 				margin-right: 2px;
 				text-align: center;
 				background-color: #212330;
+				border-bottom-style: solid;
+				border-bottom-width: 2px;
+				border-bottom-color: darken(#212330,2%);
 				margin-bottom: 4px;
 				.rounded(4px);
 				
@@ -31,15 +34,15 @@
 					color: #fff;
 				}
 				&[data-progress=backlogged].hover,
-				&[data-progress=backlogged].selected { background-color: @colorBacklogged; }
+				&[data-progress=backlogged].selected { background-color: @colorBacklogged; border-bottom-color: darken(@colorBacklogged,20%); }
 				&[data-progress=watching].hover,
-				&[data-progress=watching].selected { background-color: @colorWatching; }
+				&[data-progress=watching].selected { background-color: @colorWatching; border-bottom-color: darken(@colorWatching,20%); }
 				&[data-progress=onhold].hover,
-				&[data-progress=onhold].selected { background-color: @colorOnHold; }
+				&[data-progress=onhold].selected { background-color: @colorOnHold; border-bottom-color: darken(@colorOnHold,20%); }
 				&[data-progress=finished].hover,
-				&[data-progress=finished].selected { background-color: @colorFinished; }
+				&[data-progress=finished].selected { background-color: @colorFinished; border-bottom-color: darken(@colorFinished,20%); }
 				&[data-progress=abandoned].hover,
-				&[data-progress=abandoned].selected { background-color: @colorAbandoned; }
+				&[data-progress=abandoned].selected { background-color: @colorAbandoned; border-bottom-color: darken(@colorAbandoned,20%); }
 			}
 			.episodeControls {
 				float: left;

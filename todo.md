@@ -1,6 +1,8 @@
 # Todo List
 
 ## In Progress
+- fix image scaling (see fighting spirit)
+- add checkmark in autocomplete if the anime is already subscribed to
 - do a cool slide in thing for all page switches (like when we have the sidebar minified)
 
 - import collection (UI work + fileupload)
@@ -8,6 +10,11 @@
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
+- look into additional reports: 
+http://www.animenewsnetwork.com/encyclopedia/reports.php
+
+- interest level for backlogged animes
+- Recommend animes based on the actualy name of the anime (maybe in activity subpage???) [eg. bleach movies]
 - Create a search page (similar to myspace!)
 - do proper subscription loading…
 - create controls for `Social Subpage`
@@ -54,6 +61,7 @@
 - change `social` to `friends`
 - change all buttons to be less ugly! (more like Treehouse)
 - change font to Gotham Rounded A
+- infobar navbar should be raised buttons
 
 ## Planned
 - Dashboard
