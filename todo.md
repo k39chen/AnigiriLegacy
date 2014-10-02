@@ -2,7 +2,6 @@
 
 ## In Progress
 - add checkmark in autocomplete if the anime is already subscribed to
-- do a cool slide in thing for all page switches (like when we have the sidebar minified)
 
 - import collection (UI work + fileupload)
 - fix images that get blurry because of webkit animations
@@ -62,6 +61,7 @@ http://www.animenewsnetwork.com/encyclopedia/reports.php
 - change font to Gotham Rounded A
 - infobar navbar should be raised buttons
 - fix image scaling (see fighting spirit)
+- do a cool slide in thing for all page switches (like when we have the sidebar minified)
 
 ## Planned
 - Dashboard

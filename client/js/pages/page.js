@@ -8,11 +8,14 @@ window.initPage = function(page) {
 	$("#"+page+"Page").css({opacity:0}).stop().animate({opacity:1},500);
 
 	// ensure the page header is correctly sized based on the visibility of the sidebar and infobar
+	var $header = $(".page > h1");
 	if (SideBar.isMinimized) {
-		$(".page > h1").addClass("minimized-left");
+		$header.addClass("minimized-left");
+	} else {
+		$header.css({left:$("#sideBar").width()});
 	}
 	if (InfoBar.isVisible) {
-		$(".page > h1").addClass("minimized-right");
+		$header.addClass("minimized-right");
 	}
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");

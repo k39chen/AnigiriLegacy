@@ -27,6 +27,7 @@ window.SideBar = {
 		self.$el.removeClass("minimized");
 		self.$pageContainer.removeClass("minimized-left");
 		$("h1",self.$pageContainer).removeClass("minimized-left");
+		$("h1",self.$pageContainer).css({left:215});
 
 		self.isMinimized = false;
 
