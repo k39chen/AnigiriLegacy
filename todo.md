@@ -1,6 +1,7 @@
 # Todo List
 
 ## In Progress
+- change all buttons to be less ugly! (more like Treehouse)
 - change font to Gotham Rounded A
 
 - import collection (UI work + fileupload)
