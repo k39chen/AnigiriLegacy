@@ -3,7 +3,7 @@ Template.collectionPage.rendered = function(){
 	initPage("collection");
 
 	// initialize the collection grid
-	if (this && this.find("#collectionGrid")) {
+	if (hasSubscriptions() && this && this.find("#collectionGrid")) {
 		window.collectionGrid = new CastGrid({
 			wrapper: this.find("#collectionGrid"),
 			template: this, 

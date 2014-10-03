@@ -19,6 +19,7 @@ window.CastGrid = function(settings) {
 	self.cast = new cast(settings.wrapper);
 	self.cast.draw(settings.render);
 	settings.template.handle = Meteor.autorun($.proxy(settings.dataSource,self));
+	self.resize();
 	$(window).bind('resize', function(){ self.resize(); });
 	return self;
 };

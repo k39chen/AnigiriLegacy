@@ -13,7 +13,6 @@ xml2js
 cheerio
 http
 email
-cmather:iron-router@0.8.2
 d3
 less
 mrt:iron-router-ga
@@ -21,4 +20,6 @@ mrt:chosen-package
 mrt:momentjs
 mrt:filesaver
 mrt:jquery-csv
+mrt:iron-router-progress
+iron:router
 

@@ -9,6 +9,7 @@ window.initPage = function(page) {
 
 	// ensure the page header is correctly sized based on the visibility of the sidebar and infobar
 	var $header = $(".page > h1");
+
 	if (SideBar.isMinimized) {
 		$header.addClass("minimized-left");
 	} else {

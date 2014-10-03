@@ -1,25 +1,26 @@
 # Todo List
 
 ## In Progress
+- do proper subscription loading…
+- don't allow push save on activity changes (require manual interaction)
+- Create a search page (similar to myspace!)
+- import collection (UI work + fileupload)
+
 - add checkmark in autocomplete if the anime is already subscribed to
 
-- import collection (UI work + fileupload)
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
 
 ## Backlog
+- look into a similar style as Myspace!!! https://myspace.com/ryanjamesmusic
 - look into additional reports: 
 http://www.animenewsnetwork.com/encyclopedia/reports.php
 
 - interest level for backlogged animes
 - Recommend animes based on the actualy name of the anime (maybe in activity subpage???) [eg. bleach movies]
-- Create a search page (similar to myspace!)
-- do proper subscription loading…
 - create controls for `Social Subpage`
 - conceptualize a proper filter system and UI
 - create module in admin panel to manage friendship states
-
-- look into a similar style as Myspace!!! https://myspace.com/ryanjamesmusic
 
 ## Completed
 - implement social features in `infoBar`
