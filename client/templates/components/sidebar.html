@@ -13,13 +13,49 @@
 		</div>
 		<h3>Navigation</h3>
 		<div class="options">
-			<div class="option" data-page="dashboard"><i class="fa fa-user"></i><span>Dashboard</span></div>
-			<div class="option" data-page="collection"><i class="fa fa-th-large"></i><span>Collection</span></div>
-			<div class="option" data-page="discover"><i class="fa fa-globe"></i><span>Discover</span></div>
-			<div class="option" data-page="friends"><i class="fa fa-users"></i><span>Friends</span></div>
-			<div class="option" data-page="statistics"><i class="fa fa-bar-chart-o"></i><span>Statistics</span></div>
+			<div class="option wrapper" data-page="dashboard">
+				<div class="pull-left">
+					<i class="fa fa-user"></i>
+					<span>Dashboard</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
+			<div class="option wrapper" data-page="collection">
+				<div class="pull-left">
+					<i class="fa fa-th-large"></i>
+					<span>Collection</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
+			<div class="option wrapper" data-page="discover">
+				<div class="pull-left">
+					<i class="fa fa-globe"></i>
+					<span>Discover</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
+			<div class="option wrapper" data-page="friends">
+				<div class="pull-left">
+					<i class="fa fa-users"></i>
+					<span>Friends</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
+			<div class="option wrapper" data-page="statistics">
+				<div class="pull-left">
+					<i class="fa fa-bar-chart-o"></i>
+					<span>Statistics</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
 			{{#if isAdminUser}}
-				<div class="option" data-page="admin"><i class="fa fa-wrench"></i><span>Admin</span></div>
+			<div class="option wrapper" data-page="admin">
+				<div class="pull-left">
+					<i class="fa fa-wrench"></i>
+					<span>Admin</span>
+				</div>
+				<div class="loadingSpinner pull-right"></div>
+			</div>
 			{{/if}}
 		</div>
 	</div>

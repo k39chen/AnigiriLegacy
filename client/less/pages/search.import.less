@@ -20,12 +20,15 @@
 				outline: none;
 				border: none;
 				color: @mainTextColor;
-				height: @topBarHeight;
-				line-height: @topBarHeight;
+				padding: 8px 0px;
+				font-family: @sansSerifFont;
+				font-weight: 500;
 				font-size: 24px;
 				&::-webkit-input-placeholder { color: lighten(@mainTextColor,20%); }
 				&:-moz-placeholder { color: lighten(@mainTextColor,20%); }
 				&:-ms-input-placeholder { color: lighten(@mainTextColor,20%); }
+				&::selection { background: @themeColor; color: #fff; }
+				&::-moz-selection { background: @themeColor; color: #fff; }
 			}
 		}
 

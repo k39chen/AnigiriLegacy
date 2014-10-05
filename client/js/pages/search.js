@@ -7,11 +7,21 @@ var Search = {
 		Search.hideNoSearchResults();
 		Search.showLoading();
 
-		// fake simulation of search
-		setTimeout(function(){
+		// execute the search query
+		Meteor.call("executeSearch", query, function(err,results){
 			Search.hideLoading();
-			Search.showNoSearchResults();
-		},3000);
+
+			// no results found
+			if ($.isEmptyObject(results)) {
+				Search.showNoSearchResults();
+				return;
+			}
+			// work on rendering the returned results
+			// ...
+
+			console.log(results);
+
+		});
 	},
 	showLoading: function() {
 		$("#searchLoading").addClass("visible");
@@ -38,6 +48,10 @@ Template.searchPage.events({
 	"mouseout .close-btn": removeHoverTarget,
 	"click .close-btn": function(e) {
 		Router.go(Session.get("currentURL") || "/dashboard");
+	},
+	"click #searchInput": function(e) {
+		var $el = $(e.currentTarget);
+		$el.select();
 	},
 	"keyup #searchInput": function(e) {
 		var $el = $(e.currentTarget),

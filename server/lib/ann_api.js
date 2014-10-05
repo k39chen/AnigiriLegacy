@@ -21,6 +21,92 @@ function getArrayField(value) {
 
 Meteor.methods({
 	/**
+	 * Performs search query and returns grouped results.
+	 *
+	 * @method executeSearch
+	 * @param query {String} The search query string.
+	 * @return {Object} The search result data.
+	 */
+	executeSearch: function(query) {
+		var results = {};
+		console.log("Performing search for: "+query);
+
+		// search against animes
+		var animeResultsRaw = Animes.find({title: new RegExp(query,"i")}).fetch();
+
+		// for each anime result, we need the full data to provide the user with sufficient information
+		for (var i=0; i<animeResultsRaw.length; i++) {
+			var match = animeResultsRaw[i];
+			if (!match.dataANN) {
+				animeResultsRaw[i] = Meteor.call("getAnimeData",match.annId);
+			}
+			// we should also know whether or not this is user is already subscribed to this anime
+			var subscription = Subscriptions.find({annId:match.annId,userId:Meteor.userId()}).fetch();
+			match.isSubscribed = (subscription.length > 0);
+			if (match.isSubscribed) {
+				subscription = subscription[0];
+				match.progress = subscription.progress;
+			}
+		}
+		// lets now prune the anime data so that the client doesn't get more than they need to know
+		for (var i=0; i<animeResultsRaw.length; i++) {
+			var match = animeResultsRaw[i];
+			var fields = [
+				"annId",
+				"title",
+				"type",
+				"startDate",
+				"endDate",
+				"numEpisodes",
+				"annPicture",
+				"hbiPicture",
+				"genres",
+				"themes",
+				"mature",
+				"isSubscribed"
+			];
+			var formattedMatch = {};
+			for (var j=0; j<fields.length; j++) {
+				formattedMatch[fields[j]] = match[fields[j]];
+			}
+			// push this into its own category by type
+			if (!results[match.type]) {
+				results[match.type] = [];
+			}
+			results[match.type].push(formattedMatch);
+		}
+		// now lets see if we can find any users
+		var userResultsRaw = Meteor.users.find({"profile.name": new RegExp(query,"i")}).fetch();
+		for (var i=0; i<userResultsRaw.length; i++) {
+			var user = userResultsRaw[i];
+			var formattedUser = {};
+			if (user && user.profile && user.profile.name) {
+				formattedUser.name = user.profile.name;
+			}
+			if (user && user.services && user.services.facebook) {
+				if (user.services.facebook.id) {
+					formattedUser.fbUid = user.services.facebook.id;
+				}
+				if (user.services.facebook.email) {
+					formattedUser.email = user.services.facebook.email;
+				}
+			}
+			if (!results.users) {
+				results.users = [];
+			}
+			results.users.push(formattedUser);
+		}
+		// just print some diagnostics for the console
+		if (Object.keys(results).length > 0) {
+			for (var category in results) {
+				console.log("--- "+category + ": "+results[category].length);
+			}
+		} else {
+			console.log("--- No search results found");
+		}
+		return results;
+	},
+	/**
 	 * Gets a series of administrative data to display on the admin page.
 	 *
 	 * @method getAdminData

@@ -20,10 +20,17 @@ window.initPage = function(page) {
 	}
 	// update the sidebar
 	$("#sideBar .option").removeClass("selected");
-	if (page == "profile") {
-		$("#sideBar .option[data-page='friends']").addClass("selected");
-	} else {
-		$("#sideBar .option[data-page='"+page+"']").addClass("selected");
+	$("#sideBar .loadingSpinner").removeClass("visible");
+	switch (page) {
+		case "profile":
+			$("#sideBar .option[data-page='friends']").addClass("selected");
+			break;
+		case "search":
+			$("#sideBar .search-btn").addClass("selected");
+			break;
+		default:
+			$("#sideBar .option[data-page='"+page+"']").addClass("selected");
+			break;
 	}
 	// profile page is a very special case, we always need to ensure that this special case is handled properly
 	if (page != "profile") {

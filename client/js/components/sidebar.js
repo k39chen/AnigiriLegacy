@@ -111,6 +111,7 @@ Template.sideBar.events({
 	"mouseout .option": removeHoverCurrentTarget,
 	"click .option": function(e) {
 		var $el = $(e.currentTarget);
+		$el.find(".loadingSpinner").addClass("visible");
 		Router.go("/"+$el.attr("data-page"));
 	},
 	"mouseover #signout": addHoverCurrentTarget,

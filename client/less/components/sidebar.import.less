@@ -143,6 +143,20 @@
 				background-color: darken(@altPaneBgColor,5%);
 				color: @themeColor;
 			}
+			.loadingSpinner {
+				.transition;
+				.opacity(0);
+				margin-top: 4px; 
+				width: 8px;
+				height: 8px;
+				border-color: @themeColor;
+				border-right-color: transparent;
+				border-width: 2px;
+
+				.visible {
+					.opacity(1);
+				}
+			}
 		}
 	}
 	#account {
