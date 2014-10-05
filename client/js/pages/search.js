@@ -1,6 +1,6 @@
 Template.searchPage.rendered = function(){
 	// initialize the page
-	//initPage("admin");
+	initPage("search");
 };
 Template.searchPage.events({
 	// ...

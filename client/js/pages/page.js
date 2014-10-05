@@ -29,4 +29,8 @@ window.initPage = function(page) {
 	if (page != "profile") {
 		$("#profilePage").remove();
 	}
+	// some special handling for search page
+	if (page != "search") {
+		$(".search-btn").removeClass("selected");
+	}
 };

@@ -40,6 +40,26 @@ Router.onBeforeAction("loading");
 
 // define our routes
 Router.map(function(){
+	// set up search page
+	this.route("searchPage", {
+		path: "/search",
+		template: "searchPage",
+		yieldTemplates: { "searchPage": {to: "page-container"} },
+		progress: { delay: 100 },
+		/*
+		data: function() {
+			return Meteor.users.findOne({_id: this.params._id});
+		},
+		*/
+		waitOn: function() {
+			// ...
+		},
+		action: function() {
+			if (this.ready()) {
+				this.render();
+			}
+		}
+	});
 	// set up dashboard router
 	this.route("dashboardPage", {
 		path: "/dashboard",
