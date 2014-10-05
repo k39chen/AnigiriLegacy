@@ -91,6 +91,21 @@ Template.sideBar.events({
 	"click .toggle" : function(e) {
 		SideBar.toggle();
 	},
+	"mouseover .search-btn": addHoverCurrentTarget,
+	"mouseout .search-btn": removeHoverCurrentTarget,
+	"click .search-btn:not(.selected)": function(e) {
+		var $el = $(e.currentTarget);
+		$el.addClass("selected");
+	},
+	"mouseover .search-btn .close-btn": addHoverCurrentTarget,
+	"mouseout .search-btn .close-btn": removeHoverCurrentTarget,
+	"click .search-btn.selected .close-btn": function(e) {
+		var $el = $(e.currentTarget);
+
+		console.log($el.parent());
+
+		$el.parent().removeClass("selected");
+	},
 	"mouseover .option": addHoverCurrentTarget,
 	"mouseout .option": removeHoverCurrentTarget,
 	"click .option": function(e) {

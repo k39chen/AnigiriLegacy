@@ -114,9 +114,6 @@ window.InfoBar = {
 	},
 	hideLoading: function() {
 		var self = this;
-		
-		console.log( self.$loading.hasClass("visible") );
-
 		self.$loading.removeClass("visible");
 		setTimeout(function(){
 			self.$loading.css({display:"none"});

@@ -66,6 +66,62 @@
 			font-weight: 700;
 			padding: 0px 24px;
 		}
+		.search-btn {
+			@searchBtnHeight: 32px;
+
+			.transition;
+			cursor: pointer;
+			.rounded(4px);
+			border: solid 1px lighten(@altPaneBgColor,10%);
+			background: @altPaneBgColor;
+			margin: 16px 12px 12px 12px;
+			color: @altPaneTextColor;
+			.user-select;
+			overflow: hidden;
+			height: @searchBtnHeight;
+
+			span {
+				float: left;
+				line-height: @searchBtnHeight;
+			}
+			i.fa {
+				.transition;
+				float: left;
+				display: inline-block;
+				font-size: 12px;
+				margin-left: 12px;
+				margin-right: 12px;
+				height: @searchBtnHeight;
+				line-height: @searchBtnHeight;
+			}
+			i.close-btn {
+				.opacity(0);
+				cursor: pointer;
+				color: darken(@altPaneTextColor,30%);
+				float: right;
+				margin-right: 8px;
+				font-size: 16px;
+
+				&.hover {
+					color: darken(@altPaneTextColor,20%);
+				}
+			}
+
+			&.hover, &.selected {
+				background-color: @altPaneWellBgColor;
+				border-color: @altPaneWellBgColor;
+				color: #fff;
+			}
+			&.selected {
+				cursor: default;
+				i.fa:not(.close-btn) {
+					color: @themeColor;
+				}
+				i.close-btn {
+					.opacity(1.0);
+				}
+			}
+		}
 		.option {
 			.transition;
 			cursor: pointer;
