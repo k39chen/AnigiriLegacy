@@ -1,6 +1,7 @@
 # Todo List
 
 ## In Progress
+- delete old artifacts of searchboxes
 - do proper subscription loading…
 - don't allow push save on activity changes (require manual interaction)
 - Create a search page (similar to myspace!)
