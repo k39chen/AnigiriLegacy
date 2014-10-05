@@ -1,8 +1,25 @@
 <template name="searchPage">
 <div id="searchPage" class="page">
-	<h1><i class="fa fa-search"></i> Search</h1>
-	<div class="pageContent">
-		Search
+
+	<!-- header -->
+	<h1 class="wrapper">
+		<i class="fa fa-search"></i> 
+		<div id="searchInputWrapper">
+			<input type="text" maxlength="100" id="searchInput" placeholder="Start typing your search..." />
+		</div>
+		<i class="close-btn fa fa-times-circle"></i>
+	</h1>
+
+	<!-- no search results found -->
+	<div id="noSearchResults" class="pageContent emptyMessage"><div class="valigner">
+		<p>No search results found.</p>
+	</div></div>
+
+	<!-- loading spinner -->
+	<div id="searchLoading" class="pageContent emptyMessage"><div class="valigner"><div class="loadingSpinner"></div></div></div>
+
+	<!-- search results -->
+	<div id="searchResults" class="pageContent">
 	</div>
 </div>
 </template>
