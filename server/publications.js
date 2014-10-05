@@ -3,7 +3,7 @@
  *
  * @publication userData
  */
-Meteor.publish('userData', function(){
+Meteor.publish("userData", function(){
 	return Meteor.users.find(
 		{_id: this.userId},
 		{fields: {services: 1}}
@@ -14,7 +14,7 @@ Meteor.publish('userData', function(){
  *
  * @publication userSubscriptions
  */
-Meteor.publish('userSubscriptions', function(){
+Meteor.publish("userSubscriptions", function(){
 	return Subscriptions.find({userId:this.userId});
 });
 /**
@@ -22,7 +22,7 @@ Meteor.publish('userSubscriptions', function(){
  *
  * @publication userAnimeSubscriptions
  */
-Meteor.publish('userAnimeSubscriptions', function(){
+Meteor.publish("userAnimeSubscriptions", function(){
 	var userId = this.userId;
 	var subscriptions = Subscriptions.find({userId:userId}).fetch();
 	var scope = [];
@@ -37,7 +37,7 @@ Meteor.publish('userAnimeSubscriptions', function(){
  *
  * @publication userFriends
  */
-Meteor.publish('userFriends',function(){
+Meteor.publish("userFriends",function(){
 	return Friends.find({userId: this.userId});
 });
 /**
@@ -45,7 +45,7 @@ Meteor.publish('userFriends',function(){
  *
  * @publication userFriendsUserData
  */
-Meteor.publish('userFriendsUserData', function(){
+Meteor.publish("userFriendsUserData", function(){
 	var userId = this.userId;
 	var friends = Friends.find({userId:userId}).fetch();
 	var scope = [];
@@ -58,4 +58,13 @@ Meteor.publish('userFriendsUserData', function(){
 		}
 	}
 	return Meteor.users.find({_id: {$in: scope}});
+});
+/**
+ * Returns song data for a requested anime.
+ *
+ * @publication animeSongList
+ * @param annId {Number} The anime ID.
+ */
+Meteor.publish("animeSongList", function(annId){
+	return Songs.find({annId:annId});
 });

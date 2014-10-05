@@ -44,23 +44,33 @@ window.InfoBar = {
 
 		// load all the anime data
 		self.showLoading();
-		// make this call so the user can see a preview of whats being loaded (title/type)
-		Meteor.call("getSimpleAnimeData", annId, function(err,data){
-			Session.set("infoBarData",data);
-		
-			// get the rest of the anime data
-			Meteor.call("getAnimeData", annId, function(err,animeData){
-				Session.set("infoBarData", $.extend(Session.get("infoBarData"), animeData));
-				self.hideLoading();
+
+		// check to see if we can save ourselves a trip to the server
+		var animeData = Animes.findOne({annId:annId});
+		if (animeData) {
+			Session.set("infoBarData",animeData);
+			self.hideLoading();
+			initSubpage(o.subpage);
+		} else {
+			// make this call so the user can see a preview of whats being loaded (title/type)
+			Meteor.call("getSimpleAnimeData", annId, function(err,data){
+				Session.set("infoBarData",data);
+			
+				// get the rest of the anime data
+				Meteor.call("getAnimeData", annId, function(err,animeData){
+					Session.set("infoBarData", $.extend(Session.get("infoBarData"), animeData));
+					self.hideLoading();
+				});
 			});
-		});
+		}
+		// load the song list for this anime as well
+		Meteor.subscribe("animeSongList",annId);
 
 		// select the subpage
 		self.selectSubpage(o.subpage);
 	},
 	selectSubpage: function(subpage) {
 		var self = this;
-
 		// don't re-select the subpage if its the same page
 		if (subpage === self.subpage) return;
 		self.subpage = subpage;
@@ -104,7 +114,10 @@ window.InfoBar = {
 	},
 	hideLoading: function() {
 		var self = this;
-		self.$loading.removeClass("visible")
+		
+		console.log( self.$loading.hasClass("visible") );
+
+		self.$loading.removeClass("visible");
 		setTimeout(function(){
 			self.$loading.css({display:"none"});
 		},self.animDuration);

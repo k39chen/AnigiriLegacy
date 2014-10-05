@@ -1,6 +1,3 @@
-Template.gridItem.rendered = function() {
-	// ...
-};
 Template.gridItem.helpers({
 	progress: function(){
 		return this.subscription.progress;

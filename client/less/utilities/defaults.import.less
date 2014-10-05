@@ -85,3 +85,18 @@ html, body {
 	background-color: @themeColor;
 	box-shadow: 0 0 5px @themeColor;
 }
+
+.loader {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border: 8px solid #aaa;
+	border-right-color: transparent;
+	border-radius: 50%;
+	//box-shadow: 0 0 25px 2px #eee;
+	-webkit-animation: spin 1s linear infinite;
+	-moz-animation: spin 1s linear infinite;
+	-ms-animation: spin 1s linear infinite;
+	-oanimation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
