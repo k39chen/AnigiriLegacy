@@ -3,6 +3,7 @@ var Search = {
 	delay: 400,
 	minLength: 3,
 	maxLength: 100,
+	query: null,
 	performSearch: function(query) {
 		Search.clearSearchResults();
 		Search.hideResults();
@@ -10,7 +11,16 @@ var Search = {
 		Search.showLoading();
 
 		// execute the search query
-		Meteor.call("executeSearch", query, function(err,results){
+		Search.query = query;
+		Meteor.call("executeSearch", query, function(err,data){
+			if (!data) return;
+
+			// if this is a cancelled query, then ignore it
+			if (query != Search.query) {
+				return;
+			}
+
+			var results = data.results;
 			Search.hideLoading();
 
 			// no results found
@@ -115,7 +125,6 @@ var Search = {
 				});
 				$("#searchResultsContent").append(categoryHtml);
 			}
-			console.log(orderedResults.length)
 			$("#searchResultsContent").width(336*orderedResults.length+24);
 		});
 	},

@@ -1,6 +1,10 @@
 # Todo List
 
 ## In Progress
+
+- don't use fragments... use templates to render search results (this way we can leverage reactive data to show partial results to compensate for unloaded data)
+
+- need to cancel existing search query if another is issued at the same time
 - delete old artifacts of searchboxes
 - do proper subscription loading…
 - don't allow push save on activity changes (require manual interaction)

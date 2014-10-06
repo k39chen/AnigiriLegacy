@@ -35,6 +35,8 @@ Meteor.methods({
 		var animeResultsRaw = Animes.find({title: new RegExp(query,"i")}).fetch();
 
 		// for each anime result, we need the full data to provide the user with sufficient information
+
+		// TODO: This is extremely expensive. We need to be able to break out of this if we can.
 		for (var i=0; i<animeResultsRaw.length; i++) {
 			var match = animeResultsRaw[i];
 			if (!match.dataANN) {
@@ -107,7 +109,7 @@ Meteor.methods({
 		} else {
 			console.log("--- No search results found");
 		}
-		return results;
+		return {query:query,results:results};
 	},
 	/**
 	 * Gets a series of administrative data to display on the admin page.
