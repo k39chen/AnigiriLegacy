@@ -1,3 +1,52 @@
 .searchResultAnime {
+	.transition;
+	padding: 8px;
+	border-bottom: solid 1px lighten(@mainTextColor,35%);
 
+	.cover {
+		background-color: #aaa;
+		background-size: cover;
+		background-position: center;
+		width: 40px;
+		height: 40px;
+		margin-right: 12px;
+	}
+	.title {
+		.transition;
+		margin-top: 6px;
+		.truncated-text(166px);
+		font-weight: 600;
+		line-height: 1.25em;
+	}
+	.info {
+		line-height: 1.5em;
+	}
+
+	.fa-check-circle {
+		.transition;
+		.opacity(0);
+		cursor: pointer;
+		color: lighten(@mainTextColor,20%);
+		font-size: 16px;
+		margin-top: 12px;
+
+		&.hover {
+			.opacity(1);
+			color: @mainTextColor;
+		}
+		&.selected {
+			.opacity(1);
+			color: @checkColor;
+		}
+	}
+	&.hover {
+		background-color: #fff;
+
+		.title {
+			color: @themeColor;
+		}
+		.fa-check-circle {
+			.opacity(1);
+		}
+	}
 }

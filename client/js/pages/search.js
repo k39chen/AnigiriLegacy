@@ -4,6 +4,8 @@ var Search = {
 	minLength: 3,
 	maxLength: 100,
 	performSearch: function(query) {
+		Search.clearSearchResults();
+		Search.hideResults();
 		Search.hideNoSearchResults();
 		Search.showLoading();
 
@@ -16,12 +18,115 @@ var Search = {
 				Search.showNoSearchResults();
 				return;
 			}
+			Search.showResults();
+
+			var orderedResults = [];
+			for (var category in results) {
+				var priority;
+				switch (category) {
+					case "tv": priority = 1; break;
+					case "movie": priority = 2; break;
+					case "oav": priority = 3; break;
+					case "ona": priority = 4; break;
+					case "special": priority = 5; break
+					case "omnibus": priority = 6; break;
+					case "user": priority = 7; break;
+					default: priority = -1; break;
+				}
+				// lets filter out unwanted items
+				var items = [];
+				for (var i=0; i<results[category].length; i++) {
+					if (category == "user") {
+						items.push(results[category][i]);
+					} else {
+						// only add media with cover pictures
+						if (results[category][i].picture) {
+							items.push(results[category][i]);
+						}
+					}
+				}
+				if (items.length > 0){
+					orderedResults.push({
+						priority: priority,
+						category: category,
+						items: items
+					});
+				}
+			}
+			orderedResults.sort(function(a,b){
+				if (a.priority > b.priority) return 1;
+				else if (a.priority < b.priority) return -1;
+				else return 0;
+			});
+
 			// work on rendering the returned results
-			// ...
-
-			console.log(results);
-
+			for (var index in orderedResults) {
+				var category = orderedResults[index].category;
+				var categoryTitle = "<i class='fa fa-{{icon}}'></i> {{title}}";
+				var categoryStr = category.toLowerCase();
+				switch (categoryStr) {
+					case "tv":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","list")
+							.replace("{{title}}","TV Series");
+						break;
+					case "movie":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","film")
+							.replace("{{title}}","Movies");
+						break;
+					case "oav":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","video-camera")
+							.replace("{{title}}","Original Video Animations");
+						text = "";
+					case "ona":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","video-camera")
+							.replace("{{title}}","Original Net Animations");
+						break;
+					case "omnibus":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","video-camera")
+							.replace("{{title}}","Omnibus");
+						break;
+					case "special":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","star")
+							.replace("{{title}}","Specials");
+						break;
+					case "user":
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","user")
+							.replace("{{title}}","Users");
+						break;
+					default:
+						categoryTitle = categoryTitle
+							.replace("{{icon}}","star")
+							.replace("{{title}}",categoryStr);
+						break;
+				}
+				var categoryHtml = getTemplateHTML("searchResultCategory", {
+					category: categoryTitle,
+					counter: orderedResults[index].items.length,
+					items: orderedResults[index].items,
+					useUserTemplate: categoryStr == "user",
+					useAnimeTemplate: category != "user"
+				});
+				$("#searchResultsContent").append(categoryHtml);
+			}
+			console.log(orderedResults.length)
+			$("#searchResultsContent").width(336*orderedResults.length+24);
 		});
+	},
+	clearSearchResults: function() {
+		$("#searchResultsContent").empty();
+	},
+	showResults: function() {
+		$("#searchResults").addClass("visible");
+	},
+	hideResults: function() {
+		$("#searchResults").removeClass("visible");
 	},
 	showLoading: function() {
 		$("#searchLoading").addClass("visible");
@@ -62,6 +167,9 @@ Template.searchPage.events({
 			$el.val("");
 			return;
 		}
+		// if the search field is empty, then just clear the search results
+		Search.clearSearchResults();
+
 		// query must have length greater than 3 for a search to be valid
 		if (query.length <= Search.minLength) return;
 
@@ -71,6 +179,23 @@ Template.searchPage.events({
 			// perform a search query
 			Search.performSearch(query);
 		}, Search.delay);
+	},
+	"mouseover .searchResultCategory": addHoverCurrentTarget,
+	"mouseout .searchResultCategory": removeHoverCurrentTarget,
+
+	"mouseover .searchResultAnime": addHoverCurrentTarget,
+	"mouseout .searchResultAnime": removeHoverCurrentTarget,
+
+	"mouseover .searchResultUser": addHoverCurrentTarget,
+	"mouseout .searchResultUser": removeHoverCurrentTarget,
+
+	"mouseover .searchResultAnime .fa-check-circle": addHoverCurrentTarget,
+	"mouseout .searchResultAnime .fa-check-circle": removeHoverCurrentTarget,
+	"click .searchResultAnime .fa-check-circle": function(e) {
+		var $el = $(e.currentTarget);
+		
+		// subscribe to this anime
+		$el.toggleClass("selected");
 	}
 });
 Template.searchPage.helpers({

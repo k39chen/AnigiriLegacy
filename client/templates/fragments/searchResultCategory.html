@@ -1,3 +1,20 @@
 <template name="searchResultCategory">
-
+<div class="searchResultCategory">
+	<h4 class="wrapper">
+		<span class="category pull-left">{{{category}}}</span>
+		<span class="counter pull-right">{{counter}}</span>
+	</h4>
+	<div class="resultList">
+		{{#if useAnimeTemplate}}
+		{{#each items}}
+			{{> searchResultAnime this}}
+		{{/each}}
+		{{/if}}
+		{{#if useUserTemplate}}
+		{{#each items}}
+			{{> searchResultUser this}}
+		{{/each}}
+		{{/if}}
+	</div>
+</div>
 </template>

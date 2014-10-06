@@ -1,3 +1,39 @@
 .searchResultUser {
+	.transition;
+	padding: 8px;
+	border-bottom: solid 1px lighten(@mainTextColor,35%);
 
+	.portrait {
+		background-color: #aaa;
+		background-size: cover;
+		background-position: center;
+		width: 40px;
+		height: 40px;
+		margin-right: 12px;
+	}
+	.name {
+		.transition;
+		margin-top: 6px;
+		.truncated-text(166px);
+		font-weight: 600;
+		line-height: 1.25em;
+	}
+	.email {
+		.truncated-text(166px);
+		line-height: 1.5em;
+	}
+
+	.fa-check-circle {
+		.transition;
+		cursor: pointer;
+		color: @checkColor;
+		font-size: 16px;
+		margin-top: 12px;
+	}
+	&.hover {
+		background-color: #fff;
+		.name {
+			color: @themeColor;
+		}
+	}
 }

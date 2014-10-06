@@ -51,23 +51,26 @@ Meteor.methods({
 		// lets now prune the anime data so that the client doesn't get more than they need to know
 		for (var i=0; i<animeResultsRaw.length; i++) {
 			var match = animeResultsRaw[i];
-			var fields = [
-				"annId",
-				"title",
-				"type",
-				"startDate",
-				"endDate",
-				"numEpisodes",
-				"annPicture",
-				"hbiPicture",
-				"genres",
-				"themes",
-				"mature",
-				"isSubscribed"
-			];
-			var formattedMatch = {};
-			for (var j=0; j<fields.length; j++) {
-				formattedMatch[fields[j]] = match[fields[j]];
+			var formattedMatch = {
+				annId: match.annId,
+				title: match.title,
+				type: match.type,
+				isSubscribed: match.isSubscribed,
+				numEpisodes: match.numEpisodes,
+				picture: match.hbiPicture || match.annPicture
+			};
+			// the date info
+			var startDate = new Date(match.startDate);
+			var endDate = new Date(match.endDate);
+			formattedMatch.info = startDate.getFullYear() || "";
+			if (match.endDate) {
+				if (endDate.getFullYear() === startDate.getFullYear()) {
+					formattedMatch.info = 
+						startDate.getShortMonthName() + " " + startDate.getFullYear() + " - " + 
+						endDate.getShortMonthName() + " " + endDate.getFullYear();
+				} else {
+					formattedMatch.info = startDate.getFullYear() + " - " + endDate.getFullYear();
+				}
 			}
 			// push this into its own category by type
 			if (!results[match.type]) {
@@ -85,16 +88,16 @@ Meteor.methods({
 			}
 			if (user && user.services && user.services.facebook) {
 				if (user.services.facebook.id) {
-					formattedUser.fbUid = user.services.facebook.id;
+					formattedUser.portrait = "https://graph.facebook.com/"+user.services.facebook.id+"/picture?width=150&height=150";
 				}
 				if (user.services.facebook.email) {
 					formattedUser.email = user.services.facebook.email;
 				}
 			}
-			if (!results.users) {
-				results.users = [];
+			if (!results.user) {
+				results.user = [];
 			}
-			results.users.push(formattedUser);
+			results.user.push(formattedUser);
 		}
 		// just print some diagnostics for the console
 		if (Object.keys(results).length > 0) {
@@ -794,3 +797,24 @@ String.prototype.slugify = function(){
   return str;
 };
 
+/**
+ * An extensive list of month names.
+ */
+Date.prototype.monthNames = [
+	"January", "February", "March",
+	"April", "May", "June",
+	"July", "August", "September",
+	"October", "November", "December"
+];
+/**
+ * Returns the month name for this date.
+ */
+Date.prototype.getMonthName = function() {
+	return this.monthNames[this.getMonth()];
+};
+/**
+ * Returns an abbreviated month name for this date.
+ */
+Date.prototype.getShortMonthName = function () {
+	return this.getMonthName().substr(0,3);
+};

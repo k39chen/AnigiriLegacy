@@ -7,6 +7,8 @@
 - Create a search page (similar to myspace!)
 - import collection (UI work + fileupload)
 
+- owl carousel for discover page
+
 - add checkmark in autocomplete if the anime is already subscribed to
 
 - fix images that get blurry because of webkit animations

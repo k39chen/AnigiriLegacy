@@ -56,9 +56,6 @@
 		overflow-y: auto;
 		background-color: @altPaneBgColor;
 
-		#animeSearchBox {
-			margin-bottom: 16px;
-		}
 		h3 {
 			color: darken(@altPaneTextColor,30%);
 			text-transform: uppercase;
@@ -217,15 +214,26 @@
 			}
 		}
 		#navigation {
-			#animeSearchBox {
-				display: none;
-			}
 			h3 {
 				display: none;
+			}
+			.search-btn {
+				text-align: center;
+				i.fa-search {
+					font-size: 24px;
+					margin: 0;
+					width: 100%;
+				}
 			}
 			.option {
 				padding: 0;
 				text-align: center;
+				.pull-left {
+					width: 100%;
+				}
+				.loadingSpinner {
+					display: none;
+				}
 				i.fa {
 					padding: 12px 0;
 					margin: 0;

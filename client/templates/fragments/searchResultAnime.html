@@ -1,3 +1,16 @@
 <template name="searchResultAnime">
-
+<div class="searchResultAnime wrapper">
+	<div class="pull-left wrapper">
+		<div class="cover pull-left" style="background-image:url({{picture}});"></div>
+		<div class="pull-left">
+			<div class="title">{{title}}</div>
+			<div class="info">{{info}}</div>
+		</div>
+	</div>
+	{{#if isSubscribed}}
+	<i class="fa fa-check-circle pull-right selected"></i>
+	{{else}}
+	<i class="fa fa-check-circle pull-right"></i>
+	{{/if}}
+</div>
 </template>
