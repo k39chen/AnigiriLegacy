@@ -77,7 +77,7 @@ var Search = {
 				switch (categoryStr) {
 					case "tv":
 						categoryTitle = categoryTitle
-							.replace("{{icon}}","list")
+							.replace("{{icon}}","desktop")
 							.replace("{{title}}","TV Series");
 						break;
 					case "movie":
