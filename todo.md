@@ -2,6 +2,13 @@
 
 ## In Progress
 
+- transition search group hover color changes
+- remove extra space at bottom of search page when loaded results
+- don't do a deep search on search page... just do the cursory one
+- investigate if we can do more with hummingbird search results
+
+- use highcharts instead of d3 for charting
+
 - don't use fragments... use templates to render search results (this way we can leverage reactive data to show partial results to compensate for unloaded data)
 
 - need to cancel existing search query if another is issued at the same time
