@@ -13,7 +13,6 @@ xml2js
 cheerio
 http
 email
-d3
 less
 mrt:iron-router-ga
 mrt:chosen-package
@@ -22,4 +21,6 @@ mrt:filesaver
 mrt:jquery-csv
 mrt:iron-router-progress
 iron:router
+richsilv:owl-carousel
+mrt:highcharts
 
