@@ -34,9 +34,6 @@ Meteor.methods({
 		// search against animes
 		var animeResultsRaw = Animes.find({title: new RegExp(query,"i")}).fetch();
 
-		// for each anime result, we need the full data to provide the user with sufficient information
-
-		// TODO: This is extremely expensive. We need to be able to break out of this if we can.
 		for (var i=0; i<animeResultsRaw.length; i++) {
 			var match = animeResultsRaw[i];
 			// we should also know whether or not this is user is already subscribed to this anime

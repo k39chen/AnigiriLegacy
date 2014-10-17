@@ -2,20 +2,17 @@
 
 ## In Progress
 
+
 - investigate if we can do more with hummingbird search results
+- update subscription data UI separately from actual data update on backend (same with search ui)
 
 - use highcharts instead of d3 for charting
 
-- need to cancel existing search query if another is issued at the same time
-- delete old artifacts of searchboxes
 - do proper subscription loading…
-- don't allow push save on activity changes (require manual interaction)
 - Create a search page (similar to myspace!)
 - import collection (UI work + fileupload)
 
 - owl carousel for discover page
-
-- add checkmark in autocomplete if the anime is already subscribed to
 
 - fix images that get blurry because of webkit animations
 - only have the friend search source be loaded once during the session! Store it in a `Session` variable or something…
@@ -75,7 +72,7 @@ http://www.animenewsnetwork.com/encyclopedia/reports.php
 - transition search group hover color changes
 - remove extra space at bottom of search page when loaded results
 - don't do a deep search on search page... just do the cursory one
-
+- delete old artifacts of searchboxes
 
 ## Planned
 - Dashboard
