@@ -39,9 +39,6 @@ Meteor.methods({
 		// TODO: This is extremely expensive. We need to be able to break out of this if we can.
 		for (var i=0; i<animeResultsRaw.length; i++) {
 			var match = animeResultsRaw[i];
-			if (!match.dataANN) {
-				animeResultsRaw[i] = Meteor.call("getAnimeData",match.annId);
-			}
 			// we should also know whether or not this is user is already subscribed to this anime
 			var subscription = Subscriptions.find({annId:match.annId,userId:Meteor.userId()}).fetch();
 			match.isSubscribed = (subscription.length > 0);

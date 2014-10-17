@@ -46,14 +46,7 @@ var Search = {
 				// lets filter out unwanted items
 				var items = [];
 				for (var i=0; i<results[category].length; i++) {
-					if (category == "user") {
-						items.push(results[category][i]);
-					} else {
-						// only add media with cover pictures
-						if (results[category][i].picture) {
-							items.push(results[category][i]);
-						}
-					}
+					items.push(results[category][i]);
 				}
 				if (items.length > 0){
 					orderedResults.push({

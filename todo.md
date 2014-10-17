@@ -2,14 +2,9 @@
 
 ## In Progress
 
-- transition search group hover color changes
-- remove extra space at bottom of search page when loaded results
-- don't do a deep search on search page... just do the cursory one
 - investigate if we can do more with hummingbird search results
 
 - use highcharts instead of d3 for charting
-
-- don't use fragments... use templates to render search results (this way we can leverage reactive data to show partial results to compensate for unloaded data)
 
 - need to cancel existing search query if another is issued at the same time
 - delete old artifacts of searchboxes
@@ -77,6 +72,10 @@ http://www.animenewsnetwork.com/encyclopedia/reports.php
 - infobar navbar should be raised buttons
 - fix image scaling (see fighting spirit)
 - do a cool slide in thing for all page switches (like when we have the sidebar minified)
+- transition search group hover color changes
+- remove extra space at bottom of search page when loaded results
+- don't do a deep search on search page... just do the cursory one
+
 
 ## Planned
 - Dashboard
