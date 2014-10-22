@@ -187,9 +187,24 @@ Template.searchPage.events({
 
 	"mouseover .searchResultAnime": addHoverCurrentTarget,
 	"mouseout .searchResultAnime": removeHoverCurrentTarget,
+	"click .searchResultAnime .title": function(e) {
+		var $el = $(e.currentTarget),
+			annId = $el.parent().parent().parent().data("annid");
+
+		// the infobar component will handle retrieving the info for us,
+		// no need to invoke a subscribe call here
+		InfoBar.load(annId);
+	},
 
 	"mouseover .searchResultUser": addHoverCurrentTarget,
 	"mouseout .searchResultUser": removeHoverCurrentTarget,
+	"click .searchResultUser .name": function(e) {
+		var $el = $(e.currentTarget),
+			userId = $el.parent().parent().parent().data("userid");
+
+		// the profile page will do the appropriate subscription actions
+		Router.go("/profile/"+userId);
+	},
 
 	"mouseover .searchResultAnime .fa-check-circle": addHoverCurrentTarget,
 	"mouseout .searchResultAnime .fa-check-circle": removeHoverCurrentTarget,

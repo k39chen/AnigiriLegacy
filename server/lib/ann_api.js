@@ -78,7 +78,9 @@ Meteor.methods({
 		var userResultsRaw = Meteor.users.find({"profile.name": new RegExp(query,"i")}).fetch();
 		for (var i=0; i<userResultsRaw.length; i++) {
 			var user = userResultsRaw[i];
-			var formattedUser = {};
+			var formattedUser = {
+				userId: user._id
+			};
 			if (user && user.profile && user.profile.name) {
 				formattedUser.name = user.profile.name;
 			}
