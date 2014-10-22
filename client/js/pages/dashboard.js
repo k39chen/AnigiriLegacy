@@ -1,6 +1,14 @@
 Template.dashboardPage.rendered = function(){
 	// initialize the page
 	initPage("dashboard");
+
+	$(".expo").owlCarousel({
+		items : 6,
+		dots: false,
+		loop: true,
+		autoplay: true,
+		autoplayTimeout: 2000
+	});
 };
 Template.dashboardPage.events({
 	"mouseover .redirect-btn": addHoverTarget,
@@ -44,15 +52,17 @@ Template.dashboardPage.helpers({
 		return Subscriptions.find({userId: getUserId(), progress:"watching"}).count();
 	},
 	getCurrentlyWatching: function(){
-		var subscriptions = Subscriptions.find({userId: getUserId(), progress:"watching"}).fetch();
+		var subscriptions = Subscriptions.find({userId: getUserId()/*, progress:"watching"*/}).fetch();
 		return getFullSubscriptions(subscriptions);
 	},
+
 	hasApprovableFriendRequests: function() {
 		return getApprovableFriendRequests().length > 0;
 	},
 	getApprovableFriendRequests: function() {
 		return getApprovableFriendRequests();
 	},
+
 	friendId: function(friendRequest) {
 		return friendRequest.userId;
 	},

@@ -4,7 +4,12 @@
 	{{#if hasSubscriptions}}
 	<div class="pageContent">
 
-		<div class="expo well-dark">
+		<div class="expo">
+		{{#if hasCurrentlyWatching}}
+		{{#each getCurrentlyWatching}}
+			{{> gridItem this}}
+		{{/each}}
+		{{/if}}
 		</div>
 		<div id="activity-feed">
 		</div>

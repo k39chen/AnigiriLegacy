@@ -22,13 +22,18 @@
 			color: lighten(@mainTextColor,10%);
 		}
 	}
-	@expoHeight: 240px;
+	@expoHeight: 320px;
 	.expo {
 		position: absolute;
 		height: @expoHeight;
 		top: @topBarHeight;
 		left: 0px;
 		right: 0px;
+
+		.box-sizing;
+		padding: 24px 64px;
+
+		background: @wellDark;
 	}
 	#activity-feed {
 		position: absolute;
