@@ -1,5 +1,7 @@
-Anigiri
+Anigiri (Legacy)
 =======
+
+_This current version has been decommissioned. Anigiri development will be recontinued in the new Anigiri repository due to massive changes in the Meteor framework that have greatly simplified previously extremely complicated aspects of the development process._
 
 An anime collection system that you can share with your friends.
 
